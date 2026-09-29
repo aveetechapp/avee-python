@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.0 — 2026-09-29
 
 - First release: every operation of `/api/v1` as a typed method, models generated from the OpenAPI
   document, tolerant of unknown fields and enum values.

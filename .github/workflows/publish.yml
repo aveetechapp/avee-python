@@ -1,0 +1,22 @@
+name: publish
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  pypi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: test "v$(grep -m1 '^version = ' pyproject.toml | cut -d'"' -f2)" = "$GITHUB_REF_NAME"
+      - run: pip install -q -e '.[test]' build && mypy && pytest
+      - run: python -m build
+      - uses: pypa/gh-action-pypi-publish@release/v1
