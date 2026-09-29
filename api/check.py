@@ -3,7 +3,7 @@ from __future__ import annotations
 import dataclasses
 import importlib
 import inspect
-import json
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -12,7 +12,7 @@ from typing import Any
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 BASELINE = HERE / "public-api.txt"
-MODULE = json.loads((ROOT.parent / "names.lock.json").read_text())["pythonModule"]
+MODULE = re.search(r'packages = \["src/(\w+)"\]', (ROOT / "pyproject.toml").read_text()).group(1)
 BASELINES = {MODULE: BASELINE, f"{MODULE}.astra": HERE / "astra-public-api.txt"}
 
 
