@@ -1,0 +1,114 @@
+{
+  "routes": {
+    "/v2/price_feeds": ["query", "asset_type"],
+    "/v2/price_feeds/{id}": ["id"],
+    "/v2/updates/price/latest": ["ids[]", "ignore_invalid_price_ids"],
+    "/v2/updates/price/{publish_time}": ["publish_time", "ids[]", "ignore_invalid_price_ids"],
+    "/v2/updates/price/{publish_time}/{interval}": ["publish_time", "interval", "ids[]", "ignore_invalid_price_ids", "unique"],
+    "/v2/updates/price/stream": ["ids[]", "channel", "ignore_invalid_price_ids", "benchmarks_only"],
+    "/v1/feeds": ["category"],
+    "/v1/feed-ids": ["pyth_ids", "astra_ids", "category"],
+    "/v1/status": ["feed"],
+    "/v1/candles": ["feed", "resolution", "from", "to"]
+  },
+  "fields": {
+    "Price": {
+      "price": "string",
+      "conf": "string",
+      "expo": "integer",
+      "publish_time": "integer"
+    },
+    "PriceUpdate": {
+      "parsed": "array",
+      "parsed[]": "object"
+    },
+    "ParsedPriceUpdate": {
+      "id": "string",
+      "price": "object",
+      "ema_price": "object",
+      "metadata.proof_available_time": "integer",
+      "metadata.prev_publish_time": "integer"
+    },
+    "PriceFeed": {
+      "id": "string",
+      "price": "object",
+      "ema_price": "object",
+      "metadata.price_service_receive_time": "integer",
+      "metadata.prev_publish_time": "integer"
+    },
+    "PriceFeedMetadata": {
+      "id": "string",
+      "attributes": "object",
+      "attributes.asset_type": "string",
+      "attributes.base": "string",
+      "attributes.description": "string",
+      "attributes.display_symbol": "string",
+      "attributes.quote_currency": "string",
+      "attributes.schedule": "string",
+      "attributes.symbol": "string",
+      "attributes.min_channel": "string",
+      "attributes.astra_id": "string",
+      "market_hours.is_open": "boolean"
+    },
+    "Feed": {
+      "id": "string",
+      "pyth_id": "string",
+      "symbol": "string",
+      "category": "string",
+      "attributes": "object",
+      "live.status": "string",
+      "live.price": "string",
+      "live.conf": "string",
+      "live.expo": "integer",
+      "live.publish_time": "integer",
+      "live.timestamp_ms": "integer",
+      "live.served_publish_time": "integer",
+      "live.sources": "integer"
+    },
+    "FeedIDList": {
+      "items": "array",
+      "items[].symbol": "string",
+      "items[].asset_type": "string",
+      "items[].category": "string",
+      "items[].astra_id": "string",
+      "items[].pyth_id": "string",
+      "missing": "array",
+      "missing[]": "string"
+    },
+    "StatusReport": {
+      "ready": "boolean",
+      "feeds": "array",
+      "feeds[].id": "string",
+      "feeds[].symbol": "string",
+      "feeds[].status": "string",
+      "feeds[].age_seconds": "number",
+      "feeds[].publish_time": "integer",
+      "feeds[].served_publish_time": "integer",
+      "feeds[].sources": "integer",
+      "feeds[].stale": "boolean"
+    },
+    "Bars": {
+      "s": "string",
+      "t": "array",
+      "t[]": "integer",
+      "o[]": "number",
+      "h[]": "number",
+      "l[]": "number",
+      "c[]": "number"
+    },
+    "UDFStatus": {
+      "s": "string",
+      "errmsg": "string"
+    },
+    "Problem": {
+      "type": "string",
+      "title": "string",
+      "status": "integer",
+      "detail": "string"
+    }
+  },
+  "enums": {
+    "parameters.Channel": ["real_time", "fixed_rate@200ms", "fixed_rate@1000ms"],
+    "schemas.Status": ["trading", "degraded", "market_closed", "reference", "no_data"]
+  }
+}

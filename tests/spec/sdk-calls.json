@@ -1,0 +1,1863 @@
+[
+  {
+    "operation": "x402Discovery",
+    "method": "GET",
+    "path": "/.well-known/x402",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "X402Discovery",
+    "paged": false,
+    "python": {
+      "method": "x402_discovery",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "status",
+    "method": "GET",
+    "path": "/status",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "StatusResponse",
+    "paged": false,
+    "python": {
+      "method": "status",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "key",
+    "method": "GET",
+    "path": "/key",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "KeyInfo",
+    "paged": false,
+    "python": {
+      "method": "key",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "config",
+    "method": "GET",
+    "path": "/config",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "Config",
+    "paged": false,
+    "python": {
+      "method": "config",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "chains",
+    "method": "GET",
+    "path": "/chains",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "ChainList",
+    "paged": false,
+    "python": {
+      "method": "chains",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "search",
+    "method": "GET",
+    "path": "/search",
+    "pathArgs": [],
+    "params": {
+      "q": "eth",
+      "chains": [
+        "base"
+      ],
+      "limit": 5
+    },
+    "query": [
+      [
+        "q",
+        "eth"
+      ],
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "limit",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "SearchResponse",
+    "paged": false,
+    "python": {
+      "method": "search",
+      "kwargs": {
+        "q": "eth",
+        "chains": [
+          "base"
+        ],
+        "limit": 5
+      }
+    }
+  },
+  {
+    "operation": "pairs",
+    "method": "GET",
+    "path": "/pairs",
+    "pathArgs": [],
+    "params": {
+      "chains": [
+        "base"
+      ],
+      "q": "eth",
+      "protocols": [
+        "x"
+      ],
+      "dex_names": [
+        "x"
+      ],
+      "min_liquidity_usd": 0.5,
+      "max_liquidity_usd": 0.5,
+      "min_apr": 0.5,
+      "max_apr": 0.5,
+      "min_score": 5,
+      "max_score": 5,
+      "min_age_seconds": 5,
+      "max_age_seconds": 5,
+      "market_type": "any",
+      "only_trustable": true,
+      "max_deployed_pairs": 5,
+      "sort": "liquidity",
+      "order": "asc",
+      "timeframe": "5m",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "q",
+        "eth"
+      ],
+      [
+        "protocols",
+        "x"
+      ],
+      [
+        "dex_names",
+        "x"
+      ],
+      [
+        "min_liquidity_usd",
+        "0.5"
+      ],
+      [
+        "max_liquidity_usd",
+        "0.5"
+      ],
+      [
+        "min_apr",
+        "0.5"
+      ],
+      [
+        "max_apr",
+        "0.5"
+      ],
+      [
+        "min_score",
+        "5"
+      ],
+      [
+        "max_score",
+        "5"
+      ],
+      [
+        "min_age_seconds",
+        "5"
+      ],
+      [
+        "max_age_seconds",
+        "5"
+      ],
+      [
+        "market_type",
+        "any"
+      ],
+      [
+        "only_trustable",
+        "true"
+      ],
+      [
+        "max_deployed_pairs",
+        "5"
+      ],
+      [
+        "sort",
+        "liquidity"
+      ],
+      [
+        "order",
+        "asc"
+      ],
+      [
+        "timeframe",
+        "5m"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "PairPage",
+    "paged": true,
+    "python": {
+      "method": "pairs",
+      "kwargs": {
+        "chains": [
+          "base"
+        ],
+        "q": "eth",
+        "protocols": [
+          "x"
+        ],
+        "dex_names": [
+          "x"
+        ],
+        "min_liquidity_usd": 0.5,
+        "max_liquidity_usd": 0.5,
+        "min_apr": 0.5,
+        "max_apr": 0.5,
+        "min_score": 5,
+        "max_score": 5,
+        "min_age_seconds": 5,
+        "max_age_seconds": 5,
+        "market_type": "any",
+        "only_trustable": true,
+        "max_deployed_pairs": 5,
+        "sort": "liquidity",
+        "order": "asc",
+        "timeframe": "5m",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "pair",
+    "method": "GET",
+    "path": "/chains/base/pairs/0x00000000000000000000000000000000000000a1",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "PairInfo",
+    "paged": false,
+    "python": {
+      "method": "pair",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "pairTrades",
+    "method": "GET",
+    "path": "/chains/base/pairs/0x00000000000000000000000000000000000000a1/trades",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "tx_type": [
+        "all"
+      ],
+      "maker": "0x00000000000000000000000000000000000000a1",
+      "from": 5,
+      "to": 5,
+      "order": "asc",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "tx_type",
+        "all"
+      ],
+      [
+        "maker",
+        "0x00000000000000000000000000000000000000a1"
+      ],
+      [
+        "from",
+        "5"
+      ],
+      [
+        "to",
+        "5"
+      ],
+      [
+        "order",
+        "asc"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "TradePage",
+    "paged": true,
+    "python": {
+      "method": "pair_trades",
+      "kwargs": {
+        "tx_type": [
+          "all"
+        ],
+        "maker": "0x00000000000000000000000000000000000000a1",
+        "from_": 5,
+        "to": 5,
+        "order": "asc",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "pairCandles",
+    "method": "GET",
+    "path": "/chains/base/pairs/0x00000000000000000000000000000000000000a1/candles",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "res": "1",
+      "from": 5,
+      "to": 5,
+      "countback": 5,
+      "currency": "usd",
+      "price_from_quote": true,
+      "volume_from_quote": true
+    },
+    "query": [
+      [
+        "res",
+        "1"
+      ],
+      [
+        "from",
+        "5"
+      ],
+      [
+        "to",
+        "5"
+      ],
+      [
+        "countback",
+        "5"
+      ],
+      [
+        "currency",
+        "usd"
+      ],
+      [
+        "price_from_quote",
+        "true"
+      ],
+      [
+        "volume_from_quote",
+        "true"
+      ]
+    ],
+    "body": null,
+    "response": "ChartCandles",
+    "paged": false,
+    "python": {
+      "method": "pair_candles",
+      "kwargs": {
+        "res": "1",
+        "from_": 5,
+        "to": 5,
+        "countback": 5,
+        "currency": "usd",
+        "price_from_quote": true,
+        "volume_from_quote": true
+      }
+    }
+  },
+  {
+    "operation": "trending",
+    "method": "GET",
+    "path": "/trending",
+    "pathArgs": [],
+    "params": {
+      "chains": [
+        "base"
+      ],
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "PairPage",
+    "paged": true,
+    "python": {
+      "method": "trending",
+      "kwargs": {
+        "chains": [
+          "base"
+        ],
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "pairsNew",
+    "method": "GET",
+    "path": "/pairs/new",
+    "pathArgs": [],
+    "params": {
+      "chain": "base",
+      "min_liquidity_usd": 0.5,
+      "max_age_seconds": 5,
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chain",
+        "base"
+      ],
+      [
+        "min_liquidity_usd",
+        "0.5"
+      ],
+      [
+        "max_age_seconds",
+        "5"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "PairPage",
+    "paged": true,
+    "python": {
+      "method": "pairs_new",
+      "kwargs": {
+        "chain": "base",
+        "min_liquidity_usd": 0.5,
+        "max_age_seconds": 5,
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "launchpadTokens",
+    "method": "GET",
+    "path": "/launchpads/tokens",
+    "pathArgs": [],
+    "params": {
+      "chain": "base",
+      "launch_status": "new",
+      "launchpads": [
+        "x"
+      ],
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chain",
+        "base"
+      ],
+      [
+        "launch_status",
+        "new"
+      ],
+      [
+        "launchpads",
+        "x"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "PairPage",
+    "paged": true,
+    "python": {
+      "method": "launchpad_tokens",
+      "kwargs": {
+        "chain": "base",
+        "launch_status": "new",
+        "launchpads": [
+          "x"
+        ],
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "pairBatch",
+    "method": "POST",
+    "path": "/pairs/batch",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": {
+      "items": [
+        {
+          "chain": "base",
+          "address": "0x00000000000000000000000000000000000000a1"
+        }
+      ]
+    },
+    "response": "PairBatchResponse",
+    "paged": false,
+    "python": {
+      "method": "pair_batch",
+      "kwargs": {
+        "items": [
+          {
+            "chain": "base",
+            "address": "0x00000000000000000000000000000000000000a1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "operation": "perps",
+    "method": "GET",
+    "path": "/perps",
+    "pathArgs": [],
+    "params": {
+      "chains": [
+        "base"
+      ],
+      "q": "eth",
+      "sort": "volume",
+      "order": "asc",
+      "timeframe": "5m",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "q",
+        "eth"
+      ],
+      [
+        "sort",
+        "volume"
+      ],
+      [
+        "order",
+        "asc"
+      ],
+      [
+        "timeframe",
+        "5m"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "PairPage",
+    "paged": true,
+    "python": {
+      "method": "perps",
+      "kwargs": {
+        "chains": [
+          "base"
+        ],
+        "q": "eth",
+        "sort": "volume",
+        "order": "asc",
+        "timeframe": "5m",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "perpHistory",
+    "method": "GET",
+    "path": "/perps/BTC/history",
+    "pathArgs": [
+      "BTC"
+    ],
+    "params": {
+      "chain": "base",
+      "from": 5,
+      "to": 5,
+      "interval": "5m"
+    },
+    "query": [
+      [
+        "chain",
+        "base"
+      ],
+      [
+        "from",
+        "5"
+      ],
+      [
+        "to",
+        "5"
+      ],
+      [
+        "interval",
+        "5m"
+      ]
+    ],
+    "body": null,
+    "response": "PerpHistory",
+    "paged": false,
+    "python": {
+      "method": "perp_history",
+      "kwargs": {
+        "chain": "base",
+        "from_": 5,
+        "to": 5,
+        "interval": "5m"
+      }
+    }
+  },
+  {
+    "operation": "perpLiquidations",
+    "method": "GET",
+    "path": "/perps/liquidations",
+    "pathArgs": [],
+    "params": {
+      "chain": "base",
+      "market": "BTC",
+      "from": 5,
+      "to": 5
+    },
+    "query": [
+      [
+        "chain",
+        "base"
+      ],
+      [
+        "market",
+        "BTC"
+      ],
+      [
+        "from",
+        "5"
+      ],
+      [
+        "to",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "PerpLiquidations",
+    "paged": false,
+    "python": {
+      "method": "perp_liquidations",
+      "kwargs": {
+        "chain": "base",
+        "market": "BTC",
+        "from_": 5,
+        "to": 5
+      }
+    }
+  },
+  {
+    "operation": "deployerTokens",
+    "method": "GET",
+    "path": "/deployers/0x00000000000000000000000000000000000000a1/tokens",
+    "pathArgs": [
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "chains": [
+        "base"
+      ],
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "DeployerLaunchPage",
+    "paged": true,
+    "python": {
+      "method": "deployer_tokens",
+      "kwargs": {
+        "chains": [
+          "base"
+        ],
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "tokenByAddress",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "include_instances": true,
+      "include_market": true
+    },
+    "query": [
+      [
+        "include_instances",
+        "true"
+      ],
+      [
+        "include_market",
+        "true"
+      ]
+    ],
+    "body": null,
+    "response": "TokenInfo",
+    "paged": false,
+    "python": {
+      "method": "token_by_address",
+      "kwargs": {
+        "include_instances": true,
+        "include_market": true
+      }
+    }
+  },
+  {
+    "operation": "tokenPairs",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1/pairs",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "limit": 5
+    },
+    "query": [
+      [
+        "limit",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "PairPage",
+    "paged": false,
+    "python": {
+      "method": "token_pairs",
+      "kwargs": {
+        "limit": 5
+      }
+    }
+  },
+  {
+    "operation": "tokenVerdict",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1/verdict",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "TokenVerdict",
+    "paged": false,
+    "python": {
+      "method": "token_verdict",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "tokenVerdictProof",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1/proof",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "TokenVerdictProof",
+    "paged": false,
+    "python": {
+      "method": "token_verdict_proof",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "tokenBrief",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1/brief",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "TokenBrief",
+    "paged": false,
+    "python": {
+      "method": "token_brief",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "tokenByID",
+    "method": "GET",
+    "path": "/tokens/0190f5a0-0000-7000-8000-000000000001",
+    "pathArgs": [
+      "0190f5a0-0000-7000-8000-000000000001"
+    ],
+    "params": {
+      "include_instances": true,
+      "include_market": true
+    },
+    "query": [
+      [
+        "include_instances",
+        "true"
+      ],
+      [
+        "include_market",
+        "true"
+      ]
+    ],
+    "body": null,
+    "response": "TokenInfo",
+    "paged": false,
+    "python": {
+      "method": "token_by_id",
+      "kwargs": {
+        "include_instances": true,
+        "include_market": true
+      }
+    }
+  },
+  {
+    "operation": "tokenBySlug",
+    "method": "GET",
+    "path": "/tokens/by-slug/wrapped-ether",
+    "pathArgs": [
+      "wrapped-ether"
+    ],
+    "params": {
+      "include_instances": true,
+      "include_market": true
+    },
+    "query": [
+      [
+        "include_instances",
+        "true"
+      ],
+      [
+        "include_market",
+        "true"
+      ]
+    ],
+    "body": null,
+    "response": "TokenInfo",
+    "paged": false,
+    "python": {
+      "method": "token_by_slug",
+      "kwargs": {
+        "include_instances": true,
+        "include_market": true
+      }
+    }
+  },
+  {
+    "operation": "tokens",
+    "method": "GET",
+    "path": "/tokens",
+    "pathArgs": [],
+    "params": {
+      "q": "eth",
+      "chains": [
+        "base"
+      ],
+      "categories": [
+        "x"
+      ],
+      "sort": "market_cap",
+      "order": "asc",
+      "min_liquidity_usd": 0.5,
+      "max_liquidity_usd": 0.5,
+      "min_volume_usd": 0.5,
+      "max_volume_usd": 0.5,
+      "min_market_cap_usd": 0.5,
+      "max_market_cap_usd": 0.5,
+      "min_fdv_usd": 0.5,
+      "max_fdv_usd": 0.5,
+      "min_age_seconds": 5,
+      "max_age_seconds": 5,
+      "min_score": 5,
+      "max_score": 5,
+      "min_holders": 5,
+      "max_holders": 5,
+      "include_instances": true,
+      "include_market": true,
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "q",
+        "eth"
+      ],
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "categories",
+        "x"
+      ],
+      [
+        "sort",
+        "market_cap"
+      ],
+      [
+        "order",
+        "asc"
+      ],
+      [
+        "min_liquidity_usd",
+        "0.5"
+      ],
+      [
+        "max_liquidity_usd",
+        "0.5"
+      ],
+      [
+        "min_volume_usd",
+        "0.5"
+      ],
+      [
+        "max_volume_usd",
+        "0.5"
+      ],
+      [
+        "min_market_cap_usd",
+        "0.5"
+      ],
+      [
+        "max_market_cap_usd",
+        "0.5"
+      ],
+      [
+        "min_fdv_usd",
+        "0.5"
+      ],
+      [
+        "max_fdv_usd",
+        "0.5"
+      ],
+      [
+        "min_age_seconds",
+        "5"
+      ],
+      [
+        "max_age_seconds",
+        "5"
+      ],
+      [
+        "min_score",
+        "5"
+      ],
+      [
+        "max_score",
+        "5"
+      ],
+      [
+        "min_holders",
+        "5"
+      ],
+      [
+        "max_holders",
+        "5"
+      ],
+      [
+        "include_instances",
+        "true"
+      ],
+      [
+        "include_market",
+        "true"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "TokenPage",
+    "paged": true,
+    "python": {
+      "method": "tokens",
+      "kwargs": {
+        "q": "eth",
+        "chains": [
+          "base"
+        ],
+        "categories": [
+          "x"
+        ],
+        "sort": "market_cap",
+        "order": "asc",
+        "min_liquidity_usd": 0.5,
+        "max_liquidity_usd": 0.5,
+        "min_volume_usd": 0.5,
+        "max_volume_usd": 0.5,
+        "min_market_cap_usd": 0.5,
+        "max_market_cap_usd": 0.5,
+        "min_fdv_usd": 0.5,
+        "max_fdv_usd": 0.5,
+        "min_age_seconds": 5,
+        "max_age_seconds": 5,
+        "min_score": 5,
+        "max_score": 5,
+        "min_holders": 5,
+        "max_holders": 5,
+        "include_instances": true,
+        "include_market": true,
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "tokenBatch",
+    "method": "POST",
+    "path": "/tokens/batch",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": {
+      "items": [
+        {
+          "chain": "base",
+          "address": "0x00000000000000000000000000000000000000a1"
+        }
+      ]
+    },
+    "response": "TokenBatchResponse",
+    "paged": false,
+    "python": {
+      "method": "token_batch",
+      "kwargs": {
+        "items": [
+          {
+            "chain": "base",
+            "address": "0x00000000000000000000000000000000000000a1"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "operation": "tokenHolders",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1/holders",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "TokenHolderPage",
+    "paged": true,
+    "python": {
+      "method": "token_holders",
+      "kwargs": {
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "tokenTraders",
+    "method": "GET",
+    "path": "/chains/base/tokens/0x00000000000000000000000000000000000000a1/traders",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "sort": "realized_pnl",
+      "state": "any",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "sort",
+        "realized_pnl"
+      ],
+      [
+        "state",
+        "any"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "TokenTraderPage",
+    "paged": true,
+    "python": {
+      "method": "token_traders",
+      "kwargs": {
+        "sort": "realized_pnl",
+        "state": "any",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "farms",
+    "method": "GET",
+    "path": "/farms",
+    "pathArgs": [],
+    "params": {
+      "chains": [
+        "base"
+      ],
+      "q": "eth",
+      "factories": [
+        "0x00000000000000000000000000000000000000a1"
+      ],
+      "sort": "tvl",
+      "order": "asc",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "q",
+        "eth"
+      ],
+      [
+        "factories",
+        "0x00000000000000000000000000000000000000a1"
+      ],
+      [
+        "sort",
+        "tvl"
+      ],
+      [
+        "order",
+        "asc"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "FarmPage",
+    "paged": true,
+    "python": {
+      "method": "farms",
+      "kwargs": {
+        "chains": [
+          "base"
+        ],
+        "q": "eth",
+        "factories": [
+          "0x00000000000000000000000000000000000000a1"
+        ],
+        "sort": "tvl",
+        "order": "asc",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "farm",
+    "method": "GET",
+    "path": "/chains/base/farms/0x00000000000000000000000000000000000000a1",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "FarmInfo",
+    "paged": false,
+    "python": {
+      "method": "farm",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "wallets",
+    "method": "GET",
+    "path": "/wallets",
+    "pathArgs": [],
+    "params": {
+      "chain": "base",
+      "window": "1d",
+      "sort": "total_pnl",
+      "order": "asc",
+      "min_total_pnl_usd": 0.5,
+      "min_realized_pnl_usd": 0.5,
+      "min_volume_usd": 0.5,
+      "min_win_rate": 0.5,
+      "min_trades": 5,
+      "max_avg_hold_seconds": 5,
+      "min_user_score": 5,
+      "no_abuse_evidence": true,
+      "only_copy_eligible": true,
+      "exclude_bots": true,
+      "tiers": [
+        "x"
+      ],
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "chain",
+        "base"
+      ],
+      [
+        "window",
+        "1d"
+      ],
+      [
+        "sort",
+        "total_pnl"
+      ],
+      [
+        "order",
+        "asc"
+      ],
+      [
+        "min_total_pnl_usd",
+        "0.5"
+      ],
+      [
+        "min_realized_pnl_usd",
+        "0.5"
+      ],
+      [
+        "min_volume_usd",
+        "0.5"
+      ],
+      [
+        "min_win_rate",
+        "0.5"
+      ],
+      [
+        "min_trades",
+        "5"
+      ],
+      [
+        "max_avg_hold_seconds",
+        "5"
+      ],
+      [
+        "min_user_score",
+        "5"
+      ],
+      [
+        "no_abuse_evidence",
+        "true"
+      ],
+      [
+        "only_copy_eligible",
+        "true"
+      ],
+      [
+        "exclude_bots",
+        "true"
+      ],
+      [
+        "tiers",
+        "x"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "WalletPage",
+    "paged": true,
+    "python": {
+      "method": "wallets",
+      "kwargs": {
+        "chain": "base",
+        "window": "1d",
+        "sort": "total_pnl",
+        "order": "asc",
+        "min_total_pnl_usd": 0.5,
+        "min_realized_pnl_usd": 0.5,
+        "min_volume_usd": 0.5,
+        "min_win_rate": 0.5,
+        "min_trades": 5,
+        "max_avg_hold_seconds": 5,
+        "min_user_score": 5,
+        "no_abuse_evidence": true,
+        "only_copy_eligible": true,
+        "exclude_bots": true,
+        "tiers": [
+          "x"
+        ],
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "walletStats",
+    "method": "GET",
+    "path": "/wallets/stats",
+    "pathArgs": [],
+    "params": {
+      "chains": [
+        "base"
+      ]
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ]
+    ],
+    "body": null,
+    "response": "WalletStats",
+    "paged": false,
+    "python": {
+      "method": "wallet_stats",
+      "kwargs": {
+        "chains": [
+          "base"
+        ]
+      }
+    }
+  },
+  {
+    "operation": "walletLabelsBatch",
+    "method": "POST",
+    "path": "/wallets/labels/batch",
+    "pathArgs": [],
+    "params": {},
+    "query": [],
+    "body": {
+      "chain": "base",
+      "addresses": [
+        "0x00000000000000000000000000000000000000a1"
+      ]
+    },
+    "response": "WalletLabelList",
+    "paged": false,
+    "python": {
+      "method": "wallet_labels_batch",
+      "kwargs": {
+        "chain": "base",
+        "addresses": [
+          "0x00000000000000000000000000000000000000a1"
+        ]
+      }
+    }
+  },
+  {
+    "operation": "walletOverview",
+    "method": "GET",
+    "path": "/wallets/0x00000000000000000000000000000000000000a1/overview",
+    "pathArgs": [
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "chains": [
+        "base"
+      ],
+      "window": "1d"
+    },
+    "query": [
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "window",
+        "1d"
+      ]
+    ],
+    "body": null,
+    "response": "WalletOverview",
+    "paged": false,
+    "python": {
+      "method": "wallet_overview",
+      "kwargs": {
+        "chains": [
+          "base"
+        ],
+        "window": "1d"
+      }
+    }
+  },
+  {
+    "operation": "leaderboard",
+    "method": "GET",
+    "path": "/leaderboard",
+    "pathArgs": [],
+    "params": {
+      "scope": "chains",
+      "chain": "base",
+      "chains": [
+        "base"
+      ],
+      "seasonal": true,
+      "season": 5,
+      "limit": 5
+    },
+    "query": [
+      [
+        "scope",
+        "chains"
+      ],
+      [
+        "chain",
+        "base"
+      ],
+      [
+        "chains",
+        "base"
+      ],
+      [
+        "seasonal",
+        "true"
+      ],
+      [
+        "season",
+        "5"
+      ],
+      [
+        "limit",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "Leaderboard",
+    "paged": false,
+    "python": {
+      "method": "leaderboard",
+      "kwargs": {
+        "scope": "chains",
+        "chain": "base",
+        "chains": [
+          "base"
+        ],
+        "seasonal": true,
+        "season": 5,
+        "limit": 5
+      }
+    }
+  },
+  {
+    "operation": "walletProfile",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "WalletProfile",
+    "paged": false,
+    "python": {
+      "method": "wallet_profile",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "walletPositions",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1/positions",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "state": "any",
+      "sort": "token",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "state",
+        "any"
+      ],
+      [
+        "sort",
+        "token"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "WalletPositionPage",
+    "paged": true,
+    "python": {
+      "method": "wallet_positions",
+      "kwargs": {
+        "state": "any",
+        "sort": "token",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "walletTrades",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1/trades",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "WalletTradePage",
+    "paged": true,
+    "python": {
+      "method": "wallet_trades",
+      "kwargs": {
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "walletChart",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1/chart",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "window": "1d"
+    },
+    "query": [
+      [
+        "window",
+        "1d"
+      ]
+    ],
+    "body": null,
+    "response": "WalletChart",
+    "paged": false,
+    "python": {
+      "method": "wallet_chart",
+      "kwargs": {
+        "window": "1d"
+      }
+    }
+  },
+  {
+    "operation": "walletBestTrades",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1/best-trades",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "window": "1d",
+      "limit": 5
+    },
+    "query": [
+      [
+        "window",
+        "1d"
+      ],
+      [
+        "limit",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "WalletBestTrades",
+    "paged": false,
+    "python": {
+      "method": "wallet_best_trades",
+      "kwargs": {
+        "window": "1d",
+        "limit": 5
+      }
+    }
+  },
+  {
+    "operation": "walletRounds",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1/rounds",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {
+      "token": "0x00000000000000000000000000000000000000a1",
+      "state": "any",
+      "limit": 5,
+      "cursor": "c1"
+    },
+    "query": [
+      [
+        "token",
+        "0x00000000000000000000000000000000000000a1"
+      ],
+      [
+        "state",
+        "any"
+      ],
+      [
+        "limit",
+        "5"
+      ],
+      [
+        "cursor",
+        "c1"
+      ]
+    ],
+    "body": null,
+    "response": "WalletRoundPage",
+    "paged": true,
+    "python": {
+      "method": "wallet_rounds",
+      "kwargs": {
+        "token": "0x00000000000000000000000000000000000000a1",
+        "state": "any",
+        "limit": 5,
+        "cursor": "c1"
+      }
+    }
+  },
+  {
+    "operation": "walletFunding",
+    "method": "GET",
+    "path": "/chains/base/wallets/0x00000000000000000000000000000000000000a1/funding",
+    "pathArgs": [
+      "base",
+      "0x00000000000000000000000000000000000000a1"
+    ],
+    "params": {},
+    "query": [],
+    "body": null,
+    "response": "WalletFunding",
+    "paged": false,
+    "python": {
+      "method": "wallet_funding",
+      "kwargs": {}
+    }
+  },
+  {
+    "operation": "oraclePrices",
+    "method": "GET",
+    "path": "/prices",
+    "pathArgs": [],
+    "params": {
+      "ids": [
+        "abababababababababababababababababababababababababababababababab"
+      ]
+    },
+    "query": [
+      [
+        "ids",
+        "abababababababababababababababababababababababababababababababab"
+      ]
+    ],
+    "body": null,
+    "response": "OraclePriceList",
+    "paged": false,
+    "python": {
+      "method": "oracle_prices",
+      "kwargs": {
+        "ids": [
+          "abababababababababababababababababababababababababababababababab"
+        ]
+      }
+    }
+  },
+  {
+    "operation": "oraclePricesAt",
+    "method": "GET",
+    "path": "/prices/at",
+    "pathArgs": [],
+    "params": {
+      "ids": [
+        "abababababababababababababababababababababababababababababababab"
+      ],
+      "ts": 5
+    },
+    "query": [
+      [
+        "ids",
+        "abababababababababababababababababababababababababababababababab"
+      ],
+      [
+        "ts",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "OraclePriceList",
+    "paged": false,
+    "python": {
+      "method": "oracle_prices_at",
+      "kwargs": {
+        "ids": [
+          "abababababababababababababababababababababababababababababababab"
+        ],
+        "ts": 5
+      }
+    }
+  }
+]

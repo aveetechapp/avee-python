@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "avee"
+version = "0.1.0"
+description = "Clients for avee: the DEX data API (/api/v1) and Astra, the Hermes-compatible price oracle (avee.astra)."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+keywords = ["dex", "defi", "crypto", "market-data", "ohlcv", "x402", "api-client", "oracle", "price-feed", "hermes", "pyth", "websocket", "sse"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Typing :: Typed",
+  "Framework :: AsyncIO",
+]
+dependencies = [
+  "httpx>=0.27,<1",
+]
+
+[project.optional-dependencies]
+astra = ["certifi", "websockets>=13"]
+test = ["pytest>=8", "pyyaml>=6", "mypy>=1.10", "aiohttp>=3.9", "certifi", "websockets>=13"]
+
+[project.urls]
+Homepage = "https://github.com/aveetechapp/avee-python"
+Issues = "https://github.com/aveetechapp/avee-python/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/avee"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "tests", "README.md", "ASTRA.md", "CHANGELOG.md", "LICENSE"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "compat"]
+pythonpath = ["."]
+markers = ["live: talks to the real API or Astra (set AVEE_LIVE=1 or ASTRA_LIVE=1)"]
+
+[tool.mypy]
+strict = true
+files = ["src", "compat/astra"]

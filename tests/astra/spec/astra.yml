@@ -1,0 +1,1221 @@
+openapi: 3.1.0
+info:
+  title: Astra
+  version: 1.0.0
+  summary: A Pyth Hermes-compatible price oracle
+  description: |
+    Astra serves avee's composite exchange index over the routes and JSON shapes of Pyth's Hermes, so a
+    Hermes client moves to it by changing its base URL. Routes are served from the root of the host.
+
+    No key is needed. An `Authorization` header is accepted and ignored. CORS is open to every origin,
+    and an `OPTIONS` preflight on any path answers `204`.
+
+    Errors follow Hermes: a plain-text body with `400` for malformed input, `404` for unknown price
+    IDs, and `422` for a malformed ID in a path. Historical routes and candles answer `503` with an
+    `application/problem+json` body when history is unavailable, and `500` with a plain-text body
+    when a history read fails. `/v1/feed-ids` and `/v1/status?feed=` answer a malformed ID with `400`
+    and an `application/problem+json` body, and `/v1/status?feed=` an unknown one with `404`. Over the per-address request limit the answer is `429` with
+    `Retry-After`.
+
+    The Hermes routes that read update options validate every one of them (`encoding`, `channel`,
+    `parsed`, `ignore_invalid_price_ids`, `benchmarks_only`, `verbose`, `binary`, `unique`,
+    `allow_unordered`): a malformed value answers `400` even where the option has no effect. Each
+    parameter's description says where it has one.
+
+    A feed with a Pyth ID has two views. By Pyth ID it behaves as Pyth's feed does: it follows
+    Pyth's session schedule (served in `attributes.schedule`) and moves only on a trading price, so
+    outside the session or while the price is degraded or single-source it is frozen. By Astra ID it
+    serves every usable price, including 24/5 stock prices and reference prices; `/v1/status` tells
+    them apart. `ema_price` is weighted by `1/conf`, as Pyth's is.
+
+    The WebSocket at `/ws` speaks the Hermes subscription protocol, described on that operation and
+    in `x-websocket`; its messages are the `Ws*` schemas.
+
+    The contract is additive only: a route, parameter or field is never removed, renamed or retyped,
+    a bound is never tightened and an error shape never changes. Clients ignore fields and enum
+    values they do not know.
+
+    IDs in the URL: the server accepts up to 500 per request, but the edge in front of it rejects a
+    request line longer than about 16 KB with `414` over HTTP/1.1 or a stream error over HTTP/2,
+    before the request reaches Astra. Send at most 200 IDs per request; for more feeds, use several
+    requests or subscribe over `/ws`, where IDs travel in the message body.
+servers:
+- url: https://astra.preview.avee.tech
+  description: preview
+tags:
+- name: hermes
+  description: Hermes v2 routes, response-compatible with Pyth's Hermes
+- name: hermes-v1
+  description: Hermes v1 routes, kept for older clients
+- name: native
+  description: Astra's own routes, with the fields Hermes has no place for
+- name: probes
+  description: Liveness and readiness, exempt from the request limit
+security: []
+paths:
+  /live:
+    get:
+      tags: [probes]
+      operationId: live
+      summary: Liveness
+      responses:
+        '200':
+          description: The process is up.
+          content:
+            text/plain:
+              schema:
+                type: string
+                const: OK
+  /ready:
+    get:
+      tags: [probes]
+      operationId: ready
+      summary: Readiness
+      description: |
+        `200 OK` once the server has read the oracle topic to its end and is not draining. Otherwise
+        `503` with the dependency that holds it back.
+      responses:
+        '200':
+          description: Ready.
+          content:
+            text/plain:
+              schema:
+                type: string
+                const: OK
+        '503':
+          description: Not ready.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Readiness'
+  /v2/price_feeds:
+    get:
+      tags: [hermes]
+      operationId: priceFeeds
+      summary: List price feeds
+      description: |
+        Every feed once, under its primary ID: the Pyth-compatible ID when the feed has one,
+        otherwise the Astra ID. The Astra ID is always in `attributes.astra_id`.
+      parameters:
+      - name: query
+        in: query
+        description: Case-insensitive substring of the feed symbol, such as `btc`.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/AssetType'
+      responses:
+        '200':
+          description: The feeds that match.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceFeedMetadata'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v2/price_feeds/{id}:
+    get:
+      tags: [hermes]
+      operationId: priceFeed
+      summary: Get one price feed
+      description: The feed's metadata. The response echoes the ID you asked with, Pyth-compatible or Astra.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A 32-byte feed ID in hex, with or without `0x`, any case.
+        schema:
+          $ref: '#/components/schemas/FeedID'
+      responses:
+        '200':
+          description: The feed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceFeedMetadata'
+        '404':
+          $ref: '#/components/responses/Text'
+        '422':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v2/updates/price/latest:
+    get:
+      tags: [hermes]
+      operationId: latestPriceUpdates
+      summary: Latest prices
+      description: |
+        The current value of each requested feed, whatever the `channel`. A feed with no servable value
+        yet counts as not found.
+
+        Send at most 200 IDs per request; longer URLs are rejected before they reach Astra. For more
+        feeds, use several requests or subscribe over WebSocket, where IDs travel in the message body.
+      parameters:
+      - $ref: '#/components/parameters/IDs'
+      - $ref: '#/components/parameters/IDsAlias'
+      - $ref: '#/components/parameters/Encoding'
+      - $ref: '#/components/parameters/Parsed'
+      - $ref: '#/components/parameters/IgnoreInvalid'
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/BenchmarksOnly'
+      - $ref: '#/components/parameters/Verbose'
+      - $ref: '#/components/parameters/Binary'
+      - $ref: '#/components/parameters/Unique'
+      - $ref: '#/components/parameters/AllowUnordered'
+      responses:
+        '200':
+          description: One update holding every requested feed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceUpdate'
+        '400':
+          $ref: '#/components/responses/Text'
+        '404':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v2/updates/price/stream:
+    get:
+      tags: [hermes]
+      operationId: streamPriceUpdates
+      summary: Stream prices (SSE)
+      description: |
+        Server-sent events. Each event carries one `PriceUpdate` for one feed as `data: {json}`. The last
+        value of each feed is sent on connect. A `: keepalive` comment arrives every 30 seconds, and the
+        stream closes after 24 hours: reconnect. Per feed, updates arrive in `publish_time` order and
+        never repeat.
+
+        Send at most 200 IDs per request; longer URLs are rejected before they reach Astra. For more
+        feeds, open several streams or subscribe over WebSocket, where IDs travel in the message body.
+      parameters:
+      - $ref: '#/components/parameters/IDs'
+      - $ref: '#/components/parameters/IDsAlias'
+      - $ref: '#/components/parameters/Encoding'
+      - $ref: '#/components/parameters/Parsed'
+      - $ref: '#/components/parameters/IgnoreInvalid'
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/BenchmarksOnly'
+      - $ref: '#/components/parameters/Verbose'
+      - $ref: '#/components/parameters/Binary'
+      - $ref: '#/components/parameters/Unique'
+      - $ref: '#/components/parameters/AllowUnordered'
+      responses:
+        '200':
+          description: An event stream of `PriceUpdate` objects.
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                x-event-schema: '#/components/schemas/PriceUpdate'
+              example: |
+                data: {"binary":{"encoding":"hex","data":[]},"parsed":[{"id":"e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43","price":{"price":"6512345000000","conf":"3120000000","expo":-8,"publish_time":1790540000},"ema_price":{"price":"6510012000000","conf":"3300000000","expo":-8,"publish_time":1790540000},"metadata":{"slot":0,"proof_available_time":1790540000,"prev_publish_time":1790539999}}]}
+        '400':
+          $ref: '#/components/responses/Text'
+        '404':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          description: The server is restarting; reconnect to another replica.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /v2/updates/price/{publish_time}:
+    get:
+      tags: [hermes]
+      operationId: priceUpdatesAtTime
+      summary: Prices at a time
+      description: |
+        The first update of each feed at or after `publish_time`. At most 100 distinct feeds, which
+        keeps the URL under the edge's length limit.
+      parameters:
+      - $ref: '#/components/parameters/PublishTime'
+      - $ref: '#/components/parameters/IDs'
+      - $ref: '#/components/parameters/IDsAlias'
+      - $ref: '#/components/parameters/Encoding'
+      - $ref: '#/components/parameters/Parsed'
+      - $ref: '#/components/parameters/IgnoreInvalid'
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/BenchmarksOnly'
+      - $ref: '#/components/parameters/Verbose'
+      - $ref: '#/components/parameters/Binary'
+      - $ref: '#/components/parameters/Unique'
+      - $ref: '#/components/parameters/AllowUnordered'
+      responses:
+        '200':
+          description: One update holding every requested feed found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceUpdate'
+        '400':
+          $ref: '#/components/responses/Text'
+        '404':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/Problem'
+  /v2/updates/price/{publish_time}/{interval}:
+    get:
+      tags: [hermes]
+      operationId: priceUpdatesInInterval
+      summary: Prices over an interval
+      description: |
+        Updates from `publish_time` to `publish_time + interval`, inclusive, one `PriceUpdate` per second,
+        oldest first. `ema_price` equals `price` on historical routes. At most 100 distinct feeds,
+        which keeps the URL under the edge's length limit.
+      parameters:
+      - $ref: '#/components/parameters/PublishTime'
+      - name: interval
+        in: path
+        required: true
+        description: Length of the window in seconds, at most 60.
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 60
+      - $ref: '#/components/parameters/IDs'
+      - $ref: '#/components/parameters/IDsAlias'
+      - $ref: '#/components/parameters/Encoding'
+      - $ref: '#/components/parameters/Parsed'
+      - $ref: '#/components/parameters/IgnoreInvalid'
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/BenchmarksOnly'
+      - $ref: '#/components/parameters/Verbose'
+      - $ref: '#/components/parameters/Binary'
+      - $ref: '#/components/parameters/Unique'
+      - $ref: '#/components/parameters/AllowUnordered'
+      responses:
+        '200':
+          description: One update per second that has data.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceUpdate'
+        '400':
+          $ref: '#/components/responses/Text'
+        '404':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/Problem'
+  /ws:
+    get:
+      tags: [hermes]
+      operationId: websocket
+      summary: Stream prices (WebSocket)
+      description: |
+        The Hermes WebSocket protocol. Open the socket with a `GET` upgrade, then send JSON text
+        messages:
+
+        - `{"type":"subscribe","ids":[…],"verbose":false,"binary":false,"ignore_invalid_price_ids":false}`
+          is answered `{"type":"response","status":"success"}`, then the last value of each feed and
+          every later update arrive as `{"type":"price_update","price_feed":{…}}`.
+        - `{"type":"unsubscribe","ids":[…]}` is answered the same way.
+        - A malformed message, an unknown type, an unknown or malformed ID, or more than 500 IDs is
+          answered `{"type":"response","status":"error","error":"…"}`; the socket stays open.
+
+        IDs travel in the message body, so a subscription is not bound by the URL length: this is the
+        way to follow more than 200 feeds on one connection.
+
+        `verbose` adds `metadata` to each `price_feed`, `binary` adds an empty `vaa`.
+        `allow_out_of_order` is accepted and changes nothing. The server pings every 30 seconds and
+        closes the socket after 24 hours (1000), when the client sends more than 5 messages per second
+        with a burst of 20 or stops reading (1008), and when it restarts (1001). A message is at most
+        64 KiB.
+      x-websocket:
+        client-messages:
+        - '#/components/schemas/WsRequest'
+        server-messages:
+        - '#/components/schemas/WsResponse'
+        - '#/components/schemas/WsPriceUpdate'
+        close-codes:
+          '1000': the stream reached its 24-hour limit
+          '1001': the server is restarting
+          '1008': too many messages, or a client that stopped reading
+      parameters:
+      - $ref: '#/components/parameters/Channel'
+      responses:
+        '101':
+          description: Switched to the WebSocket protocol.
+        '400':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          description: The server is restarting; reconnect to another replica.
+          content:
+            text/plain:
+              schema:
+                type: string
+  /api/latest_price_feeds:
+    get:
+      tags: [hermes-v1]
+      operationId: v1LatestPriceFeeds
+      summary: Latest prices (v1)
+      description: |
+        Unknown IDs always answer 404 here; `ignore_invalid_price_ids` is validated but has no effect.
+
+        Send at most 200 IDs per request; longer URLs are rejected before they reach Astra. For more
+        feeds, use several requests or subscribe over WebSocket, where IDs travel in the message body.
+      parameters:
+      - $ref: '#/components/parameters/IDs'
+      - $ref: '#/components/parameters/IDsAlias'
+      - $ref: '#/components/parameters/Encoding'
+      - $ref: '#/components/parameters/Parsed'
+      - $ref: '#/components/parameters/IgnoreInvalid'
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/BenchmarksOnly'
+      - $ref: '#/components/parameters/Verbose'
+      - $ref: '#/components/parameters/Binary'
+      - $ref: '#/components/parameters/Unique'
+      - $ref: '#/components/parameters/AllowUnordered'
+      responses:
+        '200':
+          description: One entry per requested feed.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PriceFeed'
+        '400':
+          $ref: '#/components/responses/Text'
+        '404':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /api/price_feed_ids:
+    get:
+      tags: [hermes-v1]
+      operationId: v1PriceFeedIDs
+      summary: List feed IDs (v1)
+      description: Every ID that resolves to a feed, Pyth-compatible and Astra, without `0x`.
+      responses:
+        '200':
+          description: The IDs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedID'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /api/get_price_feed:
+    get:
+      tags: [hermes-v1]
+      operationId: v1PriceFeedAtTime
+      summary: Price at a time (v1)
+      description: The first update of one feed at or after `publish_time`.
+      parameters:
+      - name: id
+        in: query
+        required: true
+        description: A 32-byte feed ID in hex.
+        schema:
+          $ref: '#/components/schemas/FeedID'
+      - name: publish_time
+        in: query
+        required: true
+        description: Unix time in seconds.
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 4294967295
+      - $ref: '#/components/parameters/Encoding'
+      - $ref: '#/components/parameters/Parsed'
+      - $ref: '#/components/parameters/IgnoreInvalid'
+      - $ref: '#/components/parameters/Channel'
+      - $ref: '#/components/parameters/BenchmarksOnly'
+      - $ref: '#/components/parameters/Verbose'
+      - $ref: '#/components/parameters/Binary'
+      - $ref: '#/components/parameters/Unique'
+      - $ref: '#/components/parameters/AllowUnordered'
+      responses:
+        '200':
+          description: The update.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceFeed'
+        '400':
+          $ref: '#/components/responses/Text'
+        '404':
+          $ref: '#/components/responses/Text'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/Problem'
+  /v1/feeds:
+    get:
+      tags: [native]
+      operationId: feeds
+      summary: Feeds with live status
+      description: |
+        Every feed with both of its IDs, its category and its live value. Unlike the Hermes routes, a
+        degraded or closed feed is shown live here, with its status.
+      parameters:
+      - name: category
+        in: query
+        description: Keep one category, such as `crypto` or `equity`.
+        schema:
+          $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          description: The feeds.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Feed'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/feed-ids:
+    get:
+      tags: [native]
+      operationId: feedIds
+      summary: Pyth ID to Astra ID map
+      description: |
+        Every feed Astra serves, once, sorted by symbol, with its Astra ID and its Pyth-compatible ID
+        when it has one. Paste your Pyth IDs into `pyth_ids` to see which ones Astra serves: the
+        Hermes routes accept those IDs as they are, so a feed found here needs no change in the
+        client. `missing` lists the requested IDs Astra does not serve, lower-case without `0x`.
+
+        With neither `pyth_ids` nor `astra_ids` the whole list is returned, without `missing`. With
+        either, only the matching feeds are returned, plus `missing`. `pyth_ids` matches Pyth-compatible
+        IDs only and `astra_ids` Astra IDs only; both may be combined. `category` narrows the items
+        and never adds to `missing`. The answer changes only on a deploy: it may be cached for an
+        hour, and the unfiltered list carries an `ETag`.
+
+        Send at most 200 IDs per request, `pyth_ids` and `astra_ids` together; longer URLs are rejected
+        before they reach Astra. For more IDs, use several requests.
+      parameters:
+      - $ref: '#/components/parameters/PythIDs'
+      - $ref: '#/components/parameters/AstraIDs'
+      - name: category
+        in: query
+        description: Keep one category, such as `crypto` or `equity`.
+        schema:
+          $ref: '#/components/schemas/Category'
+      - name: If-None-Match
+        in: header
+        description: The `ETag` of an unfiltered list already held; the answer is then `304` when it is unchanged.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The feeds, with `missing` when filtered by ID.
+          headers:
+            Cache-Control:
+              description: '`public, max-age=3600`.'
+              schema:
+                type: string
+            ETag:
+              description: On the unfiltered list only.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedIDList'
+        '304':
+          description: The unfiltered list is unchanged since the `ETag` in `If-None-Match`.
+        '400':
+          description: A malformed ID, or more than 500 IDs in `pyth_ids` and `astra_ids` together.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/candles:
+    get:
+      tags: [native]
+      operationId: candles
+      summary: Candles
+      description: |
+        OHLC bars in the TradingView UDF shape. `v` is always 0: an index price has no volume. At most
+        5000 bars per request.
+      parameters:
+      - name: feed
+        in: query
+        required: true
+        description: A feed ID (either kind) or a symbol, such as `Crypto.BTC/USD`.
+        schema:
+          type: string
+        example: Crypto.BTC/USD
+      - name: resolution
+        in: query
+        required: true
+        description: Bar size. `1`, `5`, `15`, `60`, `240` minutes or `1D`; `1m`, `5m`, `15m`, `1h`, `4h`, `1d` also work.
+        schema:
+          type: string
+          enum: ['1', '5', '15', '60', '240', '1D', '1m', '5m', '15m', '1h', '4h', '1d', D]
+        example: '60'
+      - name: from
+        in: query
+        required: true
+        description: Start, Unix seconds.
+        schema:
+          type: integer
+          minimum: 0
+      - name: to
+        in: query
+        required: true
+        description: End, Unix seconds, not before `from`.
+        schema:
+          type: integer
+          minimum: 0
+      responses:
+        '200':
+          description: Bars, or `{"s":"no_data"}` when the range holds none.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/Bars'
+                - $ref: '#/components/schemas/UDFStatus'
+        '400':
+          description: Unsupported resolution, a bad range, or too many bars.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UDFStatus'
+        '404':
+          description: Unknown feed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UDFStatus'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          $ref: '#/components/responses/Problem'
+  /v1/status:
+    get:
+      tags: [native]
+      operationId: status
+      summary: Feed status
+      description: |
+        Per feed, its status, age and source count, and whether the served value has gone stale.
+
+        With `feed`, `feeds` holds that feed's entry only, and the status code says whether it is
+        healthy: `200` when it is `trading` and not `stale`, `503` with the same body otherwise, so an
+        uptime checker can watch one feed by its status code. A feed whose market closes, or a
+        `reference` feed, answers `503` while it is so; watch a 24/7 feed.
+      parameters:
+      - name: feed
+        in: query
+        description: A feed ID, Pyth-compatible or Astra, `0x` optional, any case. Empty is the same as absent.
+        schema:
+          $ref: '#/components/schemas/FeedID'
+      responses:
+        '200':
+          description: The report; with `feed`, a healthy feed's entry alone.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReport'
+        '400':
+          description: A malformed `feed`.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '404':
+          description: No feed has the ID in `feed`.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Problem'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          description: With `feed`, the feed is not `trading`, or is `stale`. The body is the report with its entry alone.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusReport'
+components:
+  parameters:
+    PythIDs:
+      name: pyth_ids
+      in: query
+      description: Pyth feed IDs to look up, comma-separated, repeated, or both. `0x` optional, any case. The server accepts at most 500 together with `astra_ids`. Send at most 200 IDs per request; longer URLs are rejected before they reach Astra. For more, use several requests.
+      style: form
+      explode: true
+      schema:
+        type: array
+        maxItems: 500
+        items:
+          type: string
+      example: [e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43]
+    AstraIDs:
+      name: astra_ids
+      in: query
+      description: Astra feed IDs to look up, as `pyth_ids`. Send at most 200 IDs per request, together with `pyth_ids`; longer URLs are rejected before they reach Astra.
+      style: form
+      explode: true
+      schema:
+        type: array
+        maxItems: 500
+        items:
+          type: string
+    IDsAlias:
+      name: ids
+      in: query
+      description: The same as `ids[]`, for clients that send the name without brackets. Both may be combined, and count together. Send at most 200 IDs per request; longer URLs are rejected before they reach Astra. For more feeds, use several requests or subscribe over WebSocket, where IDs travel in the message body.
+      style: form
+      explode: true
+      schema:
+        type: array
+        items:
+          $ref: '#/components/schemas/FeedID'
+    BenchmarksOnly:
+      name: benchmarks_only
+      in: query
+      description: On the SSE stream, send only the first update of each second. Validated and ignored elsewhere.
+      schema:
+        type: boolean
+        default: false
+    Unique:
+      name: unique
+      in: query
+      description: On the interval route, keep only the first update of each feed in each second. Validated and ignored elsewhere.
+      schema:
+        type: boolean
+        default: true
+    AllowUnordered:
+      name: allow_unordered
+      in: query
+      description: Accepted for Hermes compatibility. Updates are always ordered, so it changes nothing.
+      schema:
+        type: boolean
+        default: false
+    IDs:
+      name: ids[]
+      in: query
+      required: true
+      description: Feed IDs, repeated (`ids[]=…&ids[]=…`). `ids` is accepted too. The server accepts at most 500 per request, and 100 distinct feeds on historical routes. Send at most 200 IDs per request; longer URLs are rejected before they reach Astra. For more feeds, use several requests or subscribe over WebSocket, where IDs travel in the message body.
+      style: form
+      explode: true
+      schema:
+        type: array
+        maxItems: 500
+        items:
+          $ref: '#/components/schemas/FeedID'
+    Encoding:
+      name: encoding
+      in: query
+      description: Encoding named in `binary.encoding` on the v2 routes. The data array is always empty. Validated and ignored on the v1 routes.
+      schema:
+        type: string
+        enum: [hex, base64]
+        default: hex
+    Parsed:
+      name: parsed
+      in: query
+      description: Include the `parsed` prices on the v2 routes. Validated and ignored on the v1 routes.
+      schema:
+        type: boolean
+        default: true
+    IgnoreInvalid:
+      name: ignore_invalid_price_ids
+      in: query
+      description: Drop unknown IDs instead of answering 404, on the v2 routes. Validated and ignored on the v1 routes.
+      schema:
+        type: boolean
+        default: false
+    Channel:
+      name: channel
+      in: query
+      description: Update cadence of the SSE stream and the WebSocket. A fixed-rate channel sends a feed at most once per tick, only when it changed. `fixed_rate@50ms` is refused. Validated and ignored on the other routes.
+      schema:
+        type: string
+        enum: [real_time, fixed_rate@200ms, fixed_rate@1000ms]
+        default: fixed_rate@1000ms
+    PublishTime:
+      name: publish_time
+      in: path
+      required: true
+      description: Unix time in seconds.
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 4294967295
+    Verbose:
+      name: verbose
+      in: query
+      description: Include `metadata`, on the v1 routes. Validated and ignored on the v2 routes.
+      schema:
+        type: boolean
+        default: false
+    Binary:
+      name: binary
+      in: query
+      description: Include `vaa`, which is always the empty string, on the v1 routes. Validated and ignored on the v2 routes.
+      schema:
+        type: boolean
+        default: false
+    AssetType:
+      name: asset_type
+      in: query
+      description: Keep one category, such as `crypto` or `equity`.
+      schema:
+        $ref: '#/components/schemas/Category'
+  responses:
+    Text:
+      description: A plain-text error, as Hermes sends it.
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: 'Price ids not found: 0000000000000000000000000000000000000000000000000000000000000000'
+    TooManyRequests:
+      description: Over the per-address request or stream limit. Wait `Retry-After` seconds.
+      headers:
+        Retry-After:
+          description: Seconds to wait.
+          schema:
+            type: integer
+      content:
+        text/plain:
+          schema:
+            type: string
+    InternalError:
+      description: A history read failed.
+      content:
+        text/plain:
+          schema:
+            type: string
+          example: Internal server error
+    Problem:
+      description: Price history is unavailable.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/Problem'
+  schemas:
+    FeedID:
+      type: string
+      description: 32 bytes in hex. Responses carry it lower-case without `0x`; requests accept either form.
+      pattern: '^(0[xX])?[0-9a-fA-F]{64}$'
+      example: e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43
+    Category:
+      type: string
+      description: Open set. Read `/v1/feeds` for the categories served today.
+      examples: [crypto, equity, fx, metal, commodities, rates, crypto_index, crypto_nav, crypto_redemption_rate]
+    Price:
+      type: object
+      required: [price, conf, expo, publish_time]
+      properties:
+        price:
+          type: string
+          description: Integer price as a string. The value is `price × 10^expo`.
+        conf:
+          type: string
+          description: Confidence interval, same scale as `price`.
+        expo:
+          type: integer
+          format: int32
+          description: Negative number of decimals.
+        publish_time:
+          type: integer
+          format: int64
+          description: Unix seconds of the index update this value comes from.
+    PriceUpdate:
+      type: object
+      required: [binary]
+      example:
+        binary:
+          encoding: hex
+          data: []
+        parsed:
+        - id: e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43
+          price: {price: '6512345000000', conf: '3120000000', expo: -8, publish_time: 1790540000}
+          ema_price: {price: '6510012000000', conf: '3300000000', expo: -8, publish_time: 1790540000}
+          metadata: {slot: 0, proof_available_time: 1790540000, prev_publish_time: 1790539999}
+      properties:
+        binary:
+          type: object
+          required: [encoding, data]
+          properties:
+            encoding:
+              type: string
+              enum: [hex, base64]
+            data:
+              type: array
+              description: Always empty. Astra has no signed payload.
+              example: []
+              items:
+                type: string
+              maxItems: 0
+        parsed:
+          type: array
+          description: Present unless `parsed=false`.
+          items:
+            $ref: '#/components/schemas/ParsedPriceUpdate'
+    ParsedPriceUpdate:
+      type: object
+      required: [id, price, ema_price, metadata]
+      properties:
+        id:
+          $ref: '#/components/schemas/FeedID'
+        price:
+          $ref: '#/components/schemas/Price'
+        ema_price:
+          $ref: '#/components/schemas/Price'
+        metadata:
+          type: object
+          required: [slot, proof_available_time, prev_publish_time]
+          properties:
+            slot:
+              type: integer
+              description: Always 0. No chain stands behind the price.
+            proof_available_time:
+              type: integer
+              format: int64
+              description: When the server received the update, Unix seconds.
+            prev_publish_time:
+              type: integer
+              format: int64
+              description: The previous served update's `publish_time`.
+    PriceFeed:
+      type: object
+      required: [id, price, ema_price]
+      properties:
+        id:
+          $ref: '#/components/schemas/FeedID'
+        price:
+          $ref: '#/components/schemas/Price'
+        ema_price:
+          $ref: '#/components/schemas/Price'
+        metadata:
+          type: object
+          description: Present with `verbose=true`.
+          required: [slot, emitter_chain, price_service_receive_time, prev_publish_time]
+          properties:
+            slot:
+              type: integer
+            emitter_chain:
+              type: integer
+              description: Always 0.
+            price_service_receive_time:
+              type: integer
+              format: int64
+            prev_publish_time:
+              type: integer
+              format: int64
+        vaa:
+          type: string
+          description: Present with `binary=true`. Always empty.
+    PriceFeedMetadata:
+      type: object
+      required: [id, attributes, market_hours]
+      properties:
+        id:
+          $ref: '#/components/schemas/FeedID'
+        attributes:
+          type: object
+          description: Strings only, never null. `base` and `schedule` are omitted when unknown.
+          required: [asset_type, description, display_symbol, quote_currency, symbol, min_channel, astra_id]
+          properties:
+            asset_type:
+              type: string
+              example: Crypto
+            base:
+              type: string
+              example: BTC
+            description:
+              type: string
+            display_symbol:
+              type: string
+              example: BTC/USD
+            quote_currency:
+              type: string
+              example: USD
+            schedule:
+              type: string
+              description: Trading schedule in the Hermes format.
+            symbol:
+              type: string
+              example: Crypto.BTC/USD
+            min_channel:
+              type: string
+              example: real_time
+            astra_id:
+              $ref: '#/components/schemas/FeedID'
+          additionalProperties:
+            type: string
+        market_hours:
+          type: object
+          required: [is_open, next_open, next_close]
+          properties:
+            is_open:
+              type: boolean
+            next_open:
+              type: 'null'
+              description: Always null.
+            next_close:
+              type: 'null'
+              description: Always null.
+    Status:
+      type: string
+      enum: [trading, degraded, market_closed, reference, no_data]
+    Feed:
+      type: object
+      required: [id, symbol, category, attributes, live]
+      properties:
+        id:
+          description: The Astra ID.
+          $ref: '#/components/schemas/FeedID'
+        pyth_id:
+          description: The Pyth-compatible ID, when the feed has one.
+          $ref: '#/components/schemas/FeedID'
+        symbol:
+          type: string
+          example: Crypto.BTC/USD
+        category:
+          $ref: '#/components/schemas/Category'
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        live:
+          type: object
+          required: [status, publish_time, timestamp_ms, served_publish_time, expo, sources]
+          properties:
+            status:
+              $ref: '#/components/schemas/Status'
+            price:
+              type: string
+              description: Absent while `status` is `no_data`.
+            conf:
+              type: string
+            expo:
+              type: integer
+            publish_time:
+              type: integer
+              format: int64
+              description: Of the live index value, Unix seconds.
+            timestamp_ms:
+              type: integer
+              format: int64
+            served_publish_time:
+              type: integer
+              format: int64
+              description: Of the value the Hermes routes serve. Stops moving while a feed is degraded or closed.
+            sources:
+              type: integer
+              description: Exchange sources in the live value.
+    FeedIDEntry:
+      type: object
+      required: [symbol, asset_type, category, astra_id]
+      properties:
+        symbol:
+          type: string
+          example: Crypto.BTC/USD
+        asset_type:
+          type: string
+          description: As in `attributes.asset_type` on `/v2/price_feeds`.
+          example: Crypto
+        category:
+          $ref: '#/components/schemas/Category'
+        astra_id:
+          $ref: '#/components/schemas/FeedID'
+        pyth_id:
+          description: The Pyth-compatible ID. Omitted when the feed has none.
+          $ref: '#/components/schemas/FeedID'
+    FeedIDList:
+      type: object
+      required: [items]
+      example:
+        items:
+        - symbol: Crypto.BTC/USD
+          asset_type: Crypto
+          category: crypto
+          astra_id: 1de769477ecf66f69ca287676658956a211c207a9ca608ad5235bd095b02f4b2
+          pyth_id: e62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43
+        missing: [0000000000000000000000000000000000000000000000000000000000000001]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedIDEntry'
+        missing:
+          type: array
+          description: Present, possibly empty, when `pyth_ids` or `astra_ids` is given. The requested IDs Astra does not serve, normalised, each once, in request order.
+          items:
+            $ref: '#/components/schemas/FeedID'
+    StatusReport:
+      type: object
+      required: [ready, feeds]
+      properties:
+        ready:
+          type: boolean
+        feeds:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedHealth'
+    FeedHealth:
+      type: object
+      required: [id, symbol, status, age_seconds, publish_time, served_publish_time, sources, stale]
+      properties:
+        id:
+          $ref: '#/components/schemas/FeedID'
+        symbol:
+          type: string
+        status:
+          $ref: '#/components/schemas/Status'
+        age_seconds:
+          type: number
+        publish_time:
+          type: integer
+          format: int64
+        served_publish_time:
+          type: integer
+          format: int64
+        sources:
+          type: integer
+        stale:
+          type: boolean
+    Bars:
+      type: object
+      required: [s, t, o, h, l, c, v]
+      properties:
+        s:
+          type: string
+          const: ok
+        t:
+          type: array
+          description: Bar open time, Unix seconds.
+          items:
+            type: integer
+        o:
+          type: array
+          items:
+            type: number
+        h:
+          type: array
+          items:
+            type: number
+        l:
+          type: array
+          items:
+            type: number
+        c:
+          type: array
+          items:
+            type: number
+        v:
+          type: array
+          description: Always 0.
+          items:
+            type: number
+    UDFStatus:
+      type: object
+      required: [s]
+      properties:
+        s:
+          type: string
+          enum: [no_data, error]
+        errmsg:
+          type: string
+    Problem:
+      type: object
+      required: [type, title, status, detail]
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+    Readiness:
+      type: object
+      required: [ready, dependencies]
+      properties:
+        ready:
+          type: boolean
+          const: false
+        dependencies:
+          type: array
+          items:
+            type: object
+            required: [name, ready]
+            properties:
+              name:
+                type: string
+                examples: [kafka, server]
+              ready:
+                type: boolean
+              reason:
+                type: string
+    WsRequest:
+      type: object
+      description: A message the client sends on `/ws`.
+      required: [type, ids]
+      properties:
+        type:
+          type: string
+          enum: [subscribe, unsubscribe]
+        ids:
+          type: array
+          maxItems: 500
+          items:
+            $ref: '#/components/schemas/FeedID'
+        verbose:
+          type: boolean
+          default: false
+        binary:
+          type: boolean
+          default: false
+        allow_out_of_order:
+          type: boolean
+          default: false
+        ignore_invalid_price_ids:
+          type: boolean
+          default: false
+    WsResponse:
+      type: object
+      description: The answer to every client message on `/ws`, and the last message before a 24-hour close.
+      required: [type, status]
+      properties:
+        type:
+          type: string
+          const: response
+        status:
+          type: string
+          enum: [success, error]
+        error:
+          type: string
+          description: Present when `status` is `error`.
+    WsPriceUpdate:
+      type: object
+      description: One feed's update on `/ws`.
+      required: [type, price_feed]
+      properties:
+        type:
+          type: string
+          const: price_update
+        price_feed:
+          $ref: '#/components/schemas/PriceFeed'

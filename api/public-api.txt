@@ -1,0 +1,2323 @@
+class AsyncAveeClient def __init__ param api_key: str | None [keyword_only, optional]
+class AsyncAveeClient def __init__ param base_url: str [positional_or_keyword, optional]
+class AsyncAveeClient def __init__ param headers: Mapping[str, str] | None [keyword_only, optional]
+class AsyncAveeClient def __init__ param http_client: httpx.AsyncClient | None [keyword_only, optional]
+class AsyncAveeClient def __init__ param max_response_bytes: int [keyword_only, optional]
+class AsyncAveeClient def __init__ param max_retries: int [keyword_only, optional]
+class AsyncAveeClient def __init__ param max_retry_delay: float [keyword_only, optional]
+class AsyncAveeClient def __init__ param payer: Payer | None [keyword_only, optional]
+class AsyncAveeClient def __init__ param timeout: float [keyword_only, optional]
+class AsyncAveeClient def __init__ positional (base_url)
+class AsyncAveeClient def __init__ returns None
+class AsyncAveeClient def aclose positional ()
+class AsyncAveeClient def aclose returns None
+class AsyncAveeClient def chains param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def chains positional ()
+class AsyncAveeClient def chains returns m.ChainList
+class AsyncAveeClient def config param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def config positional ()
+class AsyncAveeClient def config returns m.Config
+class AsyncAveeClient def deployer_tokens param address: str [positional_or_keyword, required]
+class AsyncAveeClient def deployer_tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def deployer_tokens param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def deployer_tokens param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def deployer_tokens param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def deployer_tokens positional (address)
+class AsyncAveeClient def deployer_tokens returns m.DeployerLaunchPage
+class AsyncAveeClient def farm param address: str [positional_or_keyword, required]
+class AsyncAveeClient def farm param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def farm param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def farm positional (chain, address)
+class AsyncAveeClient def farm returns m.FarmInfo
+class AsyncAveeClient def farms param chains: Sequence[str] [keyword_only, required]
+class AsyncAveeClient def farms param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def farms param factories: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def farms param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def farms param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def farms param order: str | None [keyword_only, optional]
+class AsyncAveeClient def farms param q: str | None [keyword_only, optional]
+class AsyncAveeClient def farms param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def farms positional ()
+class AsyncAveeClient def farms returns m.FarmPage
+class AsyncAveeClient def iter_deployer_tokens param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_deployer_tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_deployer_tokens param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_deployer_tokens param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_deployer_tokens param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_deployer_tokens positional (address)
+class AsyncAveeClient def iter_deployer_tokens returns AsyncIterator[m.PairInfo]
+class AsyncAveeClient def iter_farms param chains: Sequence[str] [keyword_only, required]
+class AsyncAveeClient def iter_farms param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms param factories: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms param order: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms param q: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_farms positional ()
+class AsyncAveeClient def iter_farms returns AsyncIterator[m.FarmInfo]
+class AsyncAveeClient def iter_launchpad_tokens param chain: str [keyword_only, required]
+class AsyncAveeClient def iter_launchpad_tokens param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_launchpad_tokens param launch_status: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_launchpad_tokens param launchpads: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_launchpad_tokens param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_launchpad_tokens param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_launchpad_tokens positional ()
+class AsyncAveeClient def iter_launchpad_tokens returns AsyncIterator[m.PairInfo]
+class AsyncAveeClient def iter_pair_trades param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_pair_trades param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def iter_pair_trades param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param from_: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param maker: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param order: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param to: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades param tx_type: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_pair_trades positional (chain, address)
+class AsyncAveeClient def iter_pair_trades returns AsyncIterator[m.Transaction]
+class AsyncAveeClient def iter_pairs param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param dex_names: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param market_type: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param max_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param max_apr: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param max_deployed_pairs: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param max_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param max_score: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param min_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param min_apr: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param min_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param min_score: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param only_trustable: bool | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param order: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param protocols: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param q: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs param timeframe: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs positional ()
+class AsyncAveeClient def iter_pairs returns AsyncIterator[m.PairInfo]
+class AsyncAveeClient def iter_pairs_new param chain: str [keyword_only, required]
+class AsyncAveeClient def iter_pairs_new param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs_new param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs_new param max_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs_new param min_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs_new param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_pairs_new positional ()
+class AsyncAveeClient def iter_pairs_new returns AsyncIterator[m.PairInfo]
+class AsyncAveeClient def iter_perps param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param order: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param q: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps param timeframe: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_perps positional ()
+class AsyncAveeClient def iter_perps returns AsyncIterator[m.PairInfo]
+class AsyncAveeClient def iter_token_holders param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_token_holders param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def iter_token_holders param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_holders param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_holders param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_holders positional (chain, address)
+class AsyncAveeClient def iter_token_holders returns AsyncIterator[m.TokenHolder]
+class AsyncAveeClient def iter_token_traders param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_token_traders param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def iter_token_traders param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_traders param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_traders param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_traders param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_traders param state: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_token_traders positional (chain, address)
+class AsyncAveeClient def iter_token_traders returns AsyncIterator[m.TokenTrader]
+class AsyncAveeClient def iter_tokens param categories: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param include_instances: bool | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param include_market: bool | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_fdv_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_holders: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_market_cap_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_score: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param max_volume_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_fdv_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_holders: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_market_cap_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_score: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param min_volume_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param order: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param q: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_tokens positional ()
+class AsyncAveeClient def iter_tokens returns AsyncIterator[m.TokenInfo]
+class AsyncAveeClient def iter_trending param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_trending param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_trending param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_trending param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_trending positional ()
+class AsyncAveeClient def iter_trending returns AsyncIterator[m.PairInfo]
+class AsyncAveeClient def iter_wallet_positions param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_wallet_positions param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def iter_wallet_positions param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_positions param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_positions param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_positions param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_positions param state: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_positions positional (chain, address)
+class AsyncAveeClient def iter_wallet_positions returns AsyncIterator[m.WalletPosition]
+class AsyncAveeClient def iter_wallet_rounds param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_wallet_rounds param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def iter_wallet_rounds param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_rounds param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_rounds param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_rounds param state: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_rounds param token: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_rounds positional (chain, address)
+class AsyncAveeClient def iter_wallet_rounds returns AsyncIterator[m.WalletPositionRound]
+class AsyncAveeClient def iter_wallet_trades param address: str [positional_or_keyword, required]
+class AsyncAveeClient def iter_wallet_trades param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def iter_wallet_trades param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_trades param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_trades param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallet_trades positional (chain, address)
+class AsyncAveeClient def iter_wallet_trades returns AsyncIterator[m.WalletTrade]
+class AsyncAveeClient def iter_wallets param chain: str [keyword_only, required]
+class AsyncAveeClient def iter_wallets param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param exclude_bots: bool | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_total_pnl_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_trades: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_user_score: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_volume_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_win_rate: float | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param no_abuse_evidence: bool | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param only_copy_eligible: bool | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param order: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param tiers: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param window: str | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets positional ()
+class AsyncAveeClient def iter_wallets returns AsyncIterator[m.WalletListItem]
+class AsyncAveeClient def key param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def key positional ()
+class AsyncAveeClient def key returns m.KeyInfo
+class AsyncAveeClient def launchpad_tokens param chain: str [keyword_only, required]
+class AsyncAveeClient def launchpad_tokens param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def launchpad_tokens param launch_status: str | None [keyword_only, optional]
+class AsyncAveeClient def launchpad_tokens param launchpads: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def launchpad_tokens param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def launchpad_tokens param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def launchpad_tokens positional ()
+class AsyncAveeClient def launchpad_tokens returns m.PairPage
+class AsyncAveeClient def leaderboard param chain: str | None [keyword_only, optional]
+class AsyncAveeClient def leaderboard param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def leaderboard param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def leaderboard param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def leaderboard param scope: str [keyword_only, required]
+class AsyncAveeClient def leaderboard param season: int | None [keyword_only, optional]
+class AsyncAveeClient def leaderboard param seasonal: bool | None [keyword_only, optional]
+class AsyncAveeClient def leaderboard positional ()
+class AsyncAveeClient def leaderboard returns m.Leaderboard
+class AsyncAveeClient def oracle_prices param ids: Sequence[str] [keyword_only, required]
+class AsyncAveeClient def oracle_prices param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def oracle_prices positional ()
+class AsyncAveeClient def oracle_prices returns m.OraclePriceList
+class AsyncAveeClient def oracle_prices_at param ids: Sequence[str] [keyword_only, required]
+class AsyncAveeClient def oracle_prices_at param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def oracle_prices_at param ts: int [keyword_only, required]
+class AsyncAveeClient def oracle_prices_at positional ()
+class AsyncAveeClient def oracle_prices_at returns m.OraclePriceList
+class AsyncAveeClient def pair param address: str [positional_or_keyword, required]
+class AsyncAveeClient def pair param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def pair param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def pair positional (chain, address)
+class AsyncAveeClient def pair returns m.PairInfo
+class AsyncAveeClient def pair_batch param items: Sequence[m.PairBatchRef | Mapping[str, Any]] [keyword_only, required]
+class AsyncAveeClient def pair_batch param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def pair_batch positional ()
+class AsyncAveeClient def pair_batch returns m.PairBatchResponse
+class AsyncAveeClient def pair_candles param address: str [positional_or_keyword, required]
+class AsyncAveeClient def pair_candles param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def pair_candles param countback: int | None [keyword_only, optional]
+class AsyncAveeClient def pair_candles param currency: str | None [keyword_only, optional]
+class AsyncAveeClient def pair_candles param from_: int [keyword_only, required]
+class AsyncAveeClient def pair_candles param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def pair_candles param price_from_quote: bool | None [keyword_only, optional]
+class AsyncAveeClient def pair_candles param res: str [keyword_only, required]
+class AsyncAveeClient def pair_candles param to: int [keyword_only, required]
+class AsyncAveeClient def pair_candles param volume_from_quote: bool | None [keyword_only, optional]
+class AsyncAveeClient def pair_candles positional (chain, address)
+class AsyncAveeClient def pair_candles returns m.ChartCandles
+class AsyncAveeClient def pair_trades param address: str [positional_or_keyword, required]
+class AsyncAveeClient def pair_trades param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def pair_trades param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param from_: int | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param maker: str | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param order: str | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param to: int | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades param tx_type: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def pair_trades positional (chain, address)
+class AsyncAveeClient def pair_trades returns m.TradePage
+class AsyncAveeClient def pairs param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def pairs param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs param dex_names: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def pairs param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs param market_type: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs param max_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs param max_apr: float | None [keyword_only, optional]
+class AsyncAveeClient def pairs param max_deployed_pairs: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs param max_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def pairs param max_score: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs param min_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs param min_apr: float | None [keyword_only, optional]
+class AsyncAveeClient def pairs param min_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def pairs param min_score: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs param only_trustable: bool | None [keyword_only, optional]
+class AsyncAveeClient def pairs param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def pairs param order: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs param protocols: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def pairs param q: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs param timeframe: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs positional ()
+class AsyncAveeClient def pairs returns m.PairPage
+class AsyncAveeClient def pairs_new param chain: str [keyword_only, required]
+class AsyncAveeClient def pairs_new param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def pairs_new param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs_new param max_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def pairs_new param min_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def pairs_new param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def pairs_new positional ()
+class AsyncAveeClient def pairs_new returns m.PairPage
+class AsyncAveeClient def perp_history param chain: str | None [keyword_only, optional]
+class AsyncAveeClient def perp_history param from_: int | None [keyword_only, optional]
+class AsyncAveeClient def perp_history param interval: str | None [keyword_only, optional]
+class AsyncAveeClient def perp_history param market: str [positional_or_keyword, required]
+class AsyncAveeClient def perp_history param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def perp_history param to: int | None [keyword_only, optional]
+class AsyncAveeClient def perp_history positional (market)
+class AsyncAveeClient def perp_history returns m.PerpHistory
+class AsyncAveeClient def perp_liquidations param chain: str | None [keyword_only, optional]
+class AsyncAveeClient def perp_liquidations param from_: int | None [keyword_only, optional]
+class AsyncAveeClient def perp_liquidations param market: str | None [keyword_only, optional]
+class AsyncAveeClient def perp_liquidations param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def perp_liquidations param to: int | None [keyword_only, optional]
+class AsyncAveeClient def perp_liquidations positional ()
+class AsyncAveeClient def perp_liquidations returns m.PerpLiquidations
+class AsyncAveeClient def perps param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def perps param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def perps param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def perps param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def perps param order: str | None [keyword_only, optional]
+class AsyncAveeClient def perps param q: str | None [keyword_only, optional]
+class AsyncAveeClient def perps param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def perps param timeframe: str | None [keyword_only, optional]
+class AsyncAveeClient def perps positional ()
+class AsyncAveeClient def perps returns m.PairPage
+class AsyncAveeClient def search param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def search param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def search param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def search param q: str [keyword_only, required]
+class AsyncAveeClient def search positional ()
+class AsyncAveeClient def search returns m.SearchResponse
+class AsyncAveeClient def status param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def status positional ()
+class AsyncAveeClient def status returns m.StatusResponse
+class AsyncAveeClient def token_batch param items: Sequence[m.TokenBatchRef | Mapping[str, Any]] [keyword_only, required]
+class AsyncAveeClient def token_batch param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_batch positional ()
+class AsyncAveeClient def token_batch returns m.TokenBatchResponse
+class AsyncAveeClient def token_brief param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_brief param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_brief param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_brief positional (chain, address)
+class AsyncAveeClient def token_brief returns m.TokenBrief
+class AsyncAveeClient def token_by_address param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_by_address param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_by_address param include_instances: bool | None [keyword_only, optional]
+class AsyncAveeClient def token_by_address param include_market: bool | None [keyword_only, optional]
+class AsyncAveeClient def token_by_address param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_by_address positional (chain, address)
+class AsyncAveeClient def token_by_address returns m.TokenInfo
+class AsyncAveeClient def token_by_id param id: str [positional_or_keyword, required]
+class AsyncAveeClient def token_by_id param include_instances: bool | None [keyword_only, optional]
+class AsyncAveeClient def token_by_id param include_market: bool | None [keyword_only, optional]
+class AsyncAveeClient def token_by_id param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_by_id positional (id)
+class AsyncAveeClient def token_by_id returns m.TokenInfo
+class AsyncAveeClient def token_by_slug param include_instances: bool | None [keyword_only, optional]
+class AsyncAveeClient def token_by_slug param include_market: bool | None [keyword_only, optional]
+class AsyncAveeClient def token_by_slug param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_by_slug param slug: str [positional_or_keyword, required]
+class AsyncAveeClient def token_by_slug positional (slug)
+class AsyncAveeClient def token_by_slug returns m.TokenInfo
+class AsyncAveeClient def token_holders param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_holders param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_holders param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def token_holders param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def token_holders param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_holders positional (chain, address)
+class AsyncAveeClient def token_holders returns m.TokenHolderPage
+class AsyncAveeClient def token_pairs param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_pairs param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_pairs param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def token_pairs param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_pairs positional (chain, address)
+class AsyncAveeClient def token_pairs returns m.PairPage
+class AsyncAveeClient def token_traders param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_traders param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_traders param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def token_traders param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def token_traders param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_traders param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def token_traders param state: str | None [keyword_only, optional]
+class AsyncAveeClient def token_traders positional (chain, address)
+class AsyncAveeClient def token_traders returns m.TokenTraderPage
+class AsyncAveeClient def token_verdict param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_verdict param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_verdict param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_verdict positional (chain, address)
+class AsyncAveeClient def token_verdict returns m.TokenVerdict
+class AsyncAveeClient def token_verdict_proof param address: str [positional_or_keyword, required]
+class AsyncAveeClient def token_verdict_proof param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def token_verdict_proof param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def token_verdict_proof positional (chain, address)
+class AsyncAveeClient def token_verdict_proof returns m.TokenVerdictProof
+class AsyncAveeClient def tokens param categories: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def tokens param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def tokens param include_instances: bool | None [keyword_only, optional]
+class AsyncAveeClient def tokens param include_market: bool | None [keyword_only, optional]
+class AsyncAveeClient def tokens param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_fdv_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_holders: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_market_cap_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_score: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param max_volume_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_age_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_fdv_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_holders: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_liquidity_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_market_cap_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_score: int | None [keyword_only, optional]
+class AsyncAveeClient def tokens param min_volume_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def tokens param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def tokens param order: str | None [keyword_only, optional]
+class AsyncAveeClient def tokens param q: str | None [keyword_only, optional]
+class AsyncAveeClient def tokens param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def tokens positional ()
+class AsyncAveeClient def tokens returns m.TokenPage
+class AsyncAveeClient def trending param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def trending param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def trending param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def trending param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def trending positional ()
+class AsyncAveeClient def trending returns m.PairPage
+class AsyncAveeClient def wallet_best_trades param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_best_trades param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_best_trades param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def wallet_best_trades param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_best_trades param window: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_best_trades positional (chain, address)
+class AsyncAveeClient def wallet_best_trades returns m.WalletBestTrades
+class AsyncAveeClient def wallet_chart param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_chart param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_chart param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_chart param window: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_chart positional (chain, address)
+class AsyncAveeClient def wallet_chart returns m.WalletChart
+class AsyncAveeClient def wallet_funding param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_funding param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_funding param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_funding positional (chain, address)
+class AsyncAveeClient def wallet_funding returns m.WalletFunding
+class AsyncAveeClient def wallet_labels_batch param addresses: Sequence[str] [keyword_only, required]
+class AsyncAveeClient def wallet_labels_batch param chain: str | int [keyword_only, required]
+class AsyncAveeClient def wallet_labels_batch param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_labels_batch positional ()
+class AsyncAveeClient def wallet_labels_batch returns m.WalletLabelList
+class AsyncAveeClient def wallet_overview param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_overview param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def wallet_overview param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_overview param window: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_overview positional (address)
+class AsyncAveeClient def wallet_overview returns m.WalletOverview
+class AsyncAveeClient def wallet_positions param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_positions param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_positions param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_positions param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def wallet_positions param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_positions param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_positions param state: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_positions positional (chain, address)
+class AsyncAveeClient def wallet_positions returns m.WalletPositionPage
+class AsyncAveeClient def wallet_profile param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_profile param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_profile param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_profile positional (chain, address)
+class AsyncAveeClient def wallet_profile returns m.WalletProfile
+class AsyncAveeClient def wallet_rounds param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_rounds param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_rounds param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_rounds param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def wallet_rounds param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_rounds param state: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_rounds param token: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_rounds positional (chain, address)
+class AsyncAveeClient def wallet_rounds returns m.WalletRoundPage
+class AsyncAveeClient def wallet_stats param chains: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def wallet_stats param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_stats positional ()
+class AsyncAveeClient def wallet_stats returns m.WalletStats
+class AsyncAveeClient def wallet_trades param address: str [positional_or_keyword, required]
+class AsyncAveeClient def wallet_trades param chain: str | int [positional_or_keyword, required]
+class AsyncAveeClient def wallet_trades param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def wallet_trades param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def wallet_trades param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallet_trades positional (chain, address)
+class AsyncAveeClient def wallet_trades returns m.WalletTradePage
+class AsyncAveeClient def wallets param chain: str [keyword_only, required]
+class AsyncAveeClient def wallets param cursor: str | None [keyword_only, optional]
+class AsyncAveeClient def wallets param exclude_bots: bool | None [keyword_only, optional]
+class AsyncAveeClient def wallets param limit: int | None [keyword_only, optional]
+class AsyncAveeClient def wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_total_pnl_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_trades: int | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_user_score: int | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_volume_usd: float | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_win_rate: float | None [keyword_only, optional]
+class AsyncAveeClient def wallets param no_abuse_evidence: bool | None [keyword_only, optional]
+class AsyncAveeClient def wallets param only_copy_eligible: bool | None [keyword_only, optional]
+class AsyncAveeClient def wallets param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def wallets param order: str | None [keyword_only, optional]
+class AsyncAveeClient def wallets param sort: str | None [keyword_only, optional]
+class AsyncAveeClient def wallets param tiers: Sequence[str] | None [keyword_only, optional]
+class AsyncAveeClient def wallets param window: str | None [keyword_only, optional]
+class AsyncAveeClient def wallets positional ()
+class AsyncAveeClient def wallets returns m.WalletPage
+class AsyncAveeClient def x402_discovery param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def x402_discovery positional ()
+class AsyncAveeClient def x402_discovery returns m.X402Discovery
+class AsyncAveeClient(AsyncOperations)
+class AveeAPIError def __init__ param body: str [keyword_only, required]
+class AveeAPIError def __init__ param headers: Mapping[str, str] [keyword_only, required]
+class AveeAPIError def __init__ param method: str [keyword_only, required]
+class AveeAPIError def __init__ param operation: str [keyword_only, required]
+class AveeAPIError def __init__ param paid: bool [keyword_only, required]
+class AveeAPIError def __init__ param payment: PaymentReceipt | None [keyword_only, required]
+class AveeAPIError def __init__ param payment_required: Mapping[str, Any] | None [keyword_only, required]
+class AveeAPIError def __init__ param problem: Mapping[str, Any] | None [keyword_only, required]
+class AveeAPIError def __init__ param rate_limit: RateLimit [keyword_only, required]
+class AveeAPIError def __init__ param retry_after: float | None [keyword_only, required]
+class AveeAPIError def __init__ param status: int [keyword_only, required]
+class AveeAPIError def __init__ param url: str [keyword_only, required]
+class AveeAPIError def __init__ positional ()
+class AveeAPIError def __init__ returns None
+class AveeAPIError property retryable
+class AveeAPIError(AveeError, Exception, BaseException)
+class AveeClient def __init__ param api_key: str | None [keyword_only, optional]
+class AveeClient def __init__ param base_url: str [positional_or_keyword, optional]
+class AveeClient def __init__ param headers: Mapping[str, str] | None [keyword_only, optional]
+class AveeClient def __init__ param http_client: httpx.Client | None [keyword_only, optional]
+class AveeClient def __init__ param max_response_bytes: int [keyword_only, optional]
+class AveeClient def __init__ param max_retries: int [keyword_only, optional]
+class AveeClient def __init__ param max_retry_delay: float [keyword_only, optional]
+class AveeClient def __init__ param payer: Payer | None [keyword_only, optional]
+class AveeClient def __init__ param timeout: float [keyword_only, optional]
+class AveeClient def __init__ positional (base_url)
+class AveeClient def __init__ returns None
+class AveeClient def chains param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def chains positional ()
+class AveeClient def chains returns m.ChainList
+class AveeClient def close positional ()
+class AveeClient def close returns None
+class AveeClient def config param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def config positional ()
+class AveeClient def config returns m.Config
+class AveeClient def deployer_tokens param address: str [positional_or_keyword, required]
+class AveeClient def deployer_tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def deployer_tokens param cursor: str | None [keyword_only, optional]
+class AveeClient def deployer_tokens param limit: int | None [keyword_only, optional]
+class AveeClient def deployer_tokens param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def deployer_tokens positional (address)
+class AveeClient def deployer_tokens returns m.DeployerLaunchPage
+class AveeClient def farm param address: str [positional_or_keyword, required]
+class AveeClient def farm param chain: str | int [positional_or_keyword, required]
+class AveeClient def farm param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def farm positional (chain, address)
+class AveeClient def farm returns m.FarmInfo
+class AveeClient def farms param chains: Sequence[str] [keyword_only, required]
+class AveeClient def farms param cursor: str | None [keyword_only, optional]
+class AveeClient def farms param factories: Sequence[str] | None [keyword_only, optional]
+class AveeClient def farms param limit: int | None [keyword_only, optional]
+class AveeClient def farms param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def farms param order: str | None [keyword_only, optional]
+class AveeClient def farms param q: str | None [keyword_only, optional]
+class AveeClient def farms param sort: str | None [keyword_only, optional]
+class AveeClient def farms positional ()
+class AveeClient def farms returns m.FarmPage
+class AveeClient def iter_deployer_tokens param address: str [positional_or_keyword, required]
+class AveeClient def iter_deployer_tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_deployer_tokens param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_deployer_tokens param limit: int | None [keyword_only, optional]
+class AveeClient def iter_deployer_tokens param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_deployer_tokens positional (address)
+class AveeClient def iter_deployer_tokens returns Iterator[m.PairInfo]
+class AveeClient def iter_farms param chains: Sequence[str] [keyword_only, required]
+class AveeClient def iter_farms param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_farms param factories: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_farms param limit: int | None [keyword_only, optional]
+class AveeClient def iter_farms param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_farms param order: str | None [keyword_only, optional]
+class AveeClient def iter_farms param q: str | None [keyword_only, optional]
+class AveeClient def iter_farms param sort: str | None [keyword_only, optional]
+class AveeClient def iter_farms positional ()
+class AveeClient def iter_farms returns Iterator[m.FarmInfo]
+class AveeClient def iter_launchpad_tokens param chain: str [keyword_only, required]
+class AveeClient def iter_launchpad_tokens param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_launchpad_tokens param launch_status: str | None [keyword_only, optional]
+class AveeClient def iter_launchpad_tokens param launchpads: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_launchpad_tokens param limit: int | None [keyword_only, optional]
+class AveeClient def iter_launchpad_tokens param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_launchpad_tokens positional ()
+class AveeClient def iter_launchpad_tokens returns Iterator[m.PairInfo]
+class AveeClient def iter_pair_trades param address: str [positional_or_keyword, required]
+class AveeClient def iter_pair_trades param chain: str | int [positional_or_keyword, required]
+class AveeClient def iter_pair_trades param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param from_: int | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param limit: int | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param maker: str | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param order: str | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param to: int | None [keyword_only, optional]
+class AveeClient def iter_pair_trades param tx_type: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_pair_trades positional (chain, address)
+class AveeClient def iter_pair_trades returns Iterator[m.Transaction]
+class AveeClient def iter_pairs param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_pairs param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_pairs param dex_names: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_pairs param limit: int | None [keyword_only, optional]
+class AveeClient def iter_pairs param market_type: str | None [keyword_only, optional]
+class AveeClient def iter_pairs param max_age_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_pairs param max_apr: float | None [keyword_only, optional]
+class AveeClient def iter_pairs param max_deployed_pairs: int | None [keyword_only, optional]
+class AveeClient def iter_pairs param max_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def iter_pairs param max_score: int | None [keyword_only, optional]
+class AveeClient def iter_pairs param min_age_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_pairs param min_apr: float | None [keyword_only, optional]
+class AveeClient def iter_pairs param min_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def iter_pairs param min_score: int | None [keyword_only, optional]
+class AveeClient def iter_pairs param only_trustable: bool | None [keyword_only, optional]
+class AveeClient def iter_pairs param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_pairs param order: str | None [keyword_only, optional]
+class AveeClient def iter_pairs param protocols: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_pairs param q: str | None [keyword_only, optional]
+class AveeClient def iter_pairs param sort: str | None [keyword_only, optional]
+class AveeClient def iter_pairs param timeframe: str | None [keyword_only, optional]
+class AveeClient def iter_pairs positional ()
+class AveeClient def iter_pairs returns Iterator[m.PairInfo]
+class AveeClient def iter_pairs_new param chain: str [keyword_only, required]
+class AveeClient def iter_pairs_new param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_pairs_new param limit: int | None [keyword_only, optional]
+class AveeClient def iter_pairs_new param max_age_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_pairs_new param min_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def iter_pairs_new param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_pairs_new positional ()
+class AveeClient def iter_pairs_new returns Iterator[m.PairInfo]
+class AveeClient def iter_perps param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_perps param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_perps param limit: int | None [keyword_only, optional]
+class AveeClient def iter_perps param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_perps param order: str | None [keyword_only, optional]
+class AveeClient def iter_perps param q: str | None [keyword_only, optional]
+class AveeClient def iter_perps param sort: str | None [keyword_only, optional]
+class AveeClient def iter_perps param timeframe: str | None [keyword_only, optional]
+class AveeClient def iter_perps positional ()
+class AveeClient def iter_perps returns Iterator[m.PairInfo]
+class AveeClient def iter_token_holders param address: str [positional_or_keyword, required]
+class AveeClient def iter_token_holders param chain: str | int [positional_or_keyword, required]
+class AveeClient def iter_token_holders param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_token_holders param limit: int | None [keyword_only, optional]
+class AveeClient def iter_token_holders param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_token_holders positional (chain, address)
+class AveeClient def iter_token_holders returns Iterator[m.TokenHolder]
+class AveeClient def iter_token_traders param address: str [positional_or_keyword, required]
+class AveeClient def iter_token_traders param chain: str | int [positional_or_keyword, required]
+class AveeClient def iter_token_traders param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_token_traders param limit: int | None [keyword_only, optional]
+class AveeClient def iter_token_traders param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_token_traders param sort: str | None [keyword_only, optional]
+class AveeClient def iter_token_traders param state: str | None [keyword_only, optional]
+class AveeClient def iter_token_traders positional (chain, address)
+class AveeClient def iter_token_traders returns Iterator[m.TokenTrader]
+class AveeClient def iter_tokens param categories: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_tokens param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_tokens param include_instances: bool | None [keyword_only, optional]
+class AveeClient def iter_tokens param include_market: bool | None [keyword_only, optional]
+class AveeClient def iter_tokens param limit: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_age_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_fdv_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_holders: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_market_cap_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_score: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param max_volume_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_age_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_fdv_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_holders: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_market_cap_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_score: int | None [keyword_only, optional]
+class AveeClient def iter_tokens param min_volume_usd: float | None [keyword_only, optional]
+class AveeClient def iter_tokens param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_tokens param order: str | None [keyword_only, optional]
+class AveeClient def iter_tokens param q: str | None [keyword_only, optional]
+class AveeClient def iter_tokens param sort: str | None [keyword_only, optional]
+class AveeClient def iter_tokens positional ()
+class AveeClient def iter_tokens returns Iterator[m.TokenInfo]
+class AveeClient def iter_trending param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_trending param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_trending param limit: int | None [keyword_only, optional]
+class AveeClient def iter_trending param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_trending positional ()
+class AveeClient def iter_trending returns Iterator[m.PairInfo]
+class AveeClient def iter_wallet_positions param address: str [positional_or_keyword, required]
+class AveeClient def iter_wallet_positions param chain: str | int [positional_or_keyword, required]
+class AveeClient def iter_wallet_positions param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_positions param limit: int | None [keyword_only, optional]
+class AveeClient def iter_wallet_positions param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_wallet_positions param sort: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_positions param state: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_positions positional (chain, address)
+class AveeClient def iter_wallet_positions returns Iterator[m.WalletPosition]
+class AveeClient def iter_wallet_rounds param address: str [positional_or_keyword, required]
+class AveeClient def iter_wallet_rounds param chain: str | int [positional_or_keyword, required]
+class AveeClient def iter_wallet_rounds param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_rounds param limit: int | None [keyword_only, optional]
+class AveeClient def iter_wallet_rounds param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_wallet_rounds param state: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_rounds param token: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_rounds positional (chain, address)
+class AveeClient def iter_wallet_rounds returns Iterator[m.WalletPositionRound]
+class AveeClient def iter_wallet_trades param address: str [positional_or_keyword, required]
+class AveeClient def iter_wallet_trades param chain: str | int [positional_or_keyword, required]
+class AveeClient def iter_wallet_trades param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_wallet_trades param limit: int | None [keyword_only, optional]
+class AveeClient def iter_wallet_trades param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_wallet_trades positional (chain, address)
+class AveeClient def iter_wallet_trades returns Iterator[m.WalletTrade]
+class AveeClient def iter_wallets param chain: str [keyword_only, required]
+class AveeClient def iter_wallets param cursor: str | None [keyword_only, optional]
+class AveeClient def iter_wallets param exclude_bots: bool | None [keyword_only, optional]
+class AveeClient def iter_wallets param limit: int | None [keyword_only, optional]
+class AveeClient def iter_wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_total_pnl_usd: float | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_trades: int | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_user_score: int | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_volume_usd: float | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_win_rate: float | None [keyword_only, optional]
+class AveeClient def iter_wallets param no_abuse_evidence: bool | None [keyword_only, optional]
+class AveeClient def iter_wallets param only_copy_eligible: bool | None [keyword_only, optional]
+class AveeClient def iter_wallets param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def iter_wallets param order: str | None [keyword_only, optional]
+class AveeClient def iter_wallets param sort: str | None [keyword_only, optional]
+class AveeClient def iter_wallets param tiers: Sequence[str] | None [keyword_only, optional]
+class AveeClient def iter_wallets param window: str | None [keyword_only, optional]
+class AveeClient def iter_wallets positional ()
+class AveeClient def iter_wallets returns Iterator[m.WalletListItem]
+class AveeClient def key param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def key positional ()
+class AveeClient def key returns m.KeyInfo
+class AveeClient def launchpad_tokens param chain: str [keyword_only, required]
+class AveeClient def launchpad_tokens param cursor: str | None [keyword_only, optional]
+class AveeClient def launchpad_tokens param launch_status: str | None [keyword_only, optional]
+class AveeClient def launchpad_tokens param launchpads: Sequence[str] | None [keyword_only, optional]
+class AveeClient def launchpad_tokens param limit: int | None [keyword_only, optional]
+class AveeClient def launchpad_tokens param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def launchpad_tokens positional ()
+class AveeClient def launchpad_tokens returns m.PairPage
+class AveeClient def leaderboard param chain: str | None [keyword_only, optional]
+class AveeClient def leaderboard param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def leaderboard param limit: int | None [keyword_only, optional]
+class AveeClient def leaderboard param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def leaderboard param scope: str [keyword_only, required]
+class AveeClient def leaderboard param season: int | None [keyword_only, optional]
+class AveeClient def leaderboard param seasonal: bool | None [keyword_only, optional]
+class AveeClient def leaderboard positional ()
+class AveeClient def leaderboard returns m.Leaderboard
+class AveeClient def oracle_prices param ids: Sequence[str] [keyword_only, required]
+class AveeClient def oracle_prices param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def oracle_prices positional ()
+class AveeClient def oracle_prices returns m.OraclePriceList
+class AveeClient def oracle_prices_at param ids: Sequence[str] [keyword_only, required]
+class AveeClient def oracle_prices_at param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def oracle_prices_at param ts: int [keyword_only, required]
+class AveeClient def oracle_prices_at positional ()
+class AveeClient def oracle_prices_at returns m.OraclePriceList
+class AveeClient def pair param address: str [positional_or_keyword, required]
+class AveeClient def pair param chain: str | int [positional_or_keyword, required]
+class AveeClient def pair param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def pair positional (chain, address)
+class AveeClient def pair returns m.PairInfo
+class AveeClient def pair_batch param items: Sequence[m.PairBatchRef | Mapping[str, Any]] [keyword_only, required]
+class AveeClient def pair_batch param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def pair_batch positional ()
+class AveeClient def pair_batch returns m.PairBatchResponse
+class AveeClient def pair_candles param address: str [positional_or_keyword, required]
+class AveeClient def pair_candles param chain: str | int [positional_or_keyword, required]
+class AveeClient def pair_candles param countback: int | None [keyword_only, optional]
+class AveeClient def pair_candles param currency: str | None [keyword_only, optional]
+class AveeClient def pair_candles param from_: int [keyword_only, required]
+class AveeClient def pair_candles param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def pair_candles param price_from_quote: bool | None [keyword_only, optional]
+class AveeClient def pair_candles param res: str [keyword_only, required]
+class AveeClient def pair_candles param to: int [keyword_only, required]
+class AveeClient def pair_candles param volume_from_quote: bool | None [keyword_only, optional]
+class AveeClient def pair_candles positional (chain, address)
+class AveeClient def pair_candles returns m.ChartCandles
+class AveeClient def pair_trades param address: str [positional_or_keyword, required]
+class AveeClient def pair_trades param chain: str | int [positional_or_keyword, required]
+class AveeClient def pair_trades param cursor: str | None [keyword_only, optional]
+class AveeClient def pair_trades param from_: int | None [keyword_only, optional]
+class AveeClient def pair_trades param limit: int | None [keyword_only, optional]
+class AveeClient def pair_trades param maker: str | None [keyword_only, optional]
+class AveeClient def pair_trades param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def pair_trades param order: str | None [keyword_only, optional]
+class AveeClient def pair_trades param to: int | None [keyword_only, optional]
+class AveeClient def pair_trades param tx_type: Sequence[str] | None [keyword_only, optional]
+class AveeClient def pair_trades positional (chain, address)
+class AveeClient def pair_trades returns m.TradePage
+class AveeClient def pairs param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def pairs param cursor: str | None [keyword_only, optional]
+class AveeClient def pairs param dex_names: Sequence[str] | None [keyword_only, optional]
+class AveeClient def pairs param limit: int | None [keyword_only, optional]
+class AveeClient def pairs param market_type: str | None [keyword_only, optional]
+class AveeClient def pairs param max_age_seconds: int | None [keyword_only, optional]
+class AveeClient def pairs param max_apr: float | None [keyword_only, optional]
+class AveeClient def pairs param max_deployed_pairs: int | None [keyword_only, optional]
+class AveeClient def pairs param max_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def pairs param max_score: int | None [keyword_only, optional]
+class AveeClient def pairs param min_age_seconds: int | None [keyword_only, optional]
+class AveeClient def pairs param min_apr: float | None [keyword_only, optional]
+class AveeClient def pairs param min_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def pairs param min_score: int | None [keyword_only, optional]
+class AveeClient def pairs param only_trustable: bool | None [keyword_only, optional]
+class AveeClient def pairs param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def pairs param order: str | None [keyword_only, optional]
+class AveeClient def pairs param protocols: Sequence[str] | None [keyword_only, optional]
+class AveeClient def pairs param q: str | None [keyword_only, optional]
+class AveeClient def pairs param sort: str | None [keyword_only, optional]
+class AveeClient def pairs param timeframe: str | None [keyword_only, optional]
+class AveeClient def pairs positional ()
+class AveeClient def pairs returns m.PairPage
+class AveeClient def pairs_new param chain: str [keyword_only, required]
+class AveeClient def pairs_new param cursor: str | None [keyword_only, optional]
+class AveeClient def pairs_new param limit: int | None [keyword_only, optional]
+class AveeClient def pairs_new param max_age_seconds: int | None [keyword_only, optional]
+class AveeClient def pairs_new param min_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def pairs_new param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def pairs_new positional ()
+class AveeClient def pairs_new returns m.PairPage
+class AveeClient def perp_history param chain: str | None [keyword_only, optional]
+class AveeClient def perp_history param from_: int | None [keyword_only, optional]
+class AveeClient def perp_history param interval: str | None [keyword_only, optional]
+class AveeClient def perp_history param market: str [positional_or_keyword, required]
+class AveeClient def perp_history param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def perp_history param to: int | None [keyword_only, optional]
+class AveeClient def perp_history positional (market)
+class AveeClient def perp_history returns m.PerpHistory
+class AveeClient def perp_liquidations param chain: str | None [keyword_only, optional]
+class AveeClient def perp_liquidations param from_: int | None [keyword_only, optional]
+class AveeClient def perp_liquidations param market: str | None [keyword_only, optional]
+class AveeClient def perp_liquidations param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def perp_liquidations param to: int | None [keyword_only, optional]
+class AveeClient def perp_liquidations positional ()
+class AveeClient def perp_liquidations returns m.PerpLiquidations
+class AveeClient def perps param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def perps param cursor: str | None [keyword_only, optional]
+class AveeClient def perps param limit: int | None [keyword_only, optional]
+class AveeClient def perps param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def perps param order: str | None [keyword_only, optional]
+class AveeClient def perps param q: str | None [keyword_only, optional]
+class AveeClient def perps param sort: str | None [keyword_only, optional]
+class AveeClient def perps param timeframe: str | None [keyword_only, optional]
+class AveeClient def perps positional ()
+class AveeClient def perps returns m.PairPage
+class AveeClient def search param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def search param limit: int | None [keyword_only, optional]
+class AveeClient def search param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def search param q: str [keyword_only, required]
+class AveeClient def search positional ()
+class AveeClient def search returns m.SearchResponse
+class AveeClient def status param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def status positional ()
+class AveeClient def status returns m.StatusResponse
+class AveeClient def token_batch param items: Sequence[m.TokenBatchRef | Mapping[str, Any]] [keyword_only, required]
+class AveeClient def token_batch param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_batch positional ()
+class AveeClient def token_batch returns m.TokenBatchResponse
+class AveeClient def token_brief param address: str [positional_or_keyword, required]
+class AveeClient def token_brief param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_brief param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_brief positional (chain, address)
+class AveeClient def token_brief returns m.TokenBrief
+class AveeClient def token_by_address param address: str [positional_or_keyword, required]
+class AveeClient def token_by_address param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_by_address param include_instances: bool | None [keyword_only, optional]
+class AveeClient def token_by_address param include_market: bool | None [keyword_only, optional]
+class AveeClient def token_by_address param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_by_address positional (chain, address)
+class AveeClient def token_by_address returns m.TokenInfo
+class AveeClient def token_by_id param id: str [positional_or_keyword, required]
+class AveeClient def token_by_id param include_instances: bool | None [keyword_only, optional]
+class AveeClient def token_by_id param include_market: bool | None [keyword_only, optional]
+class AveeClient def token_by_id param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_by_id positional (id)
+class AveeClient def token_by_id returns m.TokenInfo
+class AveeClient def token_by_slug param include_instances: bool | None [keyword_only, optional]
+class AveeClient def token_by_slug param include_market: bool | None [keyword_only, optional]
+class AveeClient def token_by_slug param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_by_slug param slug: str [positional_or_keyword, required]
+class AveeClient def token_by_slug positional (slug)
+class AveeClient def token_by_slug returns m.TokenInfo
+class AveeClient def token_holders param address: str [positional_or_keyword, required]
+class AveeClient def token_holders param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_holders param cursor: str | None [keyword_only, optional]
+class AveeClient def token_holders param limit: int | None [keyword_only, optional]
+class AveeClient def token_holders param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_holders positional (chain, address)
+class AveeClient def token_holders returns m.TokenHolderPage
+class AveeClient def token_pairs param address: str [positional_or_keyword, required]
+class AveeClient def token_pairs param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_pairs param limit: int | None [keyword_only, optional]
+class AveeClient def token_pairs param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_pairs positional (chain, address)
+class AveeClient def token_pairs returns m.PairPage
+class AveeClient def token_traders param address: str [positional_or_keyword, required]
+class AveeClient def token_traders param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_traders param cursor: str | None [keyword_only, optional]
+class AveeClient def token_traders param limit: int | None [keyword_only, optional]
+class AveeClient def token_traders param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_traders param sort: str | None [keyword_only, optional]
+class AveeClient def token_traders param state: str | None [keyword_only, optional]
+class AveeClient def token_traders positional (chain, address)
+class AveeClient def token_traders returns m.TokenTraderPage
+class AveeClient def token_verdict param address: str [positional_or_keyword, required]
+class AveeClient def token_verdict param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_verdict param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_verdict positional (chain, address)
+class AveeClient def token_verdict returns m.TokenVerdict
+class AveeClient def token_verdict_proof param address: str [positional_or_keyword, required]
+class AveeClient def token_verdict_proof param chain: str | int [positional_or_keyword, required]
+class AveeClient def token_verdict_proof param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def token_verdict_proof positional (chain, address)
+class AveeClient def token_verdict_proof returns m.TokenVerdictProof
+class AveeClient def tokens param categories: Sequence[str] | None [keyword_only, optional]
+class AveeClient def tokens param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def tokens param cursor: str | None [keyword_only, optional]
+class AveeClient def tokens param include_instances: bool | None [keyword_only, optional]
+class AveeClient def tokens param include_market: bool | None [keyword_only, optional]
+class AveeClient def tokens param limit: int | None [keyword_only, optional]
+class AveeClient def tokens param max_age_seconds: int | None [keyword_only, optional]
+class AveeClient def tokens param max_fdv_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param max_holders: int | None [keyword_only, optional]
+class AveeClient def tokens param max_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param max_market_cap_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param max_score: int | None [keyword_only, optional]
+class AveeClient def tokens param max_volume_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param min_age_seconds: int | None [keyword_only, optional]
+class AveeClient def tokens param min_fdv_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param min_holders: int | None [keyword_only, optional]
+class AveeClient def tokens param min_liquidity_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param min_market_cap_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param min_score: int | None [keyword_only, optional]
+class AveeClient def tokens param min_volume_usd: float | None [keyword_only, optional]
+class AveeClient def tokens param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def tokens param order: str | None [keyword_only, optional]
+class AveeClient def tokens param q: str | None [keyword_only, optional]
+class AveeClient def tokens param sort: str | None [keyword_only, optional]
+class AveeClient def tokens positional ()
+class AveeClient def tokens returns m.TokenPage
+class AveeClient def trending param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def trending param cursor: str | None [keyword_only, optional]
+class AveeClient def trending param limit: int | None [keyword_only, optional]
+class AveeClient def trending param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def trending positional ()
+class AveeClient def trending returns m.PairPage
+class AveeClient def wallet_best_trades param address: str [positional_or_keyword, required]
+class AveeClient def wallet_best_trades param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_best_trades param limit: int | None [keyword_only, optional]
+class AveeClient def wallet_best_trades param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_best_trades param window: str | None [keyword_only, optional]
+class AveeClient def wallet_best_trades positional (chain, address)
+class AveeClient def wallet_best_trades returns m.WalletBestTrades
+class AveeClient def wallet_chart param address: str [positional_or_keyword, required]
+class AveeClient def wallet_chart param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_chart param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_chart param window: str | None [keyword_only, optional]
+class AveeClient def wallet_chart positional (chain, address)
+class AveeClient def wallet_chart returns m.WalletChart
+class AveeClient def wallet_funding param address: str [positional_or_keyword, required]
+class AveeClient def wallet_funding param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_funding param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_funding positional (chain, address)
+class AveeClient def wallet_funding returns m.WalletFunding
+class AveeClient def wallet_labels_batch param addresses: Sequence[str] [keyword_only, required]
+class AveeClient def wallet_labels_batch param chain: str | int [keyword_only, required]
+class AveeClient def wallet_labels_batch param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_labels_batch positional ()
+class AveeClient def wallet_labels_batch returns m.WalletLabelList
+class AveeClient def wallet_overview param address: str [positional_or_keyword, required]
+class AveeClient def wallet_overview param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def wallet_overview param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_overview param window: str | None [keyword_only, optional]
+class AveeClient def wallet_overview positional (address)
+class AveeClient def wallet_overview returns m.WalletOverview
+class AveeClient def wallet_positions param address: str [positional_or_keyword, required]
+class AveeClient def wallet_positions param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_positions param cursor: str | None [keyword_only, optional]
+class AveeClient def wallet_positions param limit: int | None [keyword_only, optional]
+class AveeClient def wallet_positions param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_positions param sort: str | None [keyword_only, optional]
+class AveeClient def wallet_positions param state: str | None [keyword_only, optional]
+class AveeClient def wallet_positions positional (chain, address)
+class AveeClient def wallet_positions returns m.WalletPositionPage
+class AveeClient def wallet_profile param address: str [positional_or_keyword, required]
+class AveeClient def wallet_profile param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_profile param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_profile positional (chain, address)
+class AveeClient def wallet_profile returns m.WalletProfile
+class AveeClient def wallet_rounds param address: str [positional_or_keyword, required]
+class AveeClient def wallet_rounds param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_rounds param cursor: str | None [keyword_only, optional]
+class AveeClient def wallet_rounds param limit: int | None [keyword_only, optional]
+class AveeClient def wallet_rounds param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_rounds param state: str | None [keyword_only, optional]
+class AveeClient def wallet_rounds param token: str | None [keyword_only, optional]
+class AveeClient def wallet_rounds positional (chain, address)
+class AveeClient def wallet_rounds returns m.WalletRoundPage
+class AveeClient def wallet_stats param chains: Sequence[str] | None [keyword_only, optional]
+class AveeClient def wallet_stats param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_stats positional ()
+class AveeClient def wallet_stats returns m.WalletStats
+class AveeClient def wallet_trades param address: str [positional_or_keyword, required]
+class AveeClient def wallet_trades param chain: str | int [positional_or_keyword, required]
+class AveeClient def wallet_trades param cursor: str | None [keyword_only, optional]
+class AveeClient def wallet_trades param limit: int | None [keyword_only, optional]
+class AveeClient def wallet_trades param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallet_trades positional (chain, address)
+class AveeClient def wallet_trades returns m.WalletTradePage
+class AveeClient def wallets param chain: str [keyword_only, required]
+class AveeClient def wallets param cursor: str | None [keyword_only, optional]
+class AveeClient def wallets param exclude_bots: bool | None [keyword_only, optional]
+class AveeClient def wallets param limit: int | None [keyword_only, optional]
+class AveeClient def wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AveeClient def wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
+class AveeClient def wallets param min_total_pnl_usd: float | None [keyword_only, optional]
+class AveeClient def wallets param min_trades: int | None [keyword_only, optional]
+class AveeClient def wallets param min_user_score: int | None [keyword_only, optional]
+class AveeClient def wallets param min_volume_usd: float | None [keyword_only, optional]
+class AveeClient def wallets param min_win_rate: float | None [keyword_only, optional]
+class AveeClient def wallets param no_abuse_evidence: bool | None [keyword_only, optional]
+class AveeClient def wallets param only_copy_eligible: bool | None [keyword_only, optional]
+class AveeClient def wallets param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def wallets param order: str | None [keyword_only, optional]
+class AveeClient def wallets param sort: str | None [keyword_only, optional]
+class AveeClient def wallets param tiers: Sequence[str] | None [keyword_only, optional]
+class AveeClient def wallets param window: str | None [keyword_only, optional]
+class AveeClient def wallets positional ()
+class AveeClient def wallets returns m.WalletPage
+class AveeClient def x402_discovery param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def x402_discovery positional ()
+class AveeClient def x402_discovery returns m.X402Discovery
+class AveeClient(SyncOperations)
+class AveeConnectionError(AveeError, Exception, BaseException)
+class AveeError(Exception, BaseException)
+class AveePaymentError def __init__ param message: str [positional_or_keyword, required]
+class AveePaymentError def __init__ param operation: str [positional_or_keyword, required]
+class AveePaymentError def __init__ param payment_required: Mapping[str, Any] | None [positional_or_keyword, optional]
+class AveePaymentError def __init__ positional (message, operation, payment_required)
+class AveePaymentError def __init__ returns None
+class AveePaymentError(AveeError, Exception, BaseException)
+class AveeTimeoutError(AveeError, Exception, BaseException)
+class AveeValidationError(AveeError, ValueError, Exception, BaseException)
+class models.Address()
+class models.CanonicalTokenStatus attribute COMMUNITY: Final
+class models.CanonicalTokenStatus attribute DELISTED: Final
+class models.CanonicalTokenStatus attribute HONEYPOT: Final
+class models.CanonicalTokenStatus attribute SCAM: Final
+class models.CanonicalTokenStatus attribute UNKNOWN: Final
+class models.CanonicalTokenStatus attribute VERIFIED: Final
+class models.CanonicalTokenStatus()
+class models.ChainSlug()
+class models.DecimalString()
+class models.DeployerStatus()
+class models.ErrorCode attribute CHAIN_NOT_FOUND: Final
+class models.ErrorCode attribute INTERNAL: Final
+class models.ErrorCode attribute INVALID_API_KEY: Final
+class models.ErrorCode attribute INVALID_PARAM: Final
+class models.ErrorCode attribute KEY_IN_QUERY: Final
+class models.ErrorCode attribute NOT_FOUND: Final
+class models.ErrorCode attribute PLAN_REQUIRED: Final
+class models.ErrorCode attribute RATE_LIMITED: Final
+class models.ErrorCode attribute UPSTREAM_TIMEOUT: Final
+class models.ErrorCode attribute UPSTREAM_UNAVAILABLE: Final
+class models.ErrorCode()
+class models.FactoryType attribute BALANCER_V2: Final
+class models.FactoryType attribute CURVE_V2: Final
+class models.FactoryType attribute DEDUST_V1: Final
+class models.FactoryType attribute DEDUST_V2: Final
+class models.FactoryType attribute HYPERLIQUID: Final
+class models.FactoryType attribute STONFI_V1: Final
+class models.FactoryType attribute STONFI_V2: Final
+class models.FactoryType attribute UNISWAP_V2: Final
+class models.FactoryType attribute UNISWAP_V3: Final
+class models.FactoryType attribute UNISWAP_V4: Final
+class models.FactoryType attribute URANUS_V1: Final
+class models.FactoryType()
+class models.FarmSortBy attribute APR: Final
+class models.FarmSortBy attribute TVL: Final
+class models.FarmSortBy attribute UPDATED_AT: Final
+class models.FarmSortBy()
+class models.FarmStatus attribute UNVERIFIED: Final
+class models.FarmStatus attribute VERIFIED: Final
+class models.FarmStatus()
+class models.LaunchStatus attribute BONDING: Final
+class models.LaunchStatus attribute GRADUATED: Final
+class models.LaunchStatus attribute NEW: Final
+class models.LaunchStatus()
+class models.LeaderboardScope attribute CHAINS: Final
+class models.LeaderboardScope attribute PROTOCOLS: Final
+class models.LeaderboardScope()
+class models.MarketType attribute ANY: Final
+class models.MarketType attribute PERP: Final
+class models.MarketType attribute SPOT: Final
+class models.MarketType()
+class models.NonNegativeDecimalString()
+class models.OrderBy attribute ASC: Final
+class models.OrderBy attribute DESC: Final
+class models.OrderBy()
+class models.PairStatus attribute ACTIVE: Final
+class models.PairStatus attribute SCAM: Final
+class models.PairStatus attribute UNRESOLVED: Final
+class models.PairStatus attribute VERIFIED: Final
+class models.PairStatus()
+class models.PerpSortBy attribute CREATED_AT: Final
+class models.PerpSortBy attribute PRICE_CHANGE: Final
+class models.PerpSortBy attribute TRANSACTIONS: Final
+class models.PerpSortBy attribute TRENDING: Final
+class models.PerpSortBy attribute VOLUME: Final
+class models.PerpSortBy()
+class models.Plan attribute ENTERPRISE: Final
+class models.Plan attribute FREE: Final
+class models.Plan attribute STARTUP: Final
+class models.Plan attribute UNICORN: Final
+class models.Plan()
+class models.PositionSortBy attribute HOLD: Final
+class models.PositionSortBy attribute REALIZED_PNL: Final
+class models.PositionSortBy attribute TOKEN: Final
+class models.PositionSortBy attribute UNREALIZED_PNL: Final
+class models.PositionSortBy()
+class models.PositionState attribute ANY: Final
+class models.PositionState attribute CLOSED: Final
+class models.PositionState attribute OPEN: Final
+class models.PositionState()
+class models.ReasonSlug attribute DEPLOYER_RUG: Final
+class models.ReasonSlug attribute DUPLICATE_SYMBOL: Final
+class models.ReasonSlug attribute HIGH_TAX: Final
+class models.ReasonSlug attribute HONEYPOT: Final
+class models.ReasonSlug attribute LP_UNLOCKED: Final
+class models.ReasonSlug attribute OWNER_CAN_MINT: Final
+class models.ReasonSlug attribute SELL_BLOCKED: Final
+class models.ReasonSlug attribute UNRESOLVED_METADATA: Final
+class models.ReasonSlug()
+class models.ResolutionType attribute D1: Final
+class models.ResolutionType attribute H12: Final
+class models.ResolutionType attribute H1: Final
+class models.ResolutionType attribute H2: Final
+class models.ResolutionType attribute H4: Final
+class models.ResolutionType attribute H6: Final
+class models.ResolutionType attribute M1: Final
+class models.ResolutionType attribute M6: Final
+class models.ResolutionType attribute N15: Final
+class models.ResolutionType attribute N1: Final
+class models.ResolutionType attribute N30: Final
+class models.ResolutionType attribute N3: Final
+class models.ResolutionType attribute N45: Final
+class models.ResolutionType attribute N5: Final
+class models.ResolutionType attribute W1: Final
+class models.ResolutionType attribute Y1: Final
+class models.ResolutionType()
+class models.RiskSignalGroup attribute CANNOT_EXIT: Final
+class models.RiskSignalGroup attribute CAN_BE_SEIZED: Final
+class models.RiskSignalGroup attribute EXIT_IS_TAXED: Final
+class models.RiskSignalGroup attribute LIQUIDITY_CAN_LEAVE: Final
+class models.RiskSignalGroup attribute OPERATOR_RECORD: Final
+class models.RiskSignalGroup attribute UNVERIFIED: Final
+class models.RiskSignalGroup()
+class models.RiskSignalKind()
+class models.RiskSignalSeverity attribute CRITICAL: Final
+class models.RiskSignalSeverity attribute INFO: Final
+class models.RiskSignalSeverity attribute WARNING: Final
+class models.RiskSignalSeverity()
+class models.SortBy attribute APR: Final
+class models.SortBy attribute CREATED_AT: Final
+class models.SortBy attribute HOTTEST: Final
+class models.SortBy attribute LIQUIDITY: Final
+class models.SortBy attribute POPULAR: Final
+class models.SortBy attribute PRICE_CHANGE: Final
+class models.SortBy attribute SCORE: Final
+class models.SortBy attribute TRANSACTIONS: Final
+class models.SortBy attribute TRENDING: Final
+class models.SortBy attribute UPDATED_AT: Final
+class models.SortBy attribute VOLUME: Final
+class models.SortBy()
+class models.TimeFrame attribute H1: Final
+class models.TimeFrame attribute H24: Final
+class models.TimeFrame attribute H6: Final
+class models.TimeFrame attribute M5: Final
+class models.TimeFrame()
+class models.TokenAddress()
+class models.TokenCategory attribute DEFAULT: Final
+class models.TokenCategory attribute MEME: Final
+class models.TokenCategory attribute NATIVE: Final
+class models.TokenCategory attribute STABLECOIN_USD: Final
+class models.TokenCategory attribute UNKNOWN: Final
+class models.TokenCategory attribute WRAPPED: Final
+class models.TokenCategory()
+class models.TokenSortBy attribute CREATED_AT: Final
+class models.TokenSortBy attribute FDV: Final
+class models.TokenSortBy attribute HOLDERS: Final
+class models.TokenSortBy attribute LIQUIDITY: Final
+class models.TokenSortBy attribute MARKET_CAP: Final
+class models.TokenSortBy attribute PRICE_CHANGE: Final
+class models.TokenSortBy attribute RATING: Final
+class models.TokenSortBy attribute TXNS: Final
+class models.TokenSortBy attribute VOLUME: Final
+class models.TokenSortBy()
+class models.TokenStatus attribute ACTIVE: Final
+class models.TokenStatus attribute SCAM: Final
+class models.TokenStatus attribute UNRESOLVED: Final
+class models.TokenStatus attribute VERIFIED: Final
+class models.TokenStatus()
+class models.TokenTraderSortBy attribute BOUGHT: Final
+class models.TokenTraderSortBy attribute HOLDING: Final
+class models.TokenTraderSortBy attribute REALIZED_PNL: Final
+class models.TokenTraderSortBy()
+class models.TxType attribute ADD_LIQUIDITY: Final
+class models.TxType attribute ALL: Final
+class models.TxType attribute BURN: Final
+class models.TxType attribute BUY: Final
+class models.TxType attribute MINT: Final
+class models.TxType attribute REMOVE_LIQUIDITY: Final
+class models.TxType attribute SELL: Final
+class models.TxType()
+class models.VerdictStatus attribute BLOCKED: Final
+class models.VerdictStatus attribute OK: Final
+class models.VerdictStatus attribute UNKNOWN: Final
+class models.VerdictStatus attribute WATCH: Final
+class models.VerdictStatus()
+class models.WalletSortBy attribute REALIZED_PNL: Final
+class models.WalletSortBy attribute TOTAL_PNL: Final
+class models.WalletSortBy attribute TRADES: Final
+class models.WalletSortBy attribute USER_SCORE: Final
+class models.WalletSortBy attribute VOLUME: Final
+class models.WalletSortBy attribute WIN_RATE: Final
+class models.WalletSortBy()
+class models.WalletTier()
+class models.WalletType attribute HUMAN: Final
+class models.WalletType attribute ROBOT: Final
+class models.WalletType attribute UNKNOWN: Final
+class models.WalletType()
+class models.WalletWindow attribute ALL: Final
+class models.WalletWindow attribute D1: Final
+class models.WalletWindow attribute D30: Final
+class models.WalletWindow attribute D7: Final
+class models.WalletWindow attribute Y1: Final
+class models.WalletWindow()
+const DEFAULT_BASE_URL = 'https://api.preview.avee.tech/api/v1'
+const OPERATIONS item ('chains', 'GET', '/chains', 'meta')
+const OPERATIONS item ('config', 'GET', '/config', 'meta')
+const OPERATIONS item ('deployerTokens', 'GET', '/deployers/{address}/tokens', 'dex')
+const OPERATIONS item ('farm', 'GET', '/chains/{chain}/farms/{address}', 'farm')
+const OPERATIONS item ('farms', 'GET', '/farms', 'farm')
+const OPERATIONS item ('key', 'GET', '/key', 'meta')
+const OPERATIONS item ('launchpadTokens', 'GET', '/launchpads/tokens', 'dex')
+const OPERATIONS item ('leaderboard', 'GET', '/leaderboard', 'wallet')
+const OPERATIONS item ('oraclePrices', 'GET', '/prices', 'oracle')
+const OPERATIONS item ('oraclePricesAt', 'GET', '/prices/at', 'oracle')
+const OPERATIONS item ('pair', 'GET', '/chains/{chain}/pairs/{address}', 'dex')
+const OPERATIONS item ('pairBatch', 'POST', '/pairs/batch', 'dex')
+const OPERATIONS item ('pairCandles', 'GET', '/chains/{chain}/pairs/{address}/candles', 'dex')
+const OPERATIONS item ('pairTrades', 'GET', '/chains/{chain}/pairs/{address}/trades', 'dex')
+const OPERATIONS item ('pairs', 'GET', '/pairs', 'dex')
+const OPERATIONS item ('pairsNew', 'GET', '/pairs/new', 'dex')
+const OPERATIONS item ('perpHistory', 'GET', '/perps/{market}/history', 'dex')
+const OPERATIONS item ('perpLiquidations', 'GET', '/perps/liquidations', 'dex')
+const OPERATIONS item ('perps', 'GET', '/perps', 'dex')
+const OPERATIONS item ('search', 'GET', '/search', 'dex')
+const OPERATIONS item ('status', 'GET', '/status', 'meta')
+const OPERATIONS item ('tokenBatch', 'POST', '/tokens/batch', 'token')
+const OPERATIONS item ('tokenBrief', 'GET', '/chains/{chain}/tokens/{address}/brief', 'token')
+const OPERATIONS item ('tokenByAddress', 'GET', '/chains/{chain}/tokens/{address}', 'token')
+const OPERATIONS item ('tokenByID', 'GET', '/tokens/{id}', 'token')
+const OPERATIONS item ('tokenBySlug', 'GET', '/tokens/by-slug/{slug}', 'token')
+const OPERATIONS item ('tokenHolders', 'GET', '/chains/{chain}/tokens/{address}/holders', 'token')
+const OPERATIONS item ('tokenPairs', 'GET', '/chains/{chain}/tokens/{address}/pairs', 'token')
+const OPERATIONS item ('tokenTraders', 'GET', '/chains/{chain}/tokens/{address}/traders', 'token')
+const OPERATIONS item ('tokenVerdict', 'GET', '/chains/{chain}/tokens/{address}/verdict', 'token')
+const OPERATIONS item ('tokenVerdictProof', 'GET', '/chains/{chain}/tokens/{address}/proof', 'token')
+const OPERATIONS item ('tokens', 'GET', '/tokens', 'token')
+const OPERATIONS item ('trending', 'GET', '/trending', 'dex')
+const OPERATIONS item ('walletBestTrades', 'GET', '/chains/{chain}/wallets/{address}/best-trades', 'wallet')
+const OPERATIONS item ('walletChart', 'GET', '/chains/{chain}/wallets/{address}/chart', 'wallet')
+const OPERATIONS item ('walletFunding', 'GET', '/chains/{chain}/wallets/{address}/funding', 'wallet')
+const OPERATIONS item ('walletLabelsBatch', 'POST', '/wallets/labels/batch', 'wallet')
+const OPERATIONS item ('walletOverview', 'GET', '/wallets/{address}/overview', 'wallet')
+const OPERATIONS item ('walletPositions', 'GET', '/chains/{chain}/wallets/{address}/positions', 'wallet')
+const OPERATIONS item ('walletProfile', 'GET', '/chains/{chain}/wallets/{address}', 'wallet')
+const OPERATIONS item ('walletRounds', 'GET', '/chains/{chain}/wallets/{address}/rounds', 'wallet')
+const OPERATIONS item ('walletStats', 'GET', '/wallets/stats', 'wallet')
+const OPERATIONS item ('walletTrades', 'GET', '/chains/{chain}/wallets/{address}/trades', 'wallet')
+const OPERATIONS item ('wallets', 'GET', '/wallets', 'wallet')
+const OPERATIONS item ('x402Discovery', 'GET', '/.well-known/x402', 'meta')
+const PREVIEW_BASE_URL = 'https://api.preview.avee.tech/api/v1'
+dataclass PaymentContext field method: str [required]
+dataclass PaymentContext field operation: str [required]
+dataclass PaymentContext field payment_id: str [required]
+dataclass PaymentContext field required: PaymentRequired [required]
+dataclass PaymentContext field requirement: PaymentRequirements [required]
+dataclass PaymentContext field url: str [required]
+dataclass PaymentContext()
+dataclass PaymentReceipt field error_reason: str | None [optional]
+dataclass PaymentReceipt field network: str [required]
+dataclass PaymentReceipt field payer: str | None [optional]
+dataclass PaymentReceipt field success: bool [required]
+dataclass PaymentReceipt field transaction: str [required]
+dataclass PaymentReceipt()
+dataclass PaymentSignature field header: str | None [optional]
+dataclass PaymentSignature field payload: Mapping[str, Any] | None [optional]
+dataclass PaymentSignature()
+dataclass RateLimit field limit: int | None [optional]
+dataclass RateLimit field policy: str | None [optional]
+dataclass RateLimit field remaining: int | None [optional]
+dataclass RateLimit field reset_seconds: int | None [optional]
+dataclass RateLimit field retry_after_seconds: float | None [optional]
+dataclass RateLimit()
+dataclass RequestOptions field max_pages: int | None [optional]
+dataclass RequestOptions()
+dataclass ResponseInfo field operation: str [required]
+dataclass ResponseInfo field payment: PaymentReceipt | None [required]
+dataclass ResponseInfo field rate_limit: RateLimit [required]
+dataclass ResponseInfo field request_id: str | None [required]
+dataclass ResponseInfo field status: int [required]
+dataclass ResponseInfo()
+dataclass models.BriefDeployer field address: Address [required]
+dataclass models.BriefDeployer field launches: int [required]
+dataclass models.BriefDeployer field rugs: int [required]
+dataclass models.BriefDeployer field status: DeployerStatus [required]
+dataclass models.BriefDeployer()
+dataclass models.BriefHolders field count: int [required]
+dataclass models.BriefHolders field top10_pct: float [required]
+dataclass models.BriefHolders()
+dataclass models.BriefLiquidity field burned_pct: float [required]
+dataclass models.BriefLiquidity field earliest_unlock_at: str | None [optional]
+dataclass models.BriefLiquidity field locked_pct: float [required]
+dataclass models.BriefLiquidity field onchain_usd: float [required]
+dataclass models.BriefLiquidity field usd: float [required]
+dataclass models.BriefLiquidity()
+dataclass models.BriefMarket field best_pair: Address [required]
+dataclass models.BriefMarket field change_24h: float [required]
+dataclass models.BriefMarket field dex: str [required]
+dataclass models.BriefMarket field price_usd: float [required]
+dataclass models.BriefMarket field trades_24h: int [required]
+dataclass models.BriefMarket field volume_24h: float [required]
+dataclass models.BriefMarket()
+dataclass models.BriefScore field signals: list[BriefSignal] [required]
+dataclass models.BriefScore field title: str [required]
+dataclass models.BriefScore field value: int [required]
+dataclass models.BriefScore()
+dataclass models.BriefSignal field kind: RiskSignalKind [required]
+dataclass models.BriefSignal field weight: float [required]
+dataclass models.BriefSignal()
+dataclass models.ChainInfo field block_lag_seconds: int [required]
+dataclass models.ChainInfo field chain_id: int [required]
+dataclass models.ChainInfo field deployer_abusers: int | None [optional]
+dataclass models.ChainInfo field deployers_total: int | None [optional]
+dataclass models.ChainInfo field dex_names: list[str] | None [optional]
+dataclass models.ChainInfo field display_name: str | None [optional]
+dataclass models.ChainInfo field explorer_url: str | None [optional]
+dataclass models.ChainInfo field gainer: ChainMover | None [optional]
+dataclass models.ChainInfo field head_block: int | None [optional]
+dataclass models.ChainInfo field latest_block: int [required]
+dataclass models.ChainInfo field liquidity_usd: float | None [optional]
+dataclass models.ChainInfo field loser: ChainMover | None [optional]
+dataclass models.ChainInfo field metrics_stale: bool | None [optional]
+dataclass models.ChainInfo field min_liquidity_usd: float | None [optional]
+dataclass models.ChainInfo field native_address_format: str | None [optional]
+dataclass models.ChainInfo field new_deployers_24h: int | None [optional]
+dataclass models.ChainInfo field new_pairs_24h: int | None [optional]
+dataclass models.ChainInfo field new_pairs_24h_total: int | None [optional]
+dataclass models.ChainInfo field pairs: int | None [optional]
+dataclass models.ChainInfo field protocols: list[str] [required]
+dataclass models.ChainInfo field quality_liquidity_usd: float | None [optional]
+dataclass models.ChainInfo field scams_24h: int | None [optional]
+dataclass models.ChainInfo field scams_inherited: int | None [optional]
+dataclass models.ChainInfo field scams_on_pool: int | None [optional]
+dataclass models.ChainInfo field scams_total: int | None [optional]
+dataclass models.ChainInfo field slug: ChainSlug [required]
+dataclass models.ChainInfo field syncing: bool | None [optional]
+dataclass models.ChainInfo field txns_24h: int | None [optional]
+dataclass models.ChainInfo field volume_24h_usd: float | None [optional]
+dataclass models.ChainInfo()
+dataclass models.ChainList field items: list[ChainInfo] [required]
+dataclass models.ChainList()
+dataclass models.ChainMover field pair_address: Address [required]
+dataclass models.ChainMover field ticker: str [required]
+dataclass models.ChainMover field value: float [required]
+dataclass models.ChainMover()
+dataclass models.ChainRef field chain_id: int [required]
+dataclass models.ChainRef field slug: ChainSlug [required]
+dataclass models.ChainRef()
+dataclass models.ChainWalletStats field active_wallets_24h: int | None [optional]
+dataclass models.ChainWalletStats field bot_wallets: int | None [optional]
+dataclass models.ChainWalletStats field chain: ChainRef [required]
+dataclass models.ChainWalletStats field copy_eligible: int | None [optional]
+dataclass models.ChainWalletStats field favorite_token_24h: TokenMover | None [optional]
+dataclass models.ChainWalletStats field human_wallets: int | None [optional]
+dataclass models.ChainWalletStats field losing_wallets_24h: int | None [optional]
+dataclass models.ChainWalletStats field new_wallets_24h: int | None [optional]
+dataclass models.ChainWalletStats field profitable_wallets_24h: int | None [optional]
+dataclass models.ChainWalletStats field realized_pnl_24h: float | None [optional]
+dataclass models.ChainWalletStats field scammers_24h: int | None [optional]
+dataclass models.ChainWalletStats field scammers_total: int | None [optional]
+dataclass models.ChainWalletStats field snipers: int | None [optional]
+dataclass models.ChainWalletStats field top_gainer_24h: WalletMover | None [optional]
+dataclass models.ChainWalletStats field top_loser_24h: WalletMover | None [optional]
+dataclass models.ChainWalletStats field trades_24h: int | None [optional]
+dataclass models.ChainWalletStats field volume_24h: float | None [optional]
+dataclass models.ChainWalletStats field wallets_total: int | None [optional]
+dataclass models.ChainWalletStats field wash_traders: int | None [optional]
+dataclass models.ChainWalletStats()
+dataclass models.ChartCandles field c: list[float] [required]
+dataclass models.ChartCandles field err_msg: str | None [optional]
+dataclass models.ChartCandles field h: list[float] [required]
+dataclass models.ChartCandles field l: list[float] [required]
+dataclass models.ChartCandles field o: list[float] [required]
+dataclass models.ChartCandles field s: str [required]
+dataclass models.ChartCandles field t: list[int] [required]
+dataclass models.ChartCandles field v: list[float] [required]
+dataclass models.ChartCandles()
+dataclass models.Config field chains: list[ChainInfo] [required]
+dataclass models.Config field min_liquidity_usd: float [required]
+dataclass models.Config field resolutions: list[str] [required]
+dataclass models.Config field sort_options: list[str] [required]
+dataclass models.Config field timeframes: list[str] [required]
+dataclass models.Config field tx_types: list[str] [required]
+dataclass models.Config()
+dataclass models.DeployerCard field address: Address [required]
+dataclass models.DeployerCard field chains: list[ChainSlug] [required]
+dataclass models.DeployerCard field first_launch_at: str | None [optional]
+dataclass models.DeployerCard field last_launch_at: str | None [optional]
+dataclass models.DeployerCard field pairs_honeypot: int [required]
+dataclass models.DeployerCard field pairs_rugged: int [required]
+dataclass models.DeployerCard field pairs_scam: int [required]
+dataclass models.DeployerCard field pairs_total: int [required]
+dataclass models.DeployerCard field reputation: DeployerReputation | None [optional]
+dataclass models.DeployerCard()
+dataclass models.DeployerLaunchPage field deployer: DeployerCard | None [optional]
+dataclass models.DeployerLaunchPage field items: list[PairInfo] [required]
+dataclass models.DeployerLaunchPage field next_cursor: str | None [optional]
+dataclass models.DeployerLaunchPage field prev_cursor: str | None [optional]
+dataclass models.DeployerLaunchPage()
+dataclass models.DeployerReputation field abused_launches: int | None [optional]
+dataclass models.DeployerReputation field first_seen_at: str | None [optional]
+dataclass models.DeployerReputation field pairs_created: int | None [optional]
+dataclass models.DeployerReputation field score: int [required]
+dataclass models.DeployerReputation field status: DeployerStatus [required]
+dataclass models.DeployerReputation()
+dataclass models.Dex field chain_id: int [required]
+dataclass models.Dex field factory: Address [required]
+dataclass models.Dex field factory_type: str | None [optional]
+dataclass models.Dex field lp_token_symbol: str [required]
+dataclass models.Dex field name: str [required]
+dataclass models.Dex()
+dataclass models.EthereumTxData field block_number: int [required]
+dataclass models.EthereumTxData field fee_usd: float [required]
+dataclass models.EthereumTxData field gas_used: int [required]
+dataclass models.EthereumTxData field log_index: int [required]
+dataclass models.EthereumTxData()
+dataclass models.FarmApr field base_apr: DecimalString [required]
+dataclass models.FarmApr field lp_reward_apr: DecimalString [required]
+dataclass models.FarmApr()
+dataclass models.FarmFactory field address: Address [required]
+dataclass models.FarmFactory field name: str [required]
+dataclass models.FarmFactory()
+dataclass models.FarmInfo field address: Address [required]
+dataclass models.FarmInfo field apr_daily: FarmApr [required]
+dataclass models.FarmInfo field apr_year: FarmApr [required]
+dataclass models.FarmInfo field data_quality_flags: list[str] | None [optional]
+dataclass models.FarmInfo field factory: FarmFactory | None [optional]
+dataclass models.FarmInfo field lifecycle_state: str | None [optional]
+dataclass models.FarmInfo field network: ChainRef [required]
+dataclass models.FarmInfo field pid: int [required]
+dataclass models.FarmInfo field reward_token: FarmRewardToken [required]
+dataclass models.FarmInfo field status: str [required]
+dataclass models.FarmInfo field ticker: str [required]
+dataclass models.FarmInfo field tvl: DecimalString [required]
+dataclass models.FarmInfo field updated_at: str [required]
+dataclass models.FarmInfo()
+dataclass models.FarmPage field items: list[FarmInfo] [required]
+dataclass models.FarmPage field next_cursor: str | None [optional]
+dataclass models.FarmPage field prev_cursor: str | None [optional]
+dataclass models.FarmPage()
+dataclass models.FarmRewardToken field address: Address [required]
+dataclass models.FarmRewardToken field chain_id: int [required]
+dataclass models.FarmRewardToken field name: str [required]
+dataclass models.FarmRewardToken field symbol: str [required]
+dataclass models.FarmRewardToken()
+dataclass models.FloatTimeframes field h1: float [required]
+dataclass models.FloatTimeframes field h24: float [required]
+dataclass models.FloatTimeframes field h6: float [required]
+dataclass models.FloatTimeframes field m5: float [required]
+dataclass models.FloatTimeframes()
+dataclass models.KeyInfo field max_limit: int | None [optional]
+dataclass models.KeyInfo field name: str [required]
+dataclass models.KeyInfo field plan: str [required]
+dataclass models.KeyInfo field rate_limit: KeyInfoRateLimit [required]
+dataclass models.KeyInfo()
+dataclass models.KeyInfoRateLimit field burst: int [required]
+dataclass models.KeyInfoRateLimit field max_concurrent_requests: int | None [optional]
+dataclass models.KeyInfoRateLimit field requests_per_second: int [required]
+dataclass models.KeyInfoRateLimit()
+dataclass models.Leaderboard field excluded: list[LeaderboardEntity] | None [optional]
+dataclass models.Leaderboard field items: list[LeaderboardEntity] [required]
+dataclass models.Leaderboard field methodology_version: int | None [optional]
+dataclass models.Leaderboard field population: int | None [optional]
+dataclass models.Leaderboard field scope: str [required]
+dataclass models.Leaderboard field season: LeaderboardSeason | None [optional]
+dataclass models.Leaderboard field snapshot_at: str | None [optional]
+dataclass models.Leaderboard()
+dataclass models.LeaderboardEntity field badges: list[str] | None [optional]
+dataclass models.LeaderboardEntity field category: str | None [optional]
+dataclass models.LeaderboardEntity field chain: ChainRef | None [optional]
+dataclass models.LeaderboardEntity field data_state: str | None [optional]
+dataclass models.LeaderboardEntity field dimensions: dict[str, float] | None [optional]
+dataclass models.LeaderboardEntity field display_name: str | None [optional]
+dataclass models.LeaderboardEntity field exclusion_reason: str | None [optional]
+dataclass models.LeaderboardEntity field infra: list[str] | None [optional]
+dataclass models.LeaderboardEntity field key: str [required]
+dataclass models.LeaderboardEntity field metrics: LeaderboardMetrics | None [optional]
+dataclass models.LeaderboardEntity field rank: int | None [optional]
+dataclass models.LeaderboardEntity field rank_change_24h: int | None [optional]
+dataclass models.LeaderboardEntity field season_metrics: LeaderboardSeasonMetrics | None [optional]
+dataclass models.LeaderboardEntity()
+dataclass models.LeaderboardGrowth field available: bool | None [optional]
+dataclass models.LeaderboardGrowth field liquidity: float | None [optional]
+dataclass models.LeaderboardGrowth field reason: str | None [optional]
+dataclass models.LeaderboardGrowth field volume: float | None [optional]
+dataclass models.LeaderboardGrowth()
+dataclass models.LeaderboardMetrics field active_pairs: int | None [optional]
+dataclass models.LeaderboardMetrics field buy_volume_24h: float | None [optional]
+dataclass models.LeaderboardMetrics field buyers_24h: int | None [optional]
+dataclass models.LeaderboardMetrics field capital_efficiency: float | None [optional]
+dataclass models.LeaderboardMetrics field growth_24h: LeaderboardGrowth | None [optional]
+dataclass models.LeaderboardMetrics field growth_7d: LeaderboardGrowth | None [optional]
+dataclass models.LeaderboardMetrics field has_capital_efficiency: bool | None [optional]
+dataclass models.LeaderboardMetrics field hosted_volume_24h: float | None [optional]
+dataclass models.LeaderboardMetrics field liquidity: float | None [optional]
+dataclass models.LeaderboardMetrics field liquidity_coverage: float | None [optional]
+dataclass models.LeaderboardMetrics field liquidity_share: float | None [optional]
+dataclass models.LeaderboardMetrics field new_pairs_24h: int | None [optional]
+dataclass models.LeaderboardMetrics field pairs: int | None [optional]
+dataclass models.LeaderboardMetrics field priced_pairs: int | None [optional]
+dataclass models.LeaderboardMetrics field quality_liquidity: float | None [optional]
+dataclass models.LeaderboardMetrics field risk_rate: float | None [optional]
+dataclass models.LeaderboardMetrics field scam_pairs: int | None [optional]
+dataclass models.LeaderboardMetrics field smoothed_risk: float | None [optional]
+dataclass models.LeaderboardMetrics field tradable_pairs: int | None [optional]
+dataclass models.LeaderboardMetrics field txns_24h: int | None [optional]
+dataclass models.LeaderboardMetrics field volume_24h: float | None [optional]
+dataclass models.LeaderboardMetrics field volume_share: float | None [optional]
+dataclass models.LeaderboardMetrics field wash_rate: float | None [optional]
+dataclass models.LeaderboardMetrics()
+dataclass models.LeaderboardSeason field ends_at: str | None [optional]
+dataclass models.LeaderboardSeason field latest: int | None [optional]
+dataclass models.LeaderboardSeason field length_days: int | None [optional]
+dataclass models.LeaderboardSeason field live: bool | None [optional]
+dataclass models.LeaderboardSeason field number: int | None [optional]
+dataclass models.LeaderboardSeason field starts_at: str | None [optional]
+dataclass models.LeaderboardSeason()
+dataclass models.LeaderboardSeasonMetrics field buy_volume: float | None [optional]
+dataclass models.LeaderboardSeasonMetrics field buyers: int | None [optional]
+dataclass models.LeaderboardSeasonMetrics field liquidity_last: float | None [optional]
+dataclass models.LeaderboardSeasonMetrics field liquidity_peak: float | None [optional]
+dataclass models.LeaderboardSeasonMetrics field new_pairs: int | None [optional]
+dataclass models.LeaderboardSeasonMetrics field quality_liquidity: float | None [optional]
+dataclass models.LeaderboardSeasonMetrics field txns: int | None [optional]
+dataclass models.LeaderboardSeasonMetrics field volume: float | None [optional]
+dataclass models.LeaderboardSeasonMetrics()
+dataclass models.LiquidationDay field day: str [required]
+dataclass models.LiquidationDay field liquidated_long_usd: float [required]
+dataclass models.LiquidationDay field liquidated_short_usd: float [required]
+dataclass models.LiquidationDay field long_count: int [required]
+dataclass models.LiquidationDay field max_liquidation_usd: float [required]
+dataclass models.LiquidationDay field short_count: int [required]
+dataclass models.LiquidationDay()
+dataclass models.LiquidityEventData field liquidity_usd: float | None [optional]
+dataclass models.LiquidityEventData field tokens: list[LiquidityTokenChange] [required]
+dataclass models.LiquidityEventData()
+dataclass models.LiquidityTokenChange field address: Address [required]
+dataclass models.LiquidityTokenChange field amount: float [required]
+dataclass models.LiquidityTokenChange field price_usd: float [required]
+dataclass models.LiquidityTokenChange field symbol: str | None [optional]
+dataclass models.LiquidityTokenChange()
+dataclass models.OraclePrice field conf: DecimalString [required]
+dataclass models.OraclePrice field ema_price: DecimalString | None [optional]
+dataclass models.OraclePrice field id: str [required]
+dataclass models.OraclePrice field price: DecimalString [required]
+dataclass models.OraclePrice field publish_time: str [required]
+dataclass models.OraclePrice()
+dataclass models.OraclePriceList field items: list[OraclePrice] [required]
+dataclass models.OraclePriceList()
+dataclass models.PairBatchItem field address: Address [required]
+dataclass models.PairBatchItem field chain: ChainSlug [required]
+dataclass models.PairBatchItem field found: bool [required]
+dataclass models.PairBatchItem field pair: PairInfo | None [optional]
+dataclass models.PairBatchItem()
+dataclass models.PairBatchRef field address: Address [required]
+dataclass models.PairBatchRef field chain: ChainSlug [required]
+dataclass models.PairBatchRef()
+dataclass models.PairBatchRequest field items: list[PairBatchRef] [required]
+dataclass models.PairBatchRequest()
+dataclass models.PairBatchResponse field items: list[PairBatchItem] [required]
+dataclass models.PairBatchResponse()
+dataclass models.PairDeployer field address: Address [required]
+dataclass models.PairDeployer field block_number: int | None [optional]
+dataclass models.PairDeployer field log_index: int | None [optional]
+dataclass models.PairDeployer field reputation: DeployerReputation | None [optional]
+dataclass models.PairDeployer field tx_hash: str | None [optional]
+dataclass models.PairDeployer()
+dataclass models.PairInfo field apr: float | None [optional]
+dataclass models.PairInfo field created_at: str [required]
+dataclass models.PairInfo field deployer: PairDeployer | None [optional]
+dataclass models.PairInfo field dex: Dex [required]
+dataclass models.PairInfo field fees_usd_24h: float | None [optional]
+dataclass models.PairInfo field last_trade_at: str | None [optional]
+dataclass models.PairInfo field last_updated_at: str [required]
+dataclass models.PairInfo field launchpad: PairLaunchpad | None [optional]
+dataclass models.PairInfo field liquidity_onchain_usd: float | None [optional]
+dataclass models.PairInfo field liquidity_usd: float [required]
+dataclass models.PairInfo field network: ChainRef [required]
+dataclass models.PairInfo field pair_address: Address [required]
+dataclass models.PairInfo field pair_fee: float [required]
+dataclass models.PairInfo field price_change: FloatTimeframes [required]
+dataclass models.PairInfo field price_native: float | None [optional]
+dataclass models.PairInfo field prop_data: PairPropData | None [optional]
+dataclass models.PairInfo field safety: PairSafety | None [optional]
+dataclass models.PairInfo field score: PairScore | None [optional]
+dataclass models.PairInfo field security: PairSecurity | None [optional]
+dataclass models.PairInfo field status: str | None [optional]
+dataclass models.PairInfo field ticker: str [required]
+dataclass models.PairInfo field tokens: list[Token] [required]
+dataclass models.PairInfo field txn: TxnTimeframes [required]
+dataclass models.PairInfo field verdict: PairVerdict | None [optional]
+dataclass models.PairInfo field volume: FloatTimeframes [required]
+dataclass models.PairInfo field windows: PairWindows | None [optional]
+dataclass models.PairInfo()
+dataclass models.PairLaunchpad field completed_at: str | None [optional]
+dataclass models.PairLaunchpad field migrated_pool: Address | None [optional]
+dataclass models.PairLaunchpad field name: str [required]
+dataclass models.PairLaunchpad field protocol: str | None [optional]
+dataclass models.PairLaunchpad field stage: str [required]
+dataclass models.PairLaunchpad()
+dataclass models.PairPage field applied_sort: str | None [optional]
+dataclass models.PairPage field applied_timeframe: str | None [optional]
+dataclass models.PairPage field excluded_chains: list[ChainSlug] | None [optional]
+dataclass models.PairPage field items: list[PairInfo] [required]
+dataclass models.PairPage field next_cursor: str | None [optional]
+dataclass models.PairPage field prev_cursor: str | None [optional]
+dataclass models.PairPage()
+dataclass models.PairPropData field buy_tax: float | None [optional]
+dataclass models.PairPropData field is_honeypot: bool | None [optional]
+dataclass models.PairPropData field is_perp: bool | None [optional]
+dataclass models.PairPropData field liquidity_range: ValueRange | None [optional]
+dataclass models.PairPropData field perp: PerpMarket | None [optional]
+dataclass models.PairPropData field perp_disabled: bool | None [optional]
+dataclass models.PairPropData field sell_tax: float | None [optional]
+dataclass models.PairPropData field spot_disabled: bool | None [optional]
+dataclass models.PairPropData()
+dataclass models.PairSafety field buy_tax: float | None [optional]
+dataclass models.PairSafety field is_honeypot: bool [required]
+dataclass models.PairSafety field labels: list[RiskSignalKind] [required]
+dataclass models.PairSafety field lp_burned_pct: float | None [optional]
+dataclass models.PairSafety field lp_locked_pct: float | None [optional]
+dataclass models.PairSafety field score: int [required]
+dataclass models.PairSafety field sell_tax: float | None [optional]
+dataclass models.PairSafety()
+dataclass models.PairScore field risk_signals: list[RiskSignal] | None [optional]
+dataclass models.PairScore field title: str [required]
+dataclass models.PairScore field updated_at: str | None [optional]
+dataclass models.PairScore field value: int [required]
+dataclass models.PairScore()
+dataclass models.PairSecurity field burned_pct: float [required]
+dataclass models.PairSecurity field checked_at: str | None [optional]
+dataclass models.PairSecurity field earliest_unlock_at: str | None [optional]
+dataclass models.PairSecurity field locked_pct: float [required]
+dataclass models.PairSecurity field top_lock_provider: str | None [optional]
+dataclass models.PairSecurity()
+dataclass models.PairVerdict field status: str [required]
+dataclass models.PairVerdict()
+dataclass models.PairWindow field buy_volume_usd: float [required]
+dataclass models.PairWindow field buyers: int [required]
+dataclass models.PairWindow field price_change_pct: float | None [optional]
+dataclass models.PairWindow field sell_volume_usd: float [required]
+dataclass models.PairWindow field sellers: int [required]
+dataclass models.PairWindow field txns: TxnCount [required]
+dataclass models.PairWindow field volume_usd: float [required]
+dataclass models.PairWindow()
+dataclass models.PairWindows field h1: PairWindow | None [optional]
+dataclass models.PairWindows field h24: PairWindow | None [optional]
+dataclass models.PairWindows field h6: PairWindow | None [optional]
+dataclass models.PairWindows field m5: PairWindow | None [optional]
+dataclass models.PairWindows()
+dataclass models.PaymentRequired field accepts: list[PaymentRequirements] [required]
+dataclass models.PaymentRequired field error: str | None [optional]
+dataclass models.PaymentRequired field extensions: dict[str, Any] | None [optional]
+dataclass models.PaymentRequired field resource: PaymentResource | None [optional]
+dataclass models.PaymentRequired field x402_version: int [required]
+dataclass models.PaymentRequired()
+dataclass models.PaymentRequirements field amount: str [required]
+dataclass models.PaymentRequirements field asset: str [required]
+dataclass models.PaymentRequirements field description: str | None [optional]
+dataclass models.PaymentRequirements field extra: dict[str, Any] | None [optional]
+dataclass models.PaymentRequirements field max_amount_required: str [required]
+dataclass models.PaymentRequirements field max_timeout_seconds: int [required]
+dataclass models.PaymentRequirements field mime_type: str | None [optional]
+dataclass models.PaymentRequirements field network: str [required]
+dataclass models.PaymentRequirements field pay_to: str [required]
+dataclass models.PaymentRequirements field resource: str | None [optional]
+dataclass models.PaymentRequirements field scheme: str [required]
+dataclass models.PaymentRequirements()
+dataclass models.PaymentResource field description: str | None [optional]
+dataclass models.PaymentResource field mime_type: str | None [optional]
+dataclass models.PaymentResource field service_name: str | None [optional]
+dataclass models.PaymentResource field url: str [required]
+dataclass models.PaymentResource()
+dataclass models.PerpHistory field chain: ChainRef [required]
+dataclass models.PerpHistory field interval: str [required]
+dataclass models.PerpHistory field items: list[PerpPoint] [required]
+dataclass models.PerpHistory field market: Address [required]
+dataclass models.PerpHistory()
+dataclass models.PerpLiquidations field chain: ChainRef [required]
+dataclass models.PerpLiquidations field items: list[LiquidationDay] [required]
+dataclass models.PerpLiquidations field market: Address | None [optional]
+dataclass models.PerpLiquidations field stale: bool [required]
+dataclass models.PerpLiquidations()
+dataclass models.PerpMarket field day_notional_volume: float | None [optional]
+dataclass models.PerpMarket field funding_rate: float | None [optional]
+dataclass models.PerpMarket field mark_price: float | None [optional]
+dataclass models.PerpMarket field max_leverage: int | None [optional]
+dataclass models.PerpMarket field only_isolated: bool | None [optional]
+dataclass models.PerpMarket field open_interest: float | None [optional]
+dataclass models.PerpMarket field open_interest_usd: float | None [optional]
+dataclass models.PerpMarket field oracle_price: float | None [optional]
+dataclass models.PerpMarket field premium: float | None [optional]
+dataclass models.PerpMarket field synced_at: str | None [optional]
+dataclass models.PerpMarket()
+dataclass models.PerpPoint field borrow_long_1h: float | None [optional]
+dataclass models.PerpPoint field borrow_short_1h: float | None [optional]
+dataclass models.PerpPoint field funding_long_1h: float [required]
+dataclass models.PerpPoint field funding_short_1h: float [required]
+dataclass models.PerpPoint field mark_price: float [required]
+dataclass models.PerpPoint field oi_known: bool [required]
+dataclass models.PerpPoint field oi_long_usd: float [required]
+dataclass models.PerpPoint field oi_short_usd: float [required]
+dataclass models.PerpPoint field oi_usd: float [required]
+dataclass models.PerpPoint field oracle_price: float [required]
+dataclass models.PerpPoint field premium: float [required]
+dataclass models.PerpPoint field timestamp: str [required]
+dataclass models.PerpPoint()
+dataclass models.Problem field code: str [required]
+dataclass models.Problem field detail: str | None [optional]
+dataclass models.Problem field param: str | None [optional]
+dataclass models.Problem field request_id: str [required]
+dataclass models.Problem field status: int [required]
+dataclass models.Problem field title: str [required]
+dataclass models.Problem field type: str [required]
+dataclass models.Problem()
+dataclass models.RiskSignal field group: str [required]
+dataclass models.RiskSignal field kind: RiskSignalKind [required]
+dataclass models.RiskSignal field observed_at: str | None [optional]
+dataclass models.RiskSignal field severity: str [required]
+dataclass models.RiskSignal field weight: float [required]
+dataclass models.RiskSignal()
+dataclass models.ScammerScore field band: str [required]
+dataclass models.ScammerScore field value: int [required]
+dataclass models.ScammerScore()
+dataclass models.SearchPair field base_symbol: str | None [optional]
+dataclass models.SearchPair field dex_name: str | None [optional]
+dataclass models.SearchPair field liquidity_usd: float | None [optional]
+dataclass models.SearchPair field network: ChainSlug [required]
+dataclass models.SearchPair field pair_address: Address [required]
+dataclass models.SearchPair field price_change_24h: float | None [optional]
+dataclass models.SearchPair field price_usd: float | None [optional]
+dataclass models.SearchPair field quote_symbol: str | None [optional]
+dataclass models.SearchPair field ticker: str [required]
+dataclass models.SearchPair()
+dataclass models.SearchResponse field pairs: list[SearchPair] [required]
+dataclass models.SearchResponse field tokens: list[SearchToken] [required]
+dataclass models.SearchResponse()
+dataclass models.SearchToken field address: Address [required]
+dataclass models.SearchToken field logo_url: str | None [optional]
+dataclass models.SearchToken field name: str | None [optional]
+dataclass models.SearchToken field network: ChainSlug [required]
+dataclass models.SearchToken field price_change_24h: float | None [optional]
+dataclass models.SearchToken field price_usd: float | None [optional]
+dataclass models.SearchToken field symbol: str [required]
+dataclass models.SearchToken()
+dataclass models.StatusResponse field degraded: list[str] | None [optional]
+dataclass models.StatusResponse field status: str [required]
+dataclass models.StatusResponse()
+dataclass models.SwapEventData field amount0: float [required]
+dataclass models.SwapEventData field amount1: float [required]
+dataclass models.SwapEventData field price0: float [required]
+dataclass models.SwapEventData field price1: float [required]
+dataclass models.SwapEventData field price_usd0: float [required]
+dataclass models.SwapEventData field price_usd1: float [required]
+dataclass models.SwapEventData()
+dataclass models.Token field address: Address [required]
+dataclass models.Token field chain_id: int [required]
+dataclass models.Token field decimals: int [required]
+dataclass models.Token field name: str [required]
+dataclass models.Token field position: int [required]
+dataclass models.Token field price_native: float [required]
+dataclass models.Token field price_range: ValueRange | None [optional]
+dataclass models.Token field price_usd: float [required]
+dataclass models.Token field reserve: float [required]
+dataclass models.Token field status: str | None [optional]
+dataclass models.Token field symbol: str [required]
+dataclass models.Token field total_supply: float [required]
+dataclass models.Token()
+dataclass models.TokenBatchItem field address: TokenAddress [required]
+dataclass models.TokenBatchItem field chain: ChainSlug [required]
+dataclass models.TokenBatchItem field found: bool [required]
+dataclass models.TokenBatchItem field token: TokenInfo | None [optional]
+dataclass models.TokenBatchItem()
+dataclass models.TokenBatchRef field address: TokenAddress [required]
+dataclass models.TokenBatchRef field chain: ChainSlug [required]
+dataclass models.TokenBatchRef()
+dataclass models.TokenBatchRequest field items: list[TokenBatchRef] [required]
+dataclass models.TokenBatchRequest()
+dataclass models.TokenBatchResponse field items: list[TokenBatchItem] [required]
+dataclass models.TokenBatchResponse()
+dataclass models.TokenBrief field as_of: str [required]
+dataclass models.TokenBrief field chain: ChainSlug [required]
+dataclass models.TokenBrief field deployer: BriefDeployer | None [optional]
+dataclass models.TokenBrief field flags: list[str] [required]
+dataclass models.TokenBrief field holders: BriefHolders | None [optional]
+dataclass models.TokenBrief field liquidity: BriefLiquidity [required]
+dataclass models.TokenBrief field market: BriefMarket [required]
+dataclass models.TokenBrief field score: BriefScore [required]
+dataclass models.TokenBrief field source: str [required]
+dataclass models.TokenBrief field verdict: TokenVerdict [required]
+dataclass models.TokenBrief()
+dataclass models.TokenHolder field address: Address [required]
+dataclass models.TokenHolder field balance: float [required]
+dataclass models.TokenHolder field first_buy_at: str | None [optional]
+dataclass models.TokenHolder field labels: list[WalletLabel] [required]
+dataclass models.TokenHolder field share_pct: float | None [optional]
+dataclass models.TokenHolder field tier: WalletTier | None [optional]
+dataclass models.TokenHolder field wallet_type: str | None [optional]
+dataclass models.TokenHolder()
+dataclass models.TokenHolderPage field holder_stats: TokenHolderStats | None [optional]
+dataclass models.TokenHolderPage field items: list[TokenHolder] [required]
+dataclass models.TokenHolderPage field next_cursor: str | None [optional]
+dataclass models.TokenHolderPage field prev_cursor: str | None [optional]
+dataclass models.TokenHolderPage()
+dataclass models.TokenHolderStats field count: int [required]
+dataclass models.TokenHolderStats field top10_pct: float [required]
+dataclass models.TokenHolderStats field updated_at: str | None [optional]
+dataclass models.TokenHolderStats()
+dataclass models.TokenInfo field address: str | None [optional]
+dataclass models.TokenInfo field categories: list[str] | None [optional]
+dataclass models.TokenInfo field category: str [required]
+dataclass models.TokenInfo field chain: ChainRef | None [optional]
+dataclass models.TokenInfo field circulating_supply: float | None [optional]
+dataclass models.TokenInfo field confidence: int [required]
+dataclass models.TokenInfo field decimals: int | None [optional]
+dataclass models.TokenInfo field description: str | None [optional]
+dataclass models.TokenInfo field fdv_usd: float | None [optional]
+dataclass models.TokenInfo field holder_stats: TokenHolderStats | None [optional]
+dataclass models.TokenInfo field holders: int | None [optional]
+dataclass models.TokenInfo field id: str [required]
+dataclass models.TokenInfo field instances: list[TokenInstance] | None [optional]
+dataclass models.TokenInfo field launch: TokenLaunch | None [optional]
+dataclass models.TokenInfo field launched_at: str | None [optional]
+dataclass models.TokenInfo field liquidity_usd: float | None [optional]
+dataclass models.TokenInfo field logo_url: str | None [optional]
+dataclass models.TokenInfo field main_pair: TokenMainPair | None [optional]
+dataclass models.TokenInfo field market: TokenMarketProjection | None [optional]
+dataclass models.TokenInfo field market_cap_estimated: bool | None [optional]
+dataclass models.TokenInfo field market_cap_usd: float | None [optional]
+dataclass models.TokenInfo field max_supply: float | None [optional]
+dataclass models.TokenInfo field name: str [required]
+dataclass models.TokenInfo field pairs_count: int | None [optional]
+dataclass models.TokenInfo field price_change_1h: float | None [optional]
+dataclass models.TokenInfo field price_change_24h: float | None [optional]
+dataclass models.TokenInfo field price_change_6h: float | None [optional]
+dataclass models.TokenInfo field price_usd: float | None [optional]
+dataclass models.TokenInfo field profile: TokenProfile | None [optional]
+dataclass models.TokenInfo field rank: int | None [optional]
+dataclass models.TokenInfo field rating: TokenRating | None [optional]
+dataclass models.TokenInfo field score: int | None [optional]
+dataclass models.TokenInfo field slug: str [required]
+dataclass models.TokenInfo field status: str [required]
+dataclass models.TokenInfo field symbol: str [required]
+dataclass models.TokenInfo field total_supply: float | None [optional]
+dataclass models.TokenInfo field txns_24h: int | None [optional]
+dataclass models.TokenInfo field volume_24h: float | None [optional]
+dataclass models.TokenInfo field windows: TokenWindows | None [optional]
+dataclass models.TokenInfo()
+dataclass models.TokenInstance field address: str [required]
+dataclass models.TokenInstance field chain_id: int [required]
+dataclass models.TokenInstance field contract_verified: bool | None [optional]
+dataclass models.TokenInstance field decimals: int | None [optional]
+dataclass models.TokenInstance field id: str [required]
+dataclass models.TokenInstance field market: TokenMarketProjection | None [optional]
+dataclass models.TokenInstance field risk_score: int | None [optional]
+dataclass models.TokenInstance field status: str [required]
+dataclass models.TokenInstance()
+dataclass models.TokenLaunch field block_number: int [required]
+dataclass models.TokenLaunch field deployed_at: str | None [optional]
+dataclass models.TokenLaunch field deployer: str [required]
+dataclass models.TokenLaunch field tx_hash: str [required]
+dataclass models.TokenLaunch()
+dataclass models.TokenListIncludes field instances: bool [required]
+dataclass models.TokenListIncludes field market: bool [required]
+dataclass models.TokenListIncludes()
+dataclass models.TokenMainPair field address: str [required]
+dataclass models.TokenMainPair field ticker: str [required]
+dataclass models.TokenMainPair()
+dataclass models.TokenMarketMetrics field circulating_supply: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMarketMetrics field fdv_usd: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMarketMetrics field holders_count: int | None [optional]
+dataclass models.TokenMarketMetrics field liquidity_usd: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMarketMetrics field market_cap_usd: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMarketMetrics field price_usd: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMarketMetrics field total_supply: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMarketMetrics()
+dataclass models.TokenMarketProjection field expires_at: str [required]
+dataclass models.TokenMarketProjection field metrics: TokenMarketMetrics [required]
+dataclass models.TokenMarketProjection field observed_at: str [required]
+dataclass models.TokenMarketProjection field primary_market: TokenPrimaryMarket | None [optional]
+dataclass models.TokenMarketProjection field windows: dict[str, TokenMetricWindow] [required]
+dataclass models.TokenMarketProjection()
+dataclass models.TokenMetricWindow field buys: int | None [optional]
+dataclass models.TokenMetricWindow field price_change_percent: DecimalString | None [optional]
+dataclass models.TokenMetricWindow field sells: int | None [optional]
+dataclass models.TokenMetricWindow field transactions: int | None [optional]
+dataclass models.TokenMetricWindow field volume_usd: NonNegativeDecimalString | None [optional]
+dataclass models.TokenMetricWindow()
+dataclass models.TokenMover field buy_usd: float | None [optional]
+dataclass models.TokenMover field buyers: int | None [optional]
+dataclass models.TokenMover field buys: int | None [optional]
+dataclass models.TokenMover field symbol: str | None [optional]
+dataclass models.TokenMover field token_address: Address [required]
+dataclass models.TokenMover()
+dataclass models.TokenPage field includes: TokenListIncludes [required]
+dataclass models.TokenPage field items: list[TokenInfo] [required]
+dataclass models.TokenPage field next_cursor: str | None [optional]
+dataclass models.TokenPage field prev_cursor: str | None [optional]
+dataclass models.TokenPage()
+dataclass models.TokenPrimaryMarket field chain_id: int [required]
+dataclass models.TokenPrimaryMarket field dex_id: str [required]
+dataclass models.TokenPrimaryMarket field liquidity_usd: NonNegativeDecimalString | None [optional]
+dataclass models.TokenPrimaryMarket field pair_address: str [required]
+dataclass models.TokenPrimaryMarket()
+dataclass models.TokenProfile field image_url: str | None [optional]
+dataclass models.TokenProfile field socials: TokenSocials | None [optional]
+dataclass models.TokenProfile field verification_tier: str | None [optional]
+dataclass models.TokenProfile field verified: bool [required]
+dataclass models.TokenProfile field verified_by: list[str] | None [optional]
+dataclass models.TokenProfile field websites: list[str] [required]
+dataclass models.TokenProfile()
+dataclass models.TokenRating field activity: int [required]
+dataclass models.TokenRating field age_info: int [required]
+dataclass models.TokenRating field holders: int [required]
+dataclass models.TokenRating field liquidity: int [required]
+dataclass models.TokenRating field safety: int [required]
+dataclass models.TokenRating field score: int [required]
+dataclass models.TokenRating()
+dataclass models.TokenSocials field discord: list[str] | None [optional]
+dataclass models.TokenSocials field docs: list[str] | None [optional]
+dataclass models.TokenSocials field github: list[str] | None [optional]
+dataclass models.TokenSocials field telegram: list[str] | None [optional]
+dataclass models.TokenSocials field twitter: list[str] | None [optional]
+dataclass models.TokenSocials()
+dataclass models.TokenTrader field address: Address [required]
+dataclass models.TokenTrader field avg_entry_price: float | None [optional]
+dataclass models.TokenTrader field avg_exit_price: float | None [optional]
+dataclass models.TokenTrader field balance: float [required]
+dataclass models.TokenTrader field bought_usd: float [required]
+dataclass models.TokenTrader field buys: int [required]
+dataclass models.TokenTrader field exited: bool [required]
+dataclass models.TokenTrader field first_buy_at: str | None [optional]
+dataclass models.TokenTrader field labels: list[WalletLabel] [required]
+dataclass models.TokenTrader field last_sell_at: str | None [optional]
+dataclass models.TokenTrader field realized_pnl_usd: float [required]
+dataclass models.TokenTrader field sells: int [required]
+dataclass models.TokenTrader field sold_usd: float [required]
+dataclass models.TokenTrader field tier: WalletTier | None [optional]
+dataclass models.TokenTrader field unrealized_pnl_usd: float [required]
+dataclass models.TokenTrader field wallet_type: str | None [optional]
+dataclass models.TokenTrader()
+dataclass models.TokenTraderPage field items: list[TokenTrader] [required]
+dataclass models.TokenTraderPage field next_cursor: str | None [optional]
+dataclass models.TokenTraderPage field prev_cursor: str | None [optional]
+dataclass models.TokenTraderPage()
+dataclass models.TokenVerdict field chain: ChainSlug [required]
+dataclass models.TokenVerdict field chain_id: int [required]
+dataclass models.TokenVerdict field expires_at: str | None [optional]
+dataclass models.TokenVerdict field oracle_address: str | None [optional]
+dataclass models.TokenVerdict field reason_bits: int [required]
+dataclass models.TokenVerdict field reasons: list[str] [required]
+dataclass models.TokenVerdict field signature: str | None [optional]
+dataclass models.TokenVerdict field signed_at: str | None [optional]
+dataclass models.TokenVerdict field signer: str | None [optional]
+dataclass models.TokenVerdict field status: str [required]
+dataclass models.TokenVerdict field token_address: Address [required]
+dataclass models.TokenVerdict field verdict_at: str | None [optional]
+dataclass models.TokenVerdict()
+dataclass models.TokenVerdictProof field chain: ChainSlug [required]
+dataclass models.TokenVerdictProof field chain_id: int [required]
+dataclass models.TokenVerdictProof field epoch: int [required]
+dataclass models.TokenVerdictProof field proof: list[str] [required]
+dataclass models.TokenVerdictProof field root: str [required]
+dataclass models.TokenVerdictProof field status: str [required]
+dataclass models.TokenVerdictProof field token_address: Address [required]
+dataclass models.TokenVerdictProof()
+dataclass models.TokenWindow field buy_volume_usd: float [required]
+dataclass models.TokenWindow field buyers: int [required]
+dataclass models.TokenWindow field makers: int [required]
+dataclass models.TokenWindow field makers_main_pair_only: bool [required]
+dataclass models.TokenWindow field price_change_pct: float | None [optional]
+dataclass models.TokenWindow field sell_volume_usd: float [required]
+dataclass models.TokenWindow field sellers: int [required]
+dataclass models.TokenWindow field txns: TxnCount [required]
+dataclass models.TokenWindow field volume_usd: float [required]
+dataclass models.TokenWindow()
+dataclass models.TokenWindows field h1: TokenWindow | None [optional]
+dataclass models.TokenWindows field h24: TokenWindow | None [optional]
+dataclass models.TokenWindows field h6: TokenWindow | None [optional]
+dataclass models.TokenWindows field m5: TokenWindow | None [optional]
+dataclass models.TokenWindows()
+dataclass models.TonTxData field seq_no: int [required]
+dataclass models.TonTxData field shard_id: int [required]
+dataclass models.TonTxData field work_chain: int [required]
+dataclass models.TonTxData()
+dataclass models.TradePage field items: list[Transaction] [required]
+dataclass models.TradePage field next_cursor: str | None [optional]
+dataclass models.TradePage field prev_cursor: str | None [optional]
+dataclass models.TradePage()
+dataclass models.Transaction field block_info: EthereumTxData | TonTxData | dict[str, Any] [required]
+dataclass models.Transaction field chain_id: int [required]
+dataclass models.Transaction field event_data: SwapEventData | LiquidityEventData | dict[str, Any] [required]
+dataclass models.Transaction field from_address: Address [required]
+dataclass models.Transaction field hash: str [required]
+dataclass models.Transaction field maker_address: Address [required]
+dataclass models.Transaction field timestamp: str [required]
+dataclass models.Transaction field to_address: Address [required]
+dataclass models.Transaction field tx_type: str [required]
+dataclass models.Transaction()
+dataclass models.TxnCount field buys: int [required]
+dataclass models.TxnCount field sells: int [required]
+dataclass models.TxnCount()
+dataclass models.TxnPairStat field buy_volume: float [required]
+dataclass models.TxnPairStat field buyers: int [required]
+dataclass models.TxnPairStat field buys: int [required]
+dataclass models.TxnPairStat field sell_volume: float [required]
+dataclass models.TxnPairStat field sellers: int [required]
+dataclass models.TxnPairStat field sells: int [required]
+dataclass models.TxnPairStat()
+dataclass models.TxnTimeframes field h1: TxnPairStat [required]
+dataclass models.TxnTimeframes field h24: TxnPairStat [required]
+dataclass models.TxnTimeframes field h6: TxnPairStat [required]
+dataclass models.TxnTimeframes field m5: TxnPairStat [required]
+dataclass models.TxnTimeframes()
+dataclass models.UserScore field status: str [required]
+dataclass models.UserScore field value: int [required]
+dataclass models.UserScore()
+dataclass models.ValueRange field high: float [required]
+dataclass models.ValueRange field high_at: int [required]
+dataclass models.ValueRange field low: float [required]
+dataclass models.ValueRange field low_at: int [required]
+dataclass models.ValueRange()
+dataclass models.WalletBestTrades field hidden_positions: int | None [optional]
+dataclass models.WalletBestTrades field hidden_realized_pnl_usd: float | None [optional]
+dataclass models.WalletBestTrades field losers: list[WalletRankedPosition] [required]
+dataclass models.WalletBestTrades field winners: list[WalletRankedPosition] [required]
+dataclass models.WalletBestTrades()
+dataclass models.WalletChainPnl field chain: ChainRef [required]
+dataclass models.WalletChainPnl field realized_pnl_usd: float | None [optional]
+dataclass models.WalletChainPnl field share_of_total: float | None [optional]
+dataclass models.WalletChainPnl field total_pnl_usd: float | None [optional]
+dataclass models.WalletChainPnl()
+dataclass models.WalletChart field points: list[WalletPnlPoint] [required]
+dataclass models.WalletChart()
+dataclass models.WalletFunding field address: Address [required]
+dataclass models.WalletFunding field chain: ChainRef [required]
+dataclass models.WalletFunding field funded_at: str | None [optional]
+dataclass models.WalletFunding field funded_by: Address | None [optional]
+dataclass models.WalletFunding()
+dataclass models.WalletLabel field confidence: float [required]
+dataclass models.WalletLabel field kind: int [required]
+dataclass models.WalletLabel field name: str [required]
+dataclass models.WalletLabel field token_address: Address | None [optional]
+dataclass models.WalletLabel()
+dataclass models.WalletLabelList field items: list[WalletLabelSet] [required]
+dataclass models.WalletLabelList()
+dataclass models.WalletLabelSet field address: Address [required]
+dataclass models.WalletLabelSet field copy_eligible: bool | None [optional]
+dataclass models.WalletLabelSet field labels: list[WalletLabel] | None [optional]
+dataclass models.WalletLabelSet field tier: WalletTier | None [optional]
+dataclass models.WalletLabelSet field user_score: int | None [optional]
+dataclass models.WalletLabelSet()
+dataclass models.WalletLabelsRequest field addresses: list[Address] [required]
+dataclass models.WalletLabelsRequest field chain: str [required]
+dataclass models.WalletLabelsRequest()
+dataclass models.WalletLifetime field deployed_usd: float | None [optional]
+dataclass models.WalletLifetime field gross_bought_usd: float | None [optional]
+dataclass models.WalletLifetime field gross_sold_usd: float | None [optional]
+dataclass models.WalletLifetime field realized_pnl_usd: float | None [optional]
+dataclass models.WalletLifetime field total_pnl_usd: float | None [optional]
+dataclass models.WalletLifetime field unrealized_available: bool | None [optional]
+dataclass models.WalletLifetime field unrealized_pnl_usd: float | None [optional]
+dataclass models.WalletLifetime()
+dataclass models.WalletListItem field address: Address [required]
+dataclass models.WalletListItem field chain: ChainRef [required]
+dataclass models.WalletListItem field copy_eligible: bool | None [optional]
+dataclass models.WalletListItem field labels: list[WalletLabel] | None [optional]
+dataclass models.WalletListItem field metrics: WalletMetrics [required]
+dataclass models.WalletListItem field scammer_score: ScammerScore | None [optional]
+dataclass models.WalletListItem field tier: WalletTier | None [optional]
+dataclass models.WalletListItem field type: str | None [optional]
+dataclass models.WalletListItem field user_score: UserScore | None [optional]
+dataclass models.WalletListItem()
+dataclass models.WalletMetrics field avg_hold_seconds: int | None [optional]
+dataclass models.WalletMetrics field avg_trade_usd: float | None [optional]
+dataclass models.WalletMetrics field closed_positions: int | None [optional]
+dataclass models.WalletMetrics field excluded_no_outcome: int | None [optional]
+dataclass models.WalletMetrics field excluded_transfer_only: int | None [optional]
+dataclass models.WalletMetrics field excluded_untracked: int | None [optional]
+dataclass models.WalletMetrics field gross_loss_usd: float | None [optional]
+dataclass models.WalletMetrics field gross_profit_usd: float | None [optional]
+dataclass models.WalletMetrics field invested_usd: float | None [optional]
+dataclass models.WalletMetrics field losing_trades: int | None [optional]
+dataclass models.WalletMetrics field median_roi: float | None [optional]
+dataclass models.WalletMetrics field open_positions: int | None [optional]
+dataclass models.WalletMetrics field profit_factor: float | None [optional]
+dataclass models.WalletMetrics field rated_pnl_usd: float | None [optional]
+dataclass models.WalletMetrics field rated_positions: int | None [optional]
+dataclass models.WalletMetrics field realized_pnl_usd: float | None [optional]
+dataclass models.WalletMetrics field roi: float | None [optional]
+dataclass models.WalletMetrics field tokens_traded: int | None [optional]
+dataclass models.WalletMetrics field total_pnl_usd: float | None [optional]
+dataclass models.WalletMetrics field trade_win_rate: float | None [optional]
+dataclass models.WalletMetrics field trades: int | None [optional]
+dataclass models.WalletMetrics field unrealized_pnl_usd: float | None [optional]
+dataclass models.WalletMetrics field volume_usd: float | None [optional]
+dataclass models.WalletMetrics field win_rate: float | None [optional]
+dataclass models.WalletMetrics field window: str [required]
+dataclass models.WalletMetrics field winning_trades: int | None [optional]
+dataclass models.WalletMetrics()
+dataclass models.WalletMover field address: Address [required]
+dataclass models.WalletMover field value: float [required]
+dataclass models.WalletMover()
+dataclass models.WalletOverview field lifetime: WalletLifetime | None [optional]
+dataclass models.WalletOverview field most_profitable_chain: ChainRef | None [optional]
+dataclass models.WalletOverview field per_chain: list[WalletChainPnl] | None [optional]
+dataclass models.WalletOverview field profiles: list[WalletProfile] [required]
+dataclass models.WalletOverview field unavailable_chains: list[ChainRef] | None [optional]
+dataclass models.WalletOverview()
+dataclass models.WalletPage field items: list[WalletListItem] [required]
+dataclass models.WalletPage field next_cursor: str | None [optional]
+dataclass models.WalletPage()
+dataclass models.WalletPnlPoint field cost_usd: float | None [optional]
+dataclass models.WalletPnlPoint field cumulative_roi: float | None [optional]
+dataclass models.WalletPnlPoint field cumulative_usd: float | None [optional]
+dataclass models.WalletPnlPoint field losses: int | None [optional]
+dataclass models.WalletPnlPoint field realized_usd: float | None [optional]
+dataclass models.WalletPnlPoint field roi: float | None [optional]
+dataclass models.WalletPnlPoint field timestamp: str [required]
+dataclass models.WalletPnlPoint field wins: int | None [optional]
+dataclass models.WalletPnlPoint()
+dataclass models.WalletPosition field avg_entry_price: float | None [optional]
+dataclass models.WalletPosition field avg_exit_price: float | None [optional]
+dataclass models.WalletPosition field basis_is_incomplete: bool | None [optional]
+dataclass models.WalletPosition field bought_qty: float | None [optional]
+dataclass models.WalletPosition field bought_usd: float | None [optional]
+dataclass models.WalletPosition field buy_txs: int | None [optional]
+dataclass models.WalletPosition field closed_at: str | None [optional]
+dataclass models.WalletPosition field cost_basis_usd: float | None [optional]
+dataclass models.WalletPosition field fees_usd: float | None [optional]
+dataclass models.WalletPosition field first_trade_at: str | None [optional]
+dataclass models.WalletPosition field hold_seconds: int | None [optional]
+dataclass models.WalletPosition field last_trade_at: str | None [optional]
+dataclass models.WalletPosition field pairs: list[WalletPositionPair] | None [optional]
+dataclass models.WalletPosition field qty_held: float | None [optional]
+dataclass models.WalletPosition field realized_pnl_pct: float | None [optional]
+dataclass models.WalletPosition field realized_pnl_usd: float | None [optional]
+dataclass models.WalletPosition field sell_txs: int | None [optional]
+dataclass models.WalletPosition field sold_qty: float | None [optional]
+dataclass models.WalletPosition field sold_usd: float | None [optional]
+dataclass models.WalletPosition field token_address: Address [required]
+dataclass models.WalletPosition field token_score: int | None [optional]
+dataclass models.WalletPosition field token_status: int | None [optional]
+dataclass models.WalletPosition field token_symbol: str | None [optional]
+dataclass models.WalletPosition field unrealized_pnl_usd: float | None [optional]
+dataclass models.WalletPosition field unsellable: bool | None [optional]
+dataclass models.WalletPosition()
+dataclass models.WalletPositionPage field items: list[WalletPosition] [required]
+dataclass models.WalletPositionPage field next_cursor: str | None [optional]
+dataclass models.WalletPositionPage()
+dataclass models.WalletPositionPair field address: Address [required]
+dataclass models.WalletPositionPair field dex_name: str | None [optional]
+dataclass models.WalletPositionPair field liquidity_usd: float | None [optional]
+dataclass models.WalletPositionPair field rugged: bool | None [optional]
+dataclass models.WalletPositionPair field score: int | None [optional]
+dataclass models.WalletPositionPair field status: int | None [optional]
+dataclass models.WalletPositionPair field ticker: str | None [optional]
+dataclass models.WalletPositionPair field unsellable: bool | None [optional]
+dataclass models.WalletPositionPair()
+dataclass models.WalletPositionRound field avg_entry_price: float | None [optional]
+dataclass models.WalletPositionRound field avg_exit_price: float | None [optional]
+dataclass models.WalletPositionRound field basis_is_incomplete: bool | None [optional]
+dataclass models.WalletPositionRound field bought_qty: float | None [optional]
+dataclass models.WalletPositionRound field bought_usd: float | None [optional]
+dataclass models.WalletPositionRound field buy_txs: int | None [optional]
+dataclass models.WalletPositionRound field closed_at: str | None [optional]
+dataclass models.WalletPositionRound field closed_by_trade: str | None [optional]
+dataclass models.WalletPositionRound field exited: bool | None [optional]
+dataclass models.WalletPositionRound field fees_usd: float | None [optional]
+dataclass models.WalletPositionRound field first_buy_at: str | None [optional]
+dataclass models.WalletPositionRound field first_trade_at: str | None [optional]
+dataclass models.WalletPositionRound field last_sell_at: str | None [optional]
+dataclass models.WalletPositionRound field last_trade_at: str | None [optional]
+dataclass models.WalletPositionRound field max_qty_held: float | None [optional]
+dataclass models.WalletPositionRound field opened_by_trade: str | None [optional]
+dataclass models.WalletPositionRound field qty_held: float | None [optional]
+dataclass models.WalletPositionRound field realized_pnl_usd: float | None [optional]
+dataclass models.WalletPositionRound field realized_share: float | None [optional]
+dataclass models.WalletPositionRound field remaining_ratio: float | None [optional]
+dataclass models.WalletPositionRound field round_no: int [required]
+dataclass models.WalletPositionRound field sell_txs: int | None [optional]
+dataclass models.WalletPositionRound field sold_qty: float | None [optional]
+dataclass models.WalletPositionRound field sold_usd: float | None [optional]
+dataclass models.WalletPositionRound field token_address: Address [required]
+dataclass models.WalletPositionRound()
+dataclass models.WalletProfile field address: Address [required]
+dataclass models.WalletProfile field age_is_estimated: bool | None [optional]
+dataclass models.WalletProfile field chain: ChainRef [required]
+dataclass models.WalletProfile field cluster_id: int | None [optional]
+dataclass models.WalletProfile field copy_eligible: bool | None [optional]
+dataclass models.WalletProfile field first_onchain_at: str | None [optional]
+dataclass models.WalletProfile field first_seen_at: str | None [optional]
+dataclass models.WalletProfile field human_known: bool | None [optional]
+dataclass models.WalletProfile field labels: list[WalletLabel] | None [optional]
+dataclass models.WalletProfile field last_active_at: str | None [optional]
+dataclass models.WalletProfile field metrics: list[WalletMetrics] | None [optional]
+dataclass models.WalletProfile field rebuild_skip_reason: str | None [optional]
+dataclass models.WalletProfile field rebuild_skipped: bool | None [optional]
+dataclass models.WalletProfile field scammer_score: ScammerScore | None [optional]
+dataclass models.WalletProfile field signals: list[WalletScoreSignal] | None [optional]
+dataclass models.WalletProfile field tier: WalletTier | None [optional]
+dataclass models.WalletProfile field type: str | None [optional]
+dataclass models.WalletProfile field user_score: UserScore | None [optional]
+dataclass models.WalletProfile()
+dataclass models.WalletRankedPosition field buys: int | None [optional]
+dataclass models.WalletRankedPosition field entry_market_cap_usd: float | None [optional]
+dataclass models.WalletRankedPosition field exit_market_cap_usd: float | None [optional]
+dataclass models.WalletRankedPosition field realized_pnl_usd: float | None [optional]
+dataclass models.WalletRankedPosition field roi: float | None [optional]
+dataclass models.WalletRankedPosition field sells: int | None [optional]
+dataclass models.WalletRankedPosition field symbol: str | None [optional]
+dataclass models.WalletRankedPosition field token_address: Address [required]
+dataclass models.WalletRankedPosition()
+dataclass models.WalletRoundPage field items: list[WalletPositionRound] [required]
+dataclass models.WalletRoundPage field next_cursor: str | None [optional]
+dataclass models.WalletRoundPage()
+dataclass models.WalletScoreSignal field detail: str | None [optional]
+dataclass models.WalletScoreSignal field direction: str [required]
+dataclass models.WalletScoreSignal field kind: str [required]
+dataclass models.WalletScoreSignal field last_seen: str | None [optional]
+dataclass models.WalletScoreSignal field occurrences: int | None [optional]
+dataclass models.WalletScoreSignal field points: float | None [optional]
+dataclass models.WalletScoreSignal field subject: str | None [optional]
+dataclass models.WalletScoreSignal field target: str [required]
+dataclass models.WalletScoreSignal field title: str | None [optional]
+dataclass models.WalletScoreSignal()
+dataclass models.WalletStats field chains: list[ChainWalletStats] [required]
+dataclass models.WalletStats()
+dataclass models.WalletTrade field block_number: int | None [optional]
+dataclass models.WalletTrade field fee_is_estimated: bool | None [optional]
+dataclass models.WalletTrade field fee_usd: float | None [optional]
+dataclass models.WalletTrade field notional_usd: float | None [optional]
+dataclass models.WalletTrade field pair_address: Address | None [optional]
+dataclass models.WalletTrade field price_usd: float | None [optional]
+dataclass models.WalletTrade field qty: float | None [optional]
+dataclass models.WalletTrade field side: str | None [optional]
+dataclass models.WalletTrade field timestamp: str | None [optional]
+dataclass models.WalletTrade field token_address: Address | None [optional]
+dataclass models.WalletTrade field token_symbol: str | None [optional]
+dataclass models.WalletTrade field trade_uid: str [required]
+dataclass models.WalletTrade()
+dataclass models.WalletTradePage field items: list[WalletTrade] [required]
+dataclass models.WalletTradePage field next_cursor: str | None [optional]
+dataclass models.WalletTradePage()
+dataclass models.X402DiscoveredResource field accepts: list[PaymentRequirements] [required]
+dataclass models.X402DiscoveredResource field extensions: dict[str, Any] | None [optional]
+dataclass models.X402DiscoveredResource field last_updated: str [required]
+dataclass models.X402DiscoveredResource field resource: str [required]
+dataclass models.X402DiscoveredResource field type: str [required]
+dataclass models.X402DiscoveredResource field x402_version: int [required]
+dataclass models.X402DiscoveredResource()
+dataclass models.X402Discovery field items: list[X402DiscoveredResource] [required]
+dataclass models.X402Discovery field resources: list[str] [required]
+dataclass models.X402Discovery field x402_version: int [required]
+dataclass models.X402Discovery()
+def apaginate param fetch: Callable[[str | None], Awaitable[_Page[T]]] [positional_or_keyword, required]
+def apaginate param options: RequestOptions | None [positional_or_keyword, required]
+def apaginate param start: str | None [positional_or_keyword, required]
+def apaginate positional (fetch, start, options)
+def apaginate returns AsyncIterator[T]
+def paginate param fetch: Callable[[str | None], _Page[T]] [positional_or_keyword, required]
+def paginate param options: RequestOptions | None [positional_or_keyword, required]
+def paginate param start: str | None [positional_or_keyword, required]
+def paginate positional (fetch, start, options)
+def paginate returns Iterator[T]
+module models
+protocol Payer attribute networks: Sequence[str]
+protocol Payer def sign param context: PaymentContext [positional_or_keyword, required]
+protocol Payer def sign positional (context)
+protocol Payer def sign returns PaymentSignature | None | Awaitable[PaymentSignature | None]
+protocol Payer(Protocol, Generic)

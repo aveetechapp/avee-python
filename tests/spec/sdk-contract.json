@@ -1,0 +1,1656 @@
+{
+  "operations": {
+    "x402Discovery": {
+      "method": "GET",
+      "path": "/.well-known/x402",
+      "params": [],
+      "body": null,
+      "response": "X402Discovery"
+    },
+    "status": {
+      "method": "GET",
+      "path": "/status",
+      "params": [],
+      "body": null,
+      "response": "StatusResponse"
+    },
+    "key": {
+      "method": "GET",
+      "path": "/key",
+      "params": [],
+      "body": null,
+      "response": "KeyInfo"
+    },
+    "config": {
+      "method": "GET",
+      "path": "/config",
+      "params": [],
+      "body": null,
+      "response": "Config"
+    },
+    "chains": {
+      "method": "GET",
+      "path": "/chains",
+      "params": [],
+      "body": null,
+      "response": "ChainList"
+    },
+    "search": {
+      "method": "GET",
+      "path": "/search",
+      "params": [
+        "q",
+        "chains",
+        "limit"
+      ],
+      "body": null,
+      "response": "SearchResponse"
+    },
+    "pairs": {
+      "method": "GET",
+      "path": "/pairs",
+      "params": [
+        "chains",
+        "q",
+        "protocols",
+        "dex_names",
+        "min_liquidity_usd",
+        "max_liquidity_usd",
+        "min_apr",
+        "max_apr",
+        "min_score",
+        "max_score",
+        "min_age_seconds",
+        "max_age_seconds",
+        "market_type",
+        "only_trustable",
+        "max_deployed_pairs",
+        "sort",
+        "order",
+        "timeframe",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "PairPage"
+    },
+    "pair": {
+      "method": "GET",
+      "path": "/chains/{chain}/pairs/{address}",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "PairInfo"
+    },
+    "pairTrades": {
+      "method": "GET",
+      "path": "/chains/{chain}/pairs/{address}/trades",
+      "params": [
+        "chain",
+        "address",
+        "tx_type",
+        "maker",
+        "from",
+        "to",
+        "order",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "TradePage"
+    },
+    "pairCandles": {
+      "method": "GET",
+      "path": "/chains/{chain}/pairs/{address}/candles",
+      "params": [
+        "chain",
+        "address",
+        "res",
+        "from",
+        "to",
+        "countback",
+        "currency",
+        "price_from_quote",
+        "volume_from_quote"
+      ],
+      "body": null,
+      "response": "ChartCandles"
+    },
+    "trending": {
+      "method": "GET",
+      "path": "/trending",
+      "params": [
+        "chains",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "PairPage"
+    },
+    "pairsNew": {
+      "method": "GET",
+      "path": "/pairs/new",
+      "params": [
+        "chain",
+        "min_liquidity_usd",
+        "max_age_seconds",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "PairPage"
+    },
+    "launchpadTokens": {
+      "method": "GET",
+      "path": "/launchpads/tokens",
+      "params": [
+        "chain",
+        "launch_status",
+        "launchpads",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "PairPage"
+    },
+    "pairBatch": {
+      "method": "POST",
+      "path": "/pairs/batch",
+      "params": [],
+      "body": "PairBatchRequest",
+      "response": "PairBatchResponse"
+    },
+    "perps": {
+      "method": "GET",
+      "path": "/perps",
+      "params": [
+        "chains",
+        "q",
+        "sort",
+        "order",
+        "timeframe",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "PairPage"
+    },
+    "perpHistory": {
+      "method": "GET",
+      "path": "/perps/{market}/history",
+      "params": [
+        "market",
+        "chain",
+        "from",
+        "to",
+        "interval"
+      ],
+      "body": null,
+      "response": "PerpHistory"
+    },
+    "perpLiquidations": {
+      "method": "GET",
+      "path": "/perps/liquidations",
+      "params": [
+        "chain",
+        "market",
+        "from",
+        "to"
+      ],
+      "body": null,
+      "response": "PerpLiquidations"
+    },
+    "deployerTokens": {
+      "method": "GET",
+      "path": "/deployers/{address}/tokens",
+      "params": [
+        "address",
+        "chains",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "DeployerLaunchPage"
+    },
+    "tokenByAddress": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}",
+      "params": [
+        "chain",
+        "address",
+        "include_instances",
+        "include_market"
+      ],
+      "body": null,
+      "response": "TokenInfo"
+    },
+    "tokenPairs": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}/pairs",
+      "params": [
+        "chain",
+        "address",
+        "limit"
+      ],
+      "body": null,
+      "response": "PairPage"
+    },
+    "tokenVerdict": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}/verdict",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "TokenVerdict"
+    },
+    "tokenVerdictProof": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}/proof",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "TokenVerdictProof"
+    },
+    "tokenBrief": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}/brief",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "TokenBrief"
+    },
+    "tokenByID": {
+      "method": "GET",
+      "path": "/tokens/{id}",
+      "params": [
+        "id",
+        "include_instances",
+        "include_market"
+      ],
+      "body": null,
+      "response": "TokenInfo"
+    },
+    "tokenBySlug": {
+      "method": "GET",
+      "path": "/tokens/by-slug/{slug}",
+      "params": [
+        "slug",
+        "include_instances",
+        "include_market"
+      ],
+      "body": null,
+      "response": "TokenInfo"
+    },
+    "tokens": {
+      "method": "GET",
+      "path": "/tokens",
+      "params": [
+        "q",
+        "chains",
+        "categories",
+        "sort",
+        "order",
+        "min_liquidity_usd",
+        "max_liquidity_usd",
+        "min_volume_usd",
+        "max_volume_usd",
+        "min_market_cap_usd",
+        "max_market_cap_usd",
+        "min_fdv_usd",
+        "max_fdv_usd",
+        "min_age_seconds",
+        "max_age_seconds",
+        "min_score",
+        "max_score",
+        "min_holders",
+        "max_holders",
+        "include_instances",
+        "include_market",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "TokenPage"
+    },
+    "tokenBatch": {
+      "method": "POST",
+      "path": "/tokens/batch",
+      "params": [],
+      "body": "TokenBatchRequest",
+      "response": "TokenBatchResponse"
+    },
+    "tokenHolders": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}/holders",
+      "params": [
+        "chain",
+        "address",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "TokenHolderPage"
+    },
+    "tokenTraders": {
+      "method": "GET",
+      "path": "/chains/{chain}/tokens/{address}/traders",
+      "params": [
+        "chain",
+        "address",
+        "sort",
+        "state",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "TokenTraderPage"
+    },
+    "farms": {
+      "method": "GET",
+      "path": "/farms",
+      "params": [
+        "chains",
+        "q",
+        "factories",
+        "sort",
+        "order",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "FarmPage"
+    },
+    "farm": {
+      "method": "GET",
+      "path": "/chains/{chain}/farms/{address}",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "FarmInfo"
+    },
+    "wallets": {
+      "method": "GET",
+      "path": "/wallets",
+      "params": [
+        "chain",
+        "window",
+        "sort",
+        "order",
+        "min_total_pnl_usd",
+        "min_realized_pnl_usd",
+        "min_volume_usd",
+        "min_win_rate",
+        "min_trades",
+        "max_avg_hold_seconds",
+        "min_user_score",
+        "no_abuse_evidence",
+        "only_copy_eligible",
+        "exclude_bots",
+        "tiers",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "WalletPage"
+    },
+    "walletStats": {
+      "method": "GET",
+      "path": "/wallets/stats",
+      "params": [
+        "chains"
+      ],
+      "body": null,
+      "response": "WalletStats"
+    },
+    "walletLabelsBatch": {
+      "method": "POST",
+      "path": "/wallets/labels/batch",
+      "params": [],
+      "body": "WalletLabelsRequest",
+      "response": "WalletLabelList"
+    },
+    "walletOverview": {
+      "method": "GET",
+      "path": "/wallets/{address}/overview",
+      "params": [
+        "address",
+        "chains",
+        "window"
+      ],
+      "body": null,
+      "response": "WalletOverview"
+    },
+    "leaderboard": {
+      "method": "GET",
+      "path": "/leaderboard",
+      "params": [
+        "scope",
+        "chain",
+        "chains",
+        "seasonal",
+        "season",
+        "limit"
+      ],
+      "body": null,
+      "response": "Leaderboard"
+    },
+    "walletProfile": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "WalletProfile"
+    },
+    "walletPositions": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}/positions",
+      "params": [
+        "chain",
+        "address",
+        "state",
+        "sort",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "WalletPositionPage"
+    },
+    "walletTrades": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}/trades",
+      "params": [
+        "chain",
+        "address",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "WalletTradePage"
+    },
+    "walletChart": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}/chart",
+      "params": [
+        "chain",
+        "address",
+        "window"
+      ],
+      "body": null,
+      "response": "WalletChart"
+    },
+    "walletBestTrades": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}/best-trades",
+      "params": [
+        "chain",
+        "address",
+        "window",
+        "limit"
+      ],
+      "body": null,
+      "response": "WalletBestTrades"
+    },
+    "walletRounds": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}/rounds",
+      "params": [
+        "chain",
+        "address",
+        "token",
+        "state",
+        "limit",
+        "cursor"
+      ],
+      "body": null,
+      "response": "WalletRoundPage"
+    },
+    "walletFunding": {
+      "method": "GET",
+      "path": "/chains/{chain}/wallets/{address}/funding",
+      "params": [
+        "chain",
+        "address"
+      ],
+      "body": null,
+      "response": "WalletFunding"
+    },
+    "oraclePrices": {
+      "method": "GET",
+      "path": "/prices",
+      "params": [
+        "ids"
+      ],
+      "body": null,
+      "response": "OraclePriceList"
+    },
+    "oraclePricesAt": {
+      "method": "GET",
+      "path": "/prices/at",
+      "params": [
+        "ids",
+        "ts"
+      ],
+      "body": null,
+      "response": "OraclePriceList"
+    }
+  },
+  "fields": {
+    "TxnCount": {
+      "buys": "integer",
+      "sells": "integer"
+    },
+    "PairWindow": {
+      "price_change_pct": "number",
+      "volume_usd": "number",
+      "buy_volume_usd": "number",
+      "sell_volume_usd": "number",
+      "txns": "#TxnCount",
+      "buyers": "integer",
+      "sellers": "integer"
+    },
+    "PairWindows": {
+      "m5": "#PairWindow",
+      "h1": "#PairWindow",
+      "h6": "#PairWindow",
+      "h24": "#PairWindow"
+    },
+    "PairLaunchpad": {
+      "name": "string",
+      "protocol": "string",
+      "stage": "string",
+      "completed_at": "string",
+      "migrated_pool": "#Address"
+    },
+    "PairSafety": {
+      "is_honeypot": "boolean",
+      "buy_tax": "number",
+      "sell_tax": "number",
+      "lp_locked_pct": "number",
+      "lp_burned_pct": "number",
+      "score": "integer",
+      "labels": "#RiskSignalKind[]"
+    },
+    "TokenWindow": {
+      "price_change_pct": "number",
+      "volume_usd": "number",
+      "buy_volume_usd": "number",
+      "sell_volume_usd": "number",
+      "txns": "#TxnCount",
+      "buyers": "integer",
+      "sellers": "integer",
+      "makers": "integer",
+      "makers_main_pair_only": "boolean"
+    },
+    "TokenWindows": {
+      "m5": "#TokenWindow",
+      "h1": "#TokenWindow",
+      "h6": "#TokenWindow",
+      "h24": "#TokenWindow"
+    },
+    "TokenHolderStats": {
+      "count": "integer",
+      "top10_pct": "number",
+      "updated_at": "string"
+    },
+    "TokenSocials": {
+      "twitter": "string[]",
+      "telegram": "string[]",
+      "discord": "string[]",
+      "github": "string[]",
+      "docs": "string[]"
+    },
+    "TokenProfile": {
+      "image_url": "string",
+      "websites": "string[]",
+      "socials": "#TokenSocials",
+      "verified": "boolean",
+      "verification_tier": "string",
+      "verified_by": "string[]"
+    },
+    "TokenHolder": {
+      "address": "#Address",
+      "balance": "number",
+      "share_pct": "number",
+      "tier": "#WalletTier",
+      "wallet_type": "#WalletType",
+      "labels": "#WalletLabel[]",
+      "first_buy_at": "string"
+    },
+    "TokenHolderPage": {
+      "items": "#TokenHolder[]",
+      "next_cursor": "string",
+      "prev_cursor": "string",
+      "holder_stats": "#TokenHolderStats"
+    },
+    "TokenTrader": {
+      "address": "#Address",
+      "tier": "#WalletTier",
+      "wallet_type": "#WalletType",
+      "labels": "#WalletLabel[]",
+      "realized_pnl_usd": "number",
+      "unrealized_pnl_usd": "number",
+      "bought_usd": "number",
+      "sold_usd": "number",
+      "balance": "number",
+      "buys": "integer",
+      "sells": "integer",
+      "avg_entry_price": "number",
+      "avg_exit_price": "number",
+      "first_buy_at": "string",
+      "last_sell_at": "string",
+      "exited": "boolean"
+    },
+    "TokenTraderPage": {
+      "items": "#TokenTrader[]",
+      "next_cursor": "string",
+      "prev_cursor": "string"
+    },
+    "PairBatchRef": {
+      "chain": "#ChainSlug",
+      "address": "#Address"
+    },
+    "PairBatchRequest": {
+      "items": "#PairBatchRef[]"
+    },
+    "PairBatchItem": {
+      "chain": "#ChainSlug",
+      "address": "#Address",
+      "found": "boolean",
+      "pair": "#PairInfo"
+    },
+    "PairBatchResponse": {
+      "items": "#PairBatchItem[]"
+    },
+    "PerpPoint": {
+      "timestamp": "string",
+      "mark_price": "number",
+      "oracle_price": "number",
+      "premium": "number",
+      "oi_usd": "number",
+      "oi_long_usd": "number",
+      "oi_short_usd": "number",
+      "funding_long_1h": "number",
+      "funding_short_1h": "number",
+      "borrow_long_1h": "number",
+      "borrow_short_1h": "number",
+      "oi_known": "boolean"
+    },
+    "PerpHistory": {
+      "chain": "#ChainRef",
+      "market": "#Address",
+      "interval": "string",
+      "items": "#PerpPoint[]"
+    },
+    "LiquidationDay": {
+      "day": "string",
+      "liquidated_long_usd": "number",
+      "liquidated_short_usd": "number",
+      "long_count": "integer",
+      "short_count": "integer",
+      "max_liquidation_usd": "number"
+    },
+    "PerpLiquidations": {
+      "chain": "#ChainRef",
+      "market": "#Address",
+      "stale": "boolean",
+      "items": "#LiquidationDay[]"
+    },
+    "WalletFunding": {
+      "chain": "#ChainRef",
+      "address": "#Address",
+      "funded_by": "#Address",
+      "funded_at": "string"
+    },
+    "DeployerCard": {
+      "address": "#Address",
+      "chains": "#ChainSlug[]",
+      "reputation": "#DeployerReputation",
+      "pairs_total": "integer",
+      "pairs_scam": "integer",
+      "pairs_rugged": "integer",
+      "pairs_honeypot": "integer",
+      "first_launch_at": "string",
+      "last_launch_at": "string"
+    },
+    "DeployerLaunchPage": {
+      "items": "#PairInfo[]",
+      "next_cursor": "string",
+      "prev_cursor": "string",
+      "deployer": "#DeployerCard"
+    },
+    "OraclePrice": {
+      "id": "string",
+      "price": "#DecimalString",
+      "conf": "#DecimalString",
+      "ema_price": "#DecimalString",
+      "publish_time": "string"
+    },
+    "OraclePriceList": {
+      "items": "#OraclePrice[]"
+    },
+    "BriefDeployer": {
+      "address": "#Address",
+      "launches": "integer",
+      "rugs": "integer",
+      "status": "#DeployerStatus"
+    },
+    "BriefHolders": {
+      "top10_pct": "number",
+      "count": "integer"
+    },
+    "BriefLiquidity": {
+      "usd": "number",
+      "onchain_usd": "number",
+      "locked_pct": "number",
+      "burned_pct": "number",
+      "earliest_unlock_at": "string"
+    },
+    "BriefMarket": {
+      "price_usd": "number",
+      "volume_24h": "number",
+      "trades_24h": "integer",
+      "change_24h": "number",
+      "best_pair": "#Address",
+      "dex": "string"
+    },
+    "BriefScore": {
+      "value": "integer",
+      "title": "string",
+      "signals": "#BriefSignal[]"
+    },
+    "BriefSignal": {
+      "kind": "#RiskSignalKind",
+      "weight": "number"
+    },
+    "ChainInfo": {
+      "slug": "#ChainSlug",
+      "chain_id": "integer",
+      "latest_block": "integer",
+      "block_lag_seconds": "integer",
+      "syncing": "boolean",
+      "protocols": "#FactoryType[]",
+      "dex_names": "string[]",
+      "pairs": "integer",
+      "liquidity_usd": "number",
+      "volume_24h_usd": "number",
+      "min_liquidity_usd": "number",
+      "display_name": "string",
+      "head_block": "integer",
+      "metrics_stale": "boolean",
+      "quality_liquidity_usd": "number",
+      "txns_24h": "integer",
+      "new_pairs_24h": "integer",
+      "new_pairs_24h_total": "integer",
+      "scams_total": "integer",
+      "scams_on_pool": "integer",
+      "scams_inherited": "integer",
+      "scams_24h": "integer",
+      "deployers_total": "integer",
+      "new_deployers_24h": "integer",
+      "deployer_abusers": "integer",
+      "gainer": "#ChainMover",
+      "loser": "#ChainMover",
+      "explorer_url": "string",
+      "native_address_format": "string"
+    },
+    "ChainList": {
+      "items": "#ChainInfo[]"
+    },
+    "ChainMover": {
+      "pair_address": "#Address",
+      "ticker": "string",
+      "value": "number"
+    },
+    "ChainRef": {
+      "slug": "#ChainSlug",
+      "chain_id": "integer"
+    },
+    "ChartCandles": {
+      "s": "string",
+      "t": "integer[]",
+      "o": "number[]",
+      "h": "number[]",
+      "l": "number[]",
+      "c": "number[]",
+      "v": "number[]",
+      "err_msg": "string"
+    },
+    "Config": {
+      "chains": "#ChainInfo[]",
+      "resolutions": "#ResolutionType[]",
+      "tx_types": "#TxType[]",
+      "sort_options": "#SortBy[]",
+      "timeframes": "#TimeFrame[]",
+      "min_liquidity_usd": "number"
+    },
+    "DeployerReputation": {
+      "score": "integer",
+      "status": "#DeployerStatus",
+      "pairs_created": "integer",
+      "abused_launches": "integer",
+      "first_seen_at": "string"
+    },
+    "Dex": {
+      "name": "string",
+      "factory": "#Address",
+      "factory_type": "#FactoryType",
+      "chain_id": "integer",
+      "lp_token_symbol": "string"
+    },
+    "EthereumTxData": {
+      "block_number": "integer",
+      "log_index": "integer",
+      "gas_used": "integer",
+      "fee_usd": "number"
+    },
+    "FarmApr": {
+      "base_apr": "#DecimalString",
+      "lp_reward_apr": "#DecimalString"
+    },
+    "FarmFactory": {
+      "address": "#Address",
+      "name": "string"
+    },
+    "FarmInfo": {
+      "network": "#ChainRef",
+      "address": "#Address",
+      "pid": "integer",
+      "ticker": "string",
+      "tvl": "#DecimalString",
+      "reward_token": "#FarmRewardToken",
+      "apr_year": "#FarmApr",
+      "apr_daily": "#FarmApr",
+      "factory": "#FarmFactory",
+      "updated_at": "string",
+      "status": "#FarmStatus",
+      "lifecycle_state": "string",
+      "data_quality_flags": "string[]"
+    },
+    "FarmPage": {
+      "items": "#FarmInfo[]",
+      "next_cursor": "string",
+      "prev_cursor": "string"
+    },
+    "FarmRewardToken": {
+      "address": "#Address",
+      "name": "string",
+      "symbol": "string",
+      "chain_id": "integer"
+    },
+    "FloatTimeframes": {
+      "m5": "number",
+      "h1": "number",
+      "h6": "number",
+      "h24": "number"
+    },
+    "KeyInfo": {
+      "name": "string",
+      "plan": "#Plan",
+      "rate_limit": "object",
+      "rate_limit.requests_per_second": "integer",
+      "rate_limit.burst": "integer",
+      "rate_limit.max_concurrent_requests": "integer",
+      "max_limit": "integer"
+    },
+    "LiquidityEventData": {
+      "tokens": "#LiquidityTokenChange[]",
+      "liquidity_usd": "number"
+    },
+    "LiquidityTokenChange": {
+      "address": "#Address",
+      "symbol": "string",
+      "amount": "number",
+      "price_usd": "number"
+    },
+    "PairDeployer": {
+      "address": "#Address",
+      "tx_hash": "string",
+      "block_number": "integer",
+      "log_index": "integer",
+      "reputation": "#DeployerReputation"
+    },
+    "PairInfo": {
+      "network": "#ChainRef",
+      "dex": "#Dex",
+      "pair_address": "#Address",
+      "prop_data": "#PairPropData",
+      "status": "#PairStatus",
+      "score": "#PairScore",
+      "deployer": "#PairDeployer",
+      "security": "#PairSecurity",
+      "verdict": "#PairVerdict",
+      "ticker": "string",
+      "pair_fee": "number",
+      "tokens": "#Token[]",
+      "txn": "#TxnTimeframes",
+      "volume": "#FloatTimeframes",
+      "price_change": "#FloatTimeframes",
+      "liquidity_usd": "number",
+      "liquidity_onchain_usd": "number",
+      "apr": "number",
+      "fees_usd_24h": "number",
+      "last_updated_at": "string",
+      "created_at": "string",
+      "last_trade_at": "string",
+      "price_native": "number",
+      "windows": "#PairWindows",
+      "launchpad": "#PairLaunchpad",
+      "safety": "#PairSafety"
+    },
+    "PairPage": {
+      "items": "#PairInfo[]",
+      "next_cursor": "string",
+      "prev_cursor": "string",
+      "applied_sort": "#SortBy",
+      "applied_timeframe": "#TimeFrame",
+      "excluded_chains": "#ChainSlug[]"
+    },
+    "PairPropData": {
+      "is_perp": "boolean",
+      "is_honeypot": "boolean",
+      "spot_disabled": "boolean",
+      "perp_disabled": "boolean",
+      "buy_tax": "number",
+      "sell_tax": "number",
+      "liquidity_range": "#ValueRange",
+      "perp": "#PerpMarket"
+    },
+    "PairScore": {
+      "value": "integer",
+      "title": "string",
+      "updated_at": "string",
+      "risk_signals": "#RiskSignal[]"
+    },
+    "PairSecurity": {
+      "burned_pct": "number",
+      "locked_pct": "number",
+      "top_lock_provider": "string",
+      "earliest_unlock_at": "string",
+      "checked_at": "string"
+    },
+    "PairVerdict": {
+      "status": "#VerdictStatus"
+    },
+    "PerpMarket": {
+      "max_leverage": "integer",
+      "only_isolated": "boolean",
+      "funding_rate": "number",
+      "open_interest": "number",
+      "open_interest_usd": "number",
+      "mark_price": "number",
+      "oracle_price": "number",
+      "premium": "number",
+      "day_notional_volume": "number",
+      "synced_at": "string"
+    },
+    "PaymentRequired": {
+      "x402Version": "integer",
+      "error": "string",
+      "accepts": "#PaymentRequirements[]",
+      "resource": "#PaymentResource",
+      "extensions": "map<any>"
+    },
+    "PaymentRequirements": {
+      "scheme": "string",
+      "network": "string",
+      "amount": "string",
+      "asset": "string",
+      "payTo": "string",
+      "maxAmountRequired": "string",
+      "resource": "string",
+      "description": "string",
+      "mimeType": "string",
+      "maxTimeoutSeconds": "integer",
+      "extra": "map<any>"
+    },
+    "PaymentResource": {
+      "url": "string",
+      "description": "string",
+      "mimeType": "string",
+      "serviceName": "string"
+    },
+    "X402Discovery": {
+      "x402Version": "integer",
+      "resources": "string[]",
+      "items": "#X402DiscoveredResource[]"
+    },
+    "X402DiscoveredResource": {
+      "resource": "string",
+      "type": "string",
+      "x402Version": "integer",
+      "accepts": "#PaymentRequirements[]",
+      "extensions": "map<any>",
+      "lastUpdated": "string"
+    },
+    "Problem": {
+      "type": "string",
+      "title": "string",
+      "status": "integer",
+      "code": "#ErrorCode",
+      "detail": "string",
+      "param": "string",
+      "request_id": "string"
+    },
+    "RiskSignal": {
+      "kind": "#RiskSignalKind",
+      "weight": "number",
+      "group": "#RiskSignalGroup",
+      "severity": "#RiskSignalSeverity",
+      "observed_at": "string"
+    },
+    "SearchPair": {
+      "pair_address": "#Address",
+      "network": "#ChainSlug",
+      "ticker": "string",
+      "base_symbol": "string",
+      "quote_symbol": "string",
+      "dex_name": "string",
+      "liquidity_usd": "number",
+      "price_usd": "number",
+      "price_change_24h": "number"
+    },
+    "SearchResponse": {
+      "tokens": "#SearchToken[]",
+      "pairs": "#SearchPair[]"
+    },
+    "SearchToken": {
+      "address": "#Address",
+      "network": "#ChainSlug",
+      "symbol": "string",
+      "name": "string",
+      "price_usd": "number",
+      "price_change_24h": "number",
+      "logo_url": "string"
+    },
+    "StatusResponse": {
+      "status": "string",
+      "degraded": "string[]"
+    },
+    "SwapEventData": {
+      "amount0": "number",
+      "amount1": "number",
+      "price0": "number",
+      "price1": "number",
+      "price_usd0": "number",
+      "price_usd1": "number"
+    },
+    "Token": {
+      "name": "string",
+      "symbol": "string",
+      "address": "#Address",
+      "status": "#TokenStatus",
+      "chain_id": "integer",
+      "price_usd": "number",
+      "price_native": "number",
+      "position": "integer",
+      "decimals": "integer",
+      "reserve": "number",
+      "total_supply": "number",
+      "price_range": "#ValueRange"
+    },
+    "TokenBatchItem": {
+      "chain": "#ChainSlug",
+      "address": "#TokenAddress",
+      "found": "boolean",
+      "token": "#TokenInfo"
+    },
+    "TokenBatchRef": {
+      "chain": "#ChainSlug",
+      "address": "#TokenAddress"
+    },
+    "TokenBatchRequest": {
+      "items": "#TokenBatchRef[]"
+    },
+    "TokenBatchResponse": {
+      "items": "#TokenBatchItem[]"
+    },
+    "TokenBrief": {
+      "chain": "#ChainSlug",
+      "as_of": "string",
+      "source": "string",
+      "verdict": "#TokenVerdict",
+      "score": "#BriefScore",
+      "liquidity": "#BriefLiquidity",
+      "market": "#BriefMarket",
+      "holders": "#BriefHolders",
+      "deployer": "#BriefDeployer",
+      "flags": "string[]"
+    },
+    "TokenInfo": {
+      "id": "string",
+      "slug": "string",
+      "symbol": "string",
+      "name": "string",
+      "description": "string",
+      "status": "#CanonicalTokenStatus",
+      "confidence": "integer",
+      "category": "#TokenCategory",
+      "rank": "integer",
+      "logo_url": "string",
+      "market": "#TokenMarketProjection",
+      "instances": "#TokenInstance[]",
+      "chain": "#ChainRef",
+      "address": "string",
+      "decimals": "integer",
+      "score": "integer",
+      "categories": "string[]",
+      "price_usd": "number",
+      "price_change_1h": "number",
+      "price_change_6h": "number",
+      "price_change_24h": "number",
+      "volume_24h": "number",
+      "txns_24h": "integer",
+      "liquidity_usd": "number",
+      "pairs_count": "integer",
+      "fdv_usd": "number",
+      "market_cap_usd": "number",
+      "market_cap_estimated": "boolean",
+      "total_supply": "number",
+      "max_supply": "number",
+      "circulating_supply": "number",
+      "holders": "integer",
+      "launched_at": "string",
+      "rating": "#TokenRating",
+      "main_pair": "#TokenMainPair",
+      "launch": "#TokenLaunch",
+      "windows": "#TokenWindows",
+      "holder_stats": "#TokenHolderStats",
+      "profile": "#TokenProfile"
+    },
+    "TokenLaunch": {
+      "deployer": "string",
+      "tx_hash": "string",
+      "block_number": "integer",
+      "deployed_at": "string"
+    },
+    "TokenMainPair": {
+      "address": "string",
+      "ticker": "string"
+    },
+    "TokenRating": {
+      "score": "integer",
+      "safety": "integer",
+      "liquidity": "integer",
+      "activity": "integer",
+      "holders": "integer",
+      "age_info": "integer"
+    },
+    "TokenInstance": {
+      "id": "string",
+      "chain_id": "integer",
+      "address": "string",
+      "decimals": "integer",
+      "status": "#CanonicalTokenStatus",
+      "risk_score": "integer",
+      "contract_verified": "boolean",
+      "market": "#TokenMarketProjection"
+    },
+    "TokenListIncludes": {
+      "instances": "boolean",
+      "market": "boolean"
+    },
+    "TokenMarketMetrics": {
+      "price_usd": "#NonNegativeDecimalString",
+      "liquidity_usd": "#NonNegativeDecimalString",
+      "market_cap_usd": "#NonNegativeDecimalString",
+      "fdv_usd": "#NonNegativeDecimalString",
+      "circulating_supply": "#NonNegativeDecimalString",
+      "total_supply": "#NonNegativeDecimalString",
+      "holders_count": "integer"
+    },
+    "TokenMarketProjection": {
+      "observed_at": "string",
+      "expires_at": "string",
+      "metrics": "#TokenMarketMetrics",
+      "windows": "map<#TokenMetricWindow>",
+      "primary_market": "#TokenPrimaryMarket"
+    },
+    "TokenMetricWindow": {
+      "price_change_percent": "#DecimalString",
+      "volume_usd": "#NonNegativeDecimalString",
+      "buys": "integer",
+      "sells": "integer",
+      "transactions": "integer"
+    },
+    "TokenPage": {
+      "items": "#TokenInfo[]",
+      "next_cursor": "string",
+      "prev_cursor": "string",
+      "includes": "#TokenListIncludes"
+    },
+    "TokenPrimaryMarket": {
+      "chain_id": "integer",
+      "pair_address": "string",
+      "dex_id": "string",
+      "liquidity_usd": "#NonNegativeDecimalString"
+    },
+    "TokenVerdict": {
+      "token_address": "#Address",
+      "chain": "#ChainSlug",
+      "chain_id": "integer",
+      "status": "#VerdictStatus",
+      "reasons": "#ReasonSlug[]",
+      "reason_bits": "integer",
+      "verdict_at": "string",
+      "signed_at": "string",
+      "expires_at": "string",
+      "signature": "string",
+      "signer": "string",
+      "oracle_address": "string"
+    },
+    "TokenVerdictProof": {
+      "token_address": "#Address",
+      "chain": "#ChainSlug",
+      "chain_id": "integer",
+      "epoch": "integer",
+      "root": "string",
+      "proof": "string[]",
+      "status": "#VerdictStatus"
+    },
+    "TonTxData": {
+      "seq_no": "integer",
+      "shard_id": "integer",
+      "work_chain": "integer"
+    },
+    "TradePage": {
+      "items": "#Transaction[]",
+      "next_cursor": "string",
+      "prev_cursor": "string"
+    },
+    "Transaction": {
+      "timestamp": "string",
+      "hash": "string",
+      "chain_id": "integer",
+      "maker_address": "#Address",
+      "from_address": "#Address",
+      "to_address": "#Address",
+      "tx_type": "#TxType",
+      "block_info": "oneOf<EthereumTxData|TonTxData>",
+      "event_data": "oneOf<SwapEventData|LiquidityEventData>"
+    },
+    "TxnPairStat": {
+      "buys": "integer",
+      "sells": "integer",
+      "buy_volume": "number",
+      "sell_volume": "number",
+      "buyers": "integer",
+      "sellers": "integer"
+    },
+    "TxnTimeframes": {
+      "m5": "#TxnPairStat",
+      "h1": "#TxnPairStat",
+      "h6": "#TxnPairStat",
+      "h24": "#TxnPairStat"
+    },
+    "ValueRange": {
+      "low": "number",
+      "high": "number",
+      "low_at": "integer",
+      "high_at": "integer"
+    },
+    "WalletLabel": {
+      "kind": "integer",
+      "name": "string",
+      "confidence": "number",
+      "token_address": "#Address"
+    },
+    "UserScore": {
+      "value": "integer",
+      "status": "string"
+    },
+    "ScammerScore": {
+      "value": "integer",
+      "band": "string"
+    },
+    "WalletScoreSignal": {
+      "kind": "string",
+      "title": "string",
+      "detail": "string",
+      "subject": "string",
+      "points": "number",
+      "occurrences": "integer",
+      "last_seen": "string",
+      "direction": "string",
+      "target": "string"
+    },
+    "WalletMetrics": {
+      "window": "#WalletWindow",
+      "realized_pnl_usd": "number",
+      "unrealized_pnl_usd": "number",
+      "total_pnl_usd": "number",
+      "rated_pnl_usd": "number",
+      "gross_profit_usd": "number",
+      "gross_loss_usd": "number",
+      "invested_usd": "number",
+      "volume_usd": "number",
+      "roi": "number",
+      "win_rate": "number",
+      "trade_win_rate": "number",
+      "median_roi": "number",
+      "profit_factor": "number",
+      "avg_trade_usd": "number",
+      "avg_hold_seconds": "integer",
+      "trades": "integer",
+      "winning_trades": "integer",
+      "losing_trades": "integer",
+      "tokens_traded": "integer",
+      "closed_positions": "integer",
+      "open_positions": "integer",
+      "rated_positions": "integer",
+      "excluded_transfer_only": "integer",
+      "excluded_untracked": "integer",
+      "excluded_no_outcome": "integer"
+    },
+    "WalletProfile": {
+      "address": "#Address",
+      "chain": "#ChainRef",
+      "tier": "#WalletTier",
+      "type": "#WalletType",
+      "labels": "#WalletLabel[]",
+      "human_known": "boolean",
+      "rebuild_skipped": "boolean",
+      "rebuild_skip_reason": "string",
+      "copy_eligible": "boolean",
+      "cluster_id": "integer",
+      "first_seen_at": "string",
+      "first_onchain_at": "string",
+      "last_active_at": "string",
+      "age_is_estimated": "boolean",
+      "user_score": "#UserScore",
+      "scammer_score": "#ScammerScore",
+      "signals": "#WalletScoreSignal[]",
+      "metrics": "#WalletMetrics[]"
+    },
+    "WalletListItem": {
+      "address": "#Address",
+      "chain": "#ChainRef",
+      "tier": "#WalletTier",
+      "type": "#WalletType",
+      "labels": "#WalletLabel[]",
+      "copy_eligible": "boolean",
+      "user_score": "#UserScore",
+      "scammer_score": "#ScammerScore",
+      "metrics": "#WalletMetrics"
+    },
+    "WalletPage": {
+      "items": "#WalletListItem[]",
+      "next_cursor": "string"
+    },
+    "WalletPositionPair": {
+      "address": "#Address",
+      "ticker": "string",
+      "dex_name": "string",
+      "liquidity_usd": "number",
+      "status": "integer",
+      "score": "integer",
+      "unsellable": "boolean",
+      "rugged": "boolean"
+    },
+    "WalletPosition": {
+      "token_address": "#Address",
+      "token_symbol": "string",
+      "qty_held": "number",
+      "cost_basis_usd": "number",
+      "realized_pnl_usd": "number",
+      "realized_pnl_pct": "number",
+      "unrealized_pnl_usd": "number",
+      "bought_usd": "number",
+      "sold_usd": "number",
+      "bought_qty": "number",
+      "sold_qty": "number",
+      "avg_entry_price": "number",
+      "avg_exit_price": "number",
+      "fees_usd": "number",
+      "buy_txs": "integer",
+      "sell_txs": "integer",
+      "hold_seconds": "integer",
+      "first_trade_at": "string",
+      "last_trade_at": "string",
+      "closed_at": "string",
+      "basis_is_incomplete": "boolean",
+      "unsellable": "boolean",
+      "token_score": "integer",
+      "token_status": "integer",
+      "pairs": "#WalletPositionPair[]"
+    },
+    "WalletPositionPage": {
+      "items": "#WalletPosition[]",
+      "next_cursor": "string"
+    },
+    "WalletTrade": {
+      "trade_uid": "string",
+      "token_address": "#Address",
+      "token_symbol": "string",
+      "pair_address": "#Address",
+      "side": "string",
+      "qty": "number",
+      "price_usd": "number",
+      "notional_usd": "number",
+      "fee_usd": "number",
+      "fee_is_estimated": "boolean",
+      "timestamp": "string",
+      "block_number": "integer"
+    },
+    "WalletTradePage": {
+      "items": "#WalletTrade[]",
+      "next_cursor": "string"
+    },
+    "WalletPnlPoint": {
+      "timestamp": "string",
+      "realized_usd": "number",
+      "cumulative_usd": "number",
+      "cost_usd": "number",
+      "roi": "number",
+      "cumulative_roi": "number",
+      "wins": "integer",
+      "losses": "integer"
+    },
+    "WalletChart": {
+      "points": "#WalletPnlPoint[]"
+    },
+    "WalletRankedPosition": {
+      "token_address": "#Address",
+      "symbol": "string",
+      "entry_market_cap_usd": "number",
+      "exit_market_cap_usd": "number",
+      "realized_pnl_usd": "number",
+      "roi": "number",
+      "buys": "integer",
+      "sells": "integer"
+    },
+    "WalletBestTrades": {
+      "winners": "#WalletRankedPosition[]",
+      "losers": "#WalletRankedPosition[]",
+      "hidden_positions": "integer",
+      "hidden_realized_pnl_usd": "number"
+    },
+    "WalletPositionRound": {
+      "token_address": "#Address",
+      "round_no": "integer",
+      "opened_by_trade": "string",
+      "closed_by_trade": "string",
+      "qty_held": "number",
+      "bought_qty": "number",
+      "sold_qty": "number",
+      "bought_usd": "number",
+      "sold_usd": "number",
+      "avg_entry_price": "number",
+      "avg_exit_price": "number",
+      "realized_pnl_usd": "number",
+      "fees_usd": "number",
+      "max_qty_held": "number",
+      "remaining_ratio": "number",
+      "realized_share": "number",
+      "buy_txs": "integer",
+      "sell_txs": "integer",
+      "first_trade_at": "string",
+      "first_buy_at": "string",
+      "last_trade_at": "string",
+      "last_sell_at": "string",
+      "closed_at": "string",
+      "basis_is_incomplete": "boolean",
+      "exited": "boolean"
+    },
+    "WalletRoundPage": {
+      "items": "#WalletPositionRound[]",
+      "next_cursor": "string"
+    },
+    "WalletChainPnl": {
+      "chain": "#ChainRef",
+      "realized_pnl_usd": "number",
+      "total_pnl_usd": "number",
+      "share_of_total": "number"
+    },
+    "WalletLifetime": {
+      "deployed_usd": "number",
+      "gross_bought_usd": "number",
+      "gross_sold_usd": "number",
+      "realized_pnl_usd": "number",
+      "unrealized_pnl_usd": "number",
+      "total_pnl_usd": "number",
+      "unrealized_available": "boolean"
+    },
+    "WalletOverview": {
+      "profiles": "#WalletProfile[]",
+      "per_chain": "#WalletChainPnl[]",
+      "most_profitable_chain": "#ChainRef",
+      "unavailable_chains": "#ChainRef[]",
+      "lifetime": "#WalletLifetime"
+    },
+    "WalletMover": {
+      "address": "#Address",
+      "value": "number"
+    },
+    "TokenMover": {
+      "token_address": "#Address",
+      "symbol": "string",
+      "buys": "integer",
+      "buy_usd": "number",
+      "buyers": "integer"
+    },
+    "ChainWalletStats": {
+      "chain": "#ChainRef",
+      "wallets_total": "integer",
+      "new_wallets_24h": "integer",
+      "active_wallets_24h": "integer",
+      "human_wallets": "integer",
+      "bot_wallets": "integer",
+      "wash_traders": "integer",
+      "snipers": "integer",
+      "copy_eligible": "integer",
+      "scammers_total": "integer",
+      "scammers_24h": "integer",
+      "profitable_wallets_24h": "integer",
+      "losing_wallets_24h": "integer",
+      "realized_pnl_24h": "number",
+      "volume_24h": "number",
+      "trades_24h": "integer",
+      "top_gainer_24h": "#WalletMover",
+      "top_loser_24h": "#WalletMover",
+      "favorite_token_24h": "#TokenMover"
+    },
+    "WalletStats": {
+      "chains": "#ChainWalletStats[]"
+    },
+    "WalletLabelsRequest": {
+      "chain": "string",
+      "addresses": "#Address[]"
+    },
+    "WalletLabelSet": {
+      "address": "#Address",
+      "tier": "#WalletTier",
+      "labels": "#WalletLabel[]",
+      "copy_eligible": "boolean",
+      "user_score": "integer"
+    },
+    "WalletLabelList": {
+      "items": "#WalletLabelSet[]"
+    },
+    "LeaderboardGrowth": {
+      "available": "boolean",
+      "volume": "number",
+      "liquidity": "number",
+      "reason": "string"
+    },
+    "LeaderboardMetrics": {
+      "volume_24h": "number",
+      "buy_volume_24h": "number",
+      "liquidity": "number",
+      "quality_liquidity": "number",
+      "pairs": "integer",
+      "tradable_pairs": "integer",
+      "active_pairs": "integer",
+      "priced_pairs": "integer",
+      "new_pairs_24h": "integer",
+      "scam_pairs": "integer",
+      "txns_24h": "integer",
+      "buyers_24h": "integer",
+      "volume_share": "number",
+      "liquidity_share": "number",
+      "capital_efficiency": "number",
+      "has_capital_efficiency": "boolean",
+      "risk_rate": "number",
+      "smoothed_risk": "number",
+      "wash_rate": "number",
+      "liquidity_coverage": "number",
+      "growth_24h": "#LeaderboardGrowth",
+      "growth_7d": "#LeaderboardGrowth",
+      "hosted_volume_24h": "number"
+    },
+    "LeaderboardSeasonMetrics": {
+      "volume": "number",
+      "buy_volume": "number",
+      "liquidity_last": "number",
+      "liquidity_peak": "number",
+      "quality_liquidity": "number",
+      "txns": "integer",
+      "buyers": "integer",
+      "new_pairs": "integer"
+    },
+    "LeaderboardSeason": {
+      "number": "integer",
+      "starts_at": "string",
+      "ends_at": "string",
+      "live": "boolean",
+      "length_days": "integer",
+      "latest": "integer"
+    },
+    "LeaderboardEntity": {
+      "key": "string",
+      "display_name": "string",
+      "category": "string",
+      "infra": "string[]",
+      "chain": "#ChainRef",
+      "rank": "integer",
+      "rank_change_24h": "integer",
+      "data_state": "string",
+      "exclusion_reason": "string",
+      "badges": "string[]",
+      "dimensions": "map<number>",
+      "metrics": "#LeaderboardMetrics",
+      "season_metrics": "#LeaderboardSeasonMetrics"
+    },
+    "Leaderboard": {
+      "scope": "#LeaderboardScope",
+      "snapshot_at": "string",
+      "methodology_version": "integer",
+      "population": "integer",
+      "season": "#LeaderboardSeason",
+      "items": "#LeaderboardEntity[]",
+      "excluded": "#LeaderboardEntity[]"
+    }
+  }
+}

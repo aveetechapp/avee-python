@@ -1,0 +1,272 @@
+class AstraClient def __init__ param base_url: str [positional_or_keyword, optional]
+class AstraClient def __init__ param headers: dict[str, str] | None [keyword_only, optional]
+class AstraClient def __init__ param http_client: httpx.Client | None [keyword_only, optional]
+class AstraClient def __init__ param max_response_bytes: int [keyword_only, optional]
+class AstraClient def __init__ param max_retries: int [keyword_only, optional]
+class AstraClient def __init__ param max_retry_delay: float [keyword_only, optional]
+class AstraClient def __init__ param timeout: float [keyword_only, optional]
+class AstraClient def __init__ positional (base_url)
+class AstraClient def __init__ returns None
+class AstraClient def candles param feed: str [positional_or_keyword, required]
+class AstraClient def candles param from_time: int [positional_or_keyword, required]
+class AstraClient def candles param resolution: str [positional_or_keyword, required]
+class AstraClient def candles param to_time: int [positional_or_keyword, required]
+class AstraClient def candles positional (feed, resolution, from_time, to_time)
+class AstraClient def candles returns list[Candle]
+class AstraClient def close positional ()
+class AstraClient def close returns None
+class AstraClient def feed_ids param astra_ids: Iterable[str] | None [positional_or_keyword, optional]
+class AstraClient def feed_ids param category: str | None [keyword_only, optional]
+class AstraClient def feed_ids param pyth_ids: Iterable[str] | None [positional_or_keyword, optional]
+class AstraClient def feed_ids positional (pyth_ids, astra_ids)
+class AstraClient def feed_ids returns FeedIdMap
+class AstraClient def feeds param category: str | None [keyword_only, optional]
+class AstraClient def feeds positional ()
+class AstraClient def feeds returns list[Feed]
+class AstraClient def latest_prices param ids: Iterable[str] [positional_or_keyword, required]
+class AstraClient def latest_prices param ignore_invalid: bool | None [keyword_only, optional]
+class AstraClient def latest_prices positional (ids)
+class AstraClient def latest_prices returns list[PriceUpdate]
+class AstraClient def price_feed param feed_id: str [positional_or_keyword, required]
+class AstraClient def price_feed positional (feed_id)
+class AstraClient def price_feed returns FeedMetadata
+class AstraClient def price_feeds param asset_type: str | None [keyword_only, optional]
+class AstraClient def price_feeds param query: str | None [keyword_only, optional]
+class AstraClient def price_feeds positional ()
+class AstraClient def price_feeds returns list[FeedMetadata]
+class AstraClient def prices_at param ids: Iterable[str] [positional_or_keyword, required]
+class AstraClient def prices_at param ignore_invalid: bool | None [keyword_only, optional]
+class AstraClient def prices_at param publish_time: int [positional_or_keyword, required]
+class AstraClient def prices_at positional (publish_time, ids)
+class AstraClient def prices_at returns list[PriceUpdate]
+class AstraClient def prices_in_interval param ids: Iterable[str] [positional_or_keyword, required]
+class AstraClient def prices_in_interval param ignore_invalid: bool | None [keyword_only, optional]
+class AstraClient def prices_in_interval param interval_seconds: int [positional_or_keyword, required]
+class AstraClient def prices_in_interval param publish_time: int [positional_or_keyword, required]
+class AstraClient def prices_in_interval param unique: bool | None [keyword_only, optional]
+class AstraClient def prices_in_interval positional (publish_time, interval_seconds, ids)
+class AstraClient def prices_in_interval returns list[PriceUpdate]
+class AstraClient def status param feed: str | None [keyword_only, optional]
+class AstraClient def status positional ()
+class AstraClient def status returns StatusReport
+class AstraClient()
+class AstraConnectionError(AstraError, Exception, BaseException)
+class AstraError(Exception, BaseException)
+class AstraHTTPError def __init__ param body: str [positional_or_keyword, required]
+class AstraHTTPError def __init__ param detail: str [keyword_only, optional]
+class AstraHTTPError def __init__ param problem: Problem | None [keyword_only, optional]
+class AstraHTTPError def __init__ param retry_after: float | None [keyword_only, optional]
+class AstraHTTPError def __init__ param status: int [positional_or_keyword, required]
+class AstraHTTPError def __init__ param url: str [positional_or_keyword, required]
+class AstraHTTPError def __init__ positional (status, url, body)
+class AstraHTTPError def __init__ returns None
+class AstraHTTPError property retryable
+class AstraHTTPError(AstraError, Exception, BaseException)
+class AstraSubscriptionError(AstraError, Exception, BaseException)
+class AstraTimeoutError(AstraError, Exception, BaseException)
+class AstraValidationError(AstraError, ValueError, Exception, BaseException)
+class AsyncAstraClient def __init__ param base_url: str [positional_or_keyword, optional]
+class AsyncAstraClient def __init__ param headers: dict[str, str] | None [keyword_only, optional]
+class AsyncAstraClient def __init__ param http_client: httpx.AsyncClient | None [keyword_only, optional]
+class AsyncAstraClient def __init__ param max_response_bytes: int [keyword_only, optional]
+class AsyncAstraClient def __init__ param max_retries: int [keyword_only, optional]
+class AsyncAstraClient def __init__ param max_retry_delay: float [keyword_only, optional]
+class AsyncAstraClient def __init__ param timeout: float [keyword_only, optional]
+class AsyncAstraClient def __init__ positional (base_url)
+class AsyncAstraClient def __init__ returns None
+class AsyncAstraClient def aclose positional ()
+class AsyncAstraClient def aclose returns None
+class AsyncAstraClient def candles param feed: str [positional_or_keyword, required]
+class AsyncAstraClient def candles param from_time: int [positional_or_keyword, required]
+class AsyncAstraClient def candles param resolution: str [positional_or_keyword, required]
+class AsyncAstraClient def candles param to_time: int [positional_or_keyword, required]
+class AsyncAstraClient def candles positional (feed, resolution, from_time, to_time)
+class AsyncAstraClient def candles returns list[Candle]
+class AsyncAstraClient def feed_ids param astra_ids: Iterable[str] | None [positional_or_keyword, optional]
+class AsyncAstraClient def feed_ids param category: str | None [keyword_only, optional]
+class AsyncAstraClient def feed_ids param pyth_ids: Iterable[str] | None [positional_or_keyword, optional]
+class AsyncAstraClient def feed_ids positional (pyth_ids, astra_ids)
+class AsyncAstraClient def feed_ids returns FeedIdMap
+class AsyncAstraClient def feeds param category: str | None [keyword_only, optional]
+class AsyncAstraClient def feeds positional ()
+class AsyncAstraClient def feeds returns list[Feed]
+class AsyncAstraClient def latest_prices param ids: Iterable[str] [positional_or_keyword, required]
+class AsyncAstraClient def latest_prices param ignore_invalid: bool | None [keyword_only, optional]
+class AsyncAstraClient def latest_prices positional (ids)
+class AsyncAstraClient def latest_prices returns list[PriceUpdate]
+class AsyncAstraClient def price_feed param feed_id: str [positional_or_keyword, required]
+class AsyncAstraClient def price_feed positional (feed_id)
+class AsyncAstraClient def price_feed returns FeedMetadata
+class AsyncAstraClient def price_feeds param asset_type: str | None [keyword_only, optional]
+class AsyncAstraClient def price_feeds param query: str | None [keyword_only, optional]
+class AsyncAstraClient def price_feeds positional ()
+class AsyncAstraClient def price_feeds returns list[FeedMetadata]
+class AsyncAstraClient def prices_at param ids: Iterable[str] [positional_or_keyword, required]
+class AsyncAstraClient def prices_at param ignore_invalid: bool | None [keyword_only, optional]
+class AsyncAstraClient def prices_at param publish_time: int [positional_or_keyword, required]
+class AsyncAstraClient def prices_at positional (publish_time, ids)
+class AsyncAstraClient def prices_at returns list[PriceUpdate]
+class AsyncAstraClient def prices_in_interval param ids: Iterable[str] [positional_or_keyword, required]
+class AsyncAstraClient def prices_in_interval param ignore_invalid: bool | None [keyword_only, optional]
+class AsyncAstraClient def prices_in_interval param interval_seconds: int [positional_or_keyword, required]
+class AsyncAstraClient def prices_in_interval param publish_time: int [positional_or_keyword, required]
+class AsyncAstraClient def prices_in_interval param unique: bool | None [keyword_only, optional]
+class AsyncAstraClient def prices_in_interval positional (publish_time, interval_seconds, ids)
+class AsyncAstraClient def prices_in_interval returns list[PriceUpdate]
+class AsyncAstraClient def status param feed: str | None [keyword_only, optional]
+class AsyncAstraClient def status positional ()
+class AsyncAstraClient def status returns StatusReport
+class AsyncAstraClient def subscribe param benchmarks_only: bool [keyword_only, optional]
+class AsyncAstraClient def subscribe param channel: Channel | None [keyword_only, optional]
+class AsyncAstraClient def subscribe param idle_timeout: float [keyword_only, optional]
+class AsyncAstraClient def subscribe param ids: Iterable[str] [positional_or_keyword, required]
+class AsyncAstraClient def subscribe param ignore_invalid: bool [keyword_only, optional]
+class AsyncAstraClient def subscribe param max_message_bytes: int [keyword_only, optional]
+class AsyncAstraClient def subscribe param on_error: Callable[[AstraError], None] | None [keyword_only, optional]
+class AsyncAstraClient def subscribe param on_state_change: Callable[[ConnectionState], None] | None [keyword_only, optional]
+class AsyncAstraClient def subscribe param reconnect_base_delay: float [keyword_only, optional]
+class AsyncAstraClient def subscribe param reconnect_max_delay: float [keyword_only, optional]
+class AsyncAstraClient def subscribe param stable_after: float [keyword_only, optional]
+class AsyncAstraClient def subscribe param transport: str [keyword_only, optional]
+class AsyncAstraClient def subscribe positional (ids)
+class AsyncAstraClient def subscribe returns Subscription
+class AsyncAstraClient()
+class Subscription def __init__ param base_delay: float [keyword_only, required]
+class Subscription def __init__ param ids: list[str] [positional_or_keyword, required]
+class Subscription def __init__ param max_delay: float [keyword_only, required]
+class Subscription def __init__ param on_error: Callable[[AstraError], None] | None [keyword_only, required]
+class Subscription def __init__ param on_state_change: Callable[[ConnectionState], None] | None [keyword_only, required]
+class Subscription def __init__ param stable_after: float [keyword_only, required]
+class Subscription def __init__ param transport: _Transport [positional_or_keyword, required]
+class Subscription def __init__ positional (ids, transport)
+class Subscription def __init__ returns None
+class Subscription def aclose positional ()
+class Subscription def aclose returns None
+class Subscription def opened positional ()
+class Subscription def opened returns None
+class Subscription def report param err: AstraError [positional_or_keyword, required]
+class Subscription def report positional (err)
+class Subscription def report returns None
+class Subscription def update param u: PriceUpdate [positional_or_keyword, required]
+class Subscription def update positional (u)
+class Subscription def update returns None
+class Subscription def wait_closed positional ()
+class Subscription def wait_closed returns None
+class Subscription def warn param err: AstraError [positional_or_keyword, required]
+class Subscription def warn positional (err)
+class Subscription def warn returns None
+class Subscription property error
+class Subscription property state
+class Subscription()
+const Channel = typing.Literal['real_time', 'fixed_rate@200ms', 'fixed_rate@1000ms']
+const ConnectionState = typing.Literal['connecting', 'open', 'reconnecting', 'closed']
+const DEFAULT_BASE_URL = 'https://astra.preview.avee.tech'
+const FEED_IDS_PER_REQUEST = 200
+const KNOWN_STATUSES item 'degraded'
+const KNOWN_STATUSES item 'market_closed'
+const KNOWN_STATUSES item 'no_data'
+const KNOWN_STATUSES item 'reference'
+const KNOWN_STATUSES item 'trading'
+const MAX_EXPO = 32
+const MAX_HISTORICAL_FEEDS = 100
+const MAX_IDS_PER_REQUEST = 500
+const MAX_IDS_PER_URL = 200
+const MAX_INTERVAL_SECONDS = 60
+const MAX_SCALE_DECIMALS = 77
+const MIN_EXPO = -32
+dataclass Candle field close: float [required]
+dataclass Candle field high: float [required]
+dataclass Candle field low: float [required]
+dataclass Candle field open: float [required]
+dataclass Candle field time: int [required]
+dataclass Candle()
+dataclass Feed field attributes: Mapping[str, str] [optional]
+dataclass Feed field category: str [required]
+dataclass Feed field id: str [required]
+dataclass Feed field live: LiveValue [required]
+dataclass Feed field pyth_id: str | None [optional]
+dataclass Feed field symbol: str [required]
+dataclass Feed()
+dataclass FeedHealth field age_seconds: float [required]
+dataclass FeedHealth field id: str [required]
+dataclass FeedHealth field publish_time: int [required]
+dataclass FeedHealth field served_publish_time: int [required]
+dataclass FeedHealth field sources: int [required]
+dataclass FeedHealth field stale: bool [required]
+dataclass FeedHealth field status: str [required]
+dataclass FeedHealth field symbol: str [required]
+dataclass FeedHealth()
+dataclass FeedIdEntry field asset_type: str [required]
+dataclass FeedIdEntry field astra_id: str [required]
+dataclass FeedIdEntry field category: str [required]
+dataclass FeedIdEntry field pyth_id: str | None [optional]
+dataclass FeedIdEntry field symbol: str [required]
+dataclass FeedIdEntry()
+dataclass FeedIdMap field items: list[FeedIdEntry] [required]
+dataclass FeedIdMap field missing: list[str] | None [optional]
+dataclass FeedIdMap()
+dataclass FeedMetadata field asset_type: str [required]
+dataclass FeedMetadata field astra_id: str [required]
+dataclass FeedMetadata field attributes: Mapping[str, str] [required]
+dataclass FeedMetadata field base: str | None [optional]
+dataclass FeedMetadata field description: str [required]
+dataclass FeedMetadata field display_symbol: str [required]
+dataclass FeedMetadata field id: str [required]
+dataclass FeedMetadata field market_open: bool [required]
+dataclass FeedMetadata field min_channel: str [required]
+dataclass FeedMetadata field quote_currency: str [required]
+dataclass FeedMetadata field schedule: str | None [optional]
+dataclass FeedMetadata field symbol: str [required]
+dataclass FeedMetadata()
+dataclass LiveValue field expo: int [required]
+dataclass LiveValue field price: Price | None [optional]
+dataclass LiveValue field publish_time: int [required]
+dataclass LiveValue field served_publish_time: int [required]
+dataclass LiveValue field sources: int [required]
+dataclass LiveValue field status: str [required]
+dataclass LiveValue field timestamp_ms: int [required]
+dataclass LiveValue()
+dataclass Price def conf_scaled param decimals: int [positional_or_keyword, required]
+dataclass Price def conf_scaled positional (decimals)
+dataclass Price def conf_scaled returns int
+dataclass Price def conf_to_decimal positional ()
+dataclass Price def conf_to_decimal returns Decimal
+dataclass Price def conf_to_float positional ()
+dataclass Price def conf_to_float returns float
+dataclass Price def scaled param decimals: int [positional_or_keyword, required]
+dataclass Price def scaled positional (decimals)
+dataclass Price def scaled returns int
+dataclass Price def to_decimal positional ()
+dataclass Price def to_decimal returns Decimal
+dataclass Price def to_float positional ()
+dataclass Price def to_float returns float
+dataclass Price field conf: str [required]
+dataclass Price field expo: int [required]
+dataclass Price field price: str [required]
+dataclass Price field publish_time: int [required]
+dataclass Price()
+dataclass PriceUpdate field ema_price: Price [required]
+dataclass PriceUpdate field id: str [required]
+dataclass PriceUpdate field metadata: UpdateMetadata | None [optional]
+dataclass PriceUpdate field price: Price [required]
+dataclass PriceUpdate()
+dataclass Problem field detail: str [required]
+dataclass Problem field status: int [required]
+dataclass Problem field title: str [required]
+dataclass Problem field type: str [required]
+dataclass Problem()
+dataclass StatusReport field feeds: list[FeedHealth] [required]
+dataclass StatusReport field ready: bool [required]
+dataclass StatusReport()
+dataclass SubscriptionStats field coalesced: int [optional]
+dataclass SubscriptionStats field connects: int [optional]
+dataclass SubscriptionStats field duplicates: int [optional]
+dataclass SubscriptionStats field invalid: int [optional]
+dataclass SubscriptionStats field reconnects: int [optional]
+dataclass SubscriptionStats()
+dataclass UpdateMetadata field prev_publish_time: int [required]
+dataclass UpdateMetadata field receive_time: int [required]
+dataclass UpdateMetadata()
+def normalize_feed_id param feed_id: str [positional_or_keyword, required]
+def normalize_feed_id positional (feed_id)
+def normalize_feed_id returns str
