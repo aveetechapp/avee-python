@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2 — 2026-10-07
+
+- Astra: cancelling a WebSocket stream closes the socket instead of leaving it open.
+
 ## 0.1.1 — 2026-10-07
 
 - New `perpStats` (`GET /perps/{market}/stats`): position flow by side over 5m, 1h, 6h and 24h,

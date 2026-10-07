@@ -169,9 +169,13 @@ class WsTransport:
                         raise AstraTimeoutError(f"no subscription response within {self._idle} s") from None
                     if isinstance(raw, str):
                         awaiting_ack = _handle_ws_message(raw, awaiting_ack, sink)
-                async for raw in ws:
-                    if isinstance(raw, str):
-                        _handle_ws_message(raw, False, sink)
+                try:
+                    async for raw in ws:
+                        if isinstance(raw, str):
+                            _handle_ws_message(raw, False, sink)
+                except asyncio.CancelledError:
+                    await ws.close()
+                    raise
         except InvalidStatus as err:
             resp = err.response
             raise http_error(resp.status_code, self._url, resp.headers, bytes(resp.body or b"")[:ERROR_BODY_LIMIT]) from None
