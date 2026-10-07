@@ -242,6 +242,18 @@ class SyncOperations:
         r.q_str("interval", interval)
         return self._send(r, m.PerpHistory._from_json, options)
 
+    def perp_stats(self, market: str, *, chain: str | None = None, options: RequestOptions | None = None) -> m.PerpStats:
+        """How positions on a perpetual opened, closed and were liquidated over the last day.
+
+        Defaults: chain="hyperliquid".
+        """
+        r = Call("perpStats", "GET")
+        r.path_literal("perps")
+        r.path_param("market", market, lo=1, hi=128)
+        r.path_literal("stats")
+        r.q_str("chain", chain, lo=1, hi=32)
+        return self._send(r, m.PerpStats._from_json, options)
+
     def perp_liquidations(self, *, chain: str | None = None, market: str | None = None, from_: int | None = None, to: int | None = None, options: RequestOptions | None = None) -> m.PerpLiquidations:
         """Daily liquidations of a perpetual or a whole venue.
 
@@ -471,7 +483,7 @@ class SyncOperations:
         r.path_param("address", address, lo=1, hi=128)
         return self._send(r, m.FarmInfo._from_json, options)
 
-    def wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> m.WalletPage:
+    def wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, min_human_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> m.WalletPage:
         """Rank traders on one chain.
 
         Defaults: window="30d", sort="total_pnl", order="desc", limit=10.
@@ -489,6 +501,7 @@ class SyncOperations:
         r.q_int("min_trades", min_trades)
         r.q_int("max_avg_hold_seconds", max_avg_hold_seconds)
         r.q_int("min_user_score", min_user_score, lo=0, hi=100)
+        r.q_int("min_human_score", min_human_score, lo=0, hi=100)
         r.q_bool("no_abuse_evidence", no_abuse_evidence)
         r.q_bool("only_copy_eligible", only_copy_eligible)
         r.q_bool("exclude_bots", exclude_bots)
@@ -497,9 +510,9 @@ class SyncOperations:
         r.q_str("cursor", cursor, hi=512)
         return self._send(r, m.WalletPage._from_json, options)
 
-    def iter_wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> Iterator[m.WalletListItem]:
+    def iter_wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, min_human_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> Iterator[m.WalletListItem]:
         """Every item of wallets, fetching the next page only when the previous one is used up."""
-        return paginate(lambda c: self.wallets(chain=chain, window=window, sort=sort, order=order, min_total_pnl_usd=min_total_pnl_usd, min_realized_pnl_usd=min_realized_pnl_usd, min_volume_usd=min_volume_usd, min_win_rate=min_win_rate, min_trades=min_trades, max_avg_hold_seconds=max_avg_hold_seconds, min_user_score=min_user_score, no_abuse_evidence=no_abuse_evidence, only_copy_eligible=only_copy_eligible, exclude_bots=exclude_bots, tiers=tiers, limit=limit, cursor=c, options=options), cursor, options)
+        return paginate(lambda c: self.wallets(chain=chain, window=window, sort=sort, order=order, min_total_pnl_usd=min_total_pnl_usd, min_realized_pnl_usd=min_realized_pnl_usd, min_volume_usd=min_volume_usd, min_win_rate=min_win_rate, min_trades=min_trades, max_avg_hold_seconds=max_avg_hold_seconds, min_user_score=min_user_score, min_human_score=min_human_score, no_abuse_evidence=no_abuse_evidence, only_copy_eligible=only_copy_eligible, exclude_bots=exclude_bots, tiers=tiers, limit=limit, cursor=c, options=options), cursor, options)
 
     def wallet_stats(self, *, chains: Sequence[str] | None = None, options: RequestOptions | None = None) -> m.WalletStats:
         """Trader population per chain."""
@@ -904,6 +917,18 @@ class AsyncOperations:
         r.q_str("interval", interval)
         return await self._send(r, m.PerpHistory._from_json, options)
 
+    async def perp_stats(self, market: str, *, chain: str | None = None, options: RequestOptions | None = None) -> m.PerpStats:
+        """How positions on a perpetual opened, closed and were liquidated over the last day.
+
+        Defaults: chain="hyperliquid".
+        """
+        r = Call("perpStats", "GET")
+        r.path_literal("perps")
+        r.path_param("market", market, lo=1, hi=128)
+        r.path_literal("stats")
+        r.q_str("chain", chain, lo=1, hi=32)
+        return await self._send(r, m.PerpStats._from_json, options)
+
     async def perp_liquidations(self, *, chain: str | None = None, market: str | None = None, from_: int | None = None, to: int | None = None, options: RequestOptions | None = None) -> m.PerpLiquidations:
         """Daily liquidations of a perpetual or a whole venue.
 
@@ -1133,7 +1158,7 @@ class AsyncOperations:
         r.path_param("address", address, lo=1, hi=128)
         return await self._send(r, m.FarmInfo._from_json, options)
 
-    async def wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> m.WalletPage:
+    async def wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, min_human_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> m.WalletPage:
         """Rank traders on one chain.
 
         Defaults: window="30d", sort="total_pnl", order="desc", limit=10.
@@ -1151,6 +1176,7 @@ class AsyncOperations:
         r.q_int("min_trades", min_trades)
         r.q_int("max_avg_hold_seconds", max_avg_hold_seconds)
         r.q_int("min_user_score", min_user_score, lo=0, hi=100)
+        r.q_int("min_human_score", min_human_score, lo=0, hi=100)
         r.q_bool("no_abuse_evidence", no_abuse_evidence)
         r.q_bool("only_copy_eligible", only_copy_eligible)
         r.q_bool("exclude_bots", exclude_bots)
@@ -1159,9 +1185,9 @@ class AsyncOperations:
         r.q_str("cursor", cursor, hi=512)
         return await self._send(r, m.WalletPage._from_json, options)
 
-    def iter_wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> AsyncIterator[m.WalletListItem]:
+    def iter_wallets(self, *, chain: str, window: str | None = None, sort: str | None = None, order: str | None = None, min_total_pnl_usd: float | None = None, min_realized_pnl_usd: float | None = None, min_volume_usd: float | None = None, min_win_rate: float | None = None, min_trades: int | None = None, max_avg_hold_seconds: int | None = None, min_user_score: int | None = None, min_human_score: int | None = None, no_abuse_evidence: bool | None = None, only_copy_eligible: bool | None = None, exclude_bots: bool | None = None, tiers: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> AsyncIterator[m.WalletListItem]:
         """Every item of wallets, fetching the next page only when the previous one is used up."""
-        return apaginate(lambda c: self.wallets(chain=chain, window=window, sort=sort, order=order, min_total_pnl_usd=min_total_pnl_usd, min_realized_pnl_usd=min_realized_pnl_usd, min_volume_usd=min_volume_usd, min_win_rate=min_win_rate, min_trades=min_trades, max_avg_hold_seconds=max_avg_hold_seconds, min_user_score=min_user_score, no_abuse_evidence=no_abuse_evidence, only_copy_eligible=only_copy_eligible, exclude_bots=exclude_bots, tiers=tiers, limit=limit, cursor=c, options=options), cursor, options)
+        return apaginate(lambda c: self.wallets(chain=chain, window=window, sort=sort, order=order, min_total_pnl_usd=min_total_pnl_usd, min_realized_pnl_usd=min_realized_pnl_usd, min_volume_usd=min_volume_usd, min_win_rate=min_win_rate, min_trades=min_trades, max_avg_hold_seconds=max_avg_hold_seconds, min_user_score=min_user_score, min_human_score=min_human_score, no_abuse_evidence=no_abuse_evidence, only_copy_eligible=only_copy_eligible, exclude_bots=exclude_bots, tiers=tiers, limit=limit, cursor=c, options=options), cursor, options)
 
     async def wallet_stats(self, *, chains: Sequence[str] | None = None, options: RequestOptions | None = None) -> m.WalletStats:
         """Trader population per chain."""
@@ -1352,6 +1378,7 @@ OPERATIONS: tuple[tuple[str, str, str, str], ...] = (
     ("pairBatch", "POST", "/pairs/batch", "dex"),
     ("perps", "GET", "/perps", "dex"),
     ("perpHistory", "GET", "/perps/{market}/history", "dex"),
+    ("perpStats", "GET", "/perps/{market}/stats", "dex"),
     ("perpLiquidations", "GET", "/perps/liquidations", "dex"),
     ("deployerTokens", "GET", "/deployers/{address}/tokens", "dex"),
     ("tokenByAddress", "GET", "/chains/{chain}/tokens/{address}", "token"),

@@ -195,6 +195,7 @@ class AsyncAveeClient def iter_wallets param cursor: str | None [keyword_only, o
 class AsyncAveeClient def iter_wallets param exclude_bots: bool | None [keyword_only, optional]
 class AsyncAveeClient def iter_wallets param limit: int | None [keyword_only, optional]
 class AsyncAveeClient def iter_wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def iter_wallets param min_human_score: int | None [keyword_only, optional]
 class AsyncAveeClient def iter_wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
 class AsyncAveeClient def iter_wallets param min_total_pnl_usd: float | None [keyword_only, optional]
 class AsyncAveeClient def iter_wallets param min_trades: int | None [keyword_only, optional]
@@ -318,6 +319,11 @@ class AsyncAveeClient def perp_liquidations param options: RequestOptions | None
 class AsyncAveeClient def perp_liquidations param to: int | None [keyword_only, optional]
 class AsyncAveeClient def perp_liquidations positional ()
 class AsyncAveeClient def perp_liquidations returns m.PerpLiquidations
+class AsyncAveeClient def perp_stats param chain: str | None [keyword_only, optional]
+class AsyncAveeClient def perp_stats param market: str [positional_or_keyword, required]
+class AsyncAveeClient def perp_stats param options: RequestOptions | None [keyword_only, optional]
+class AsyncAveeClient def perp_stats positional (market)
+class AsyncAveeClient def perp_stats returns m.PerpStats
 class AsyncAveeClient def perps param chains: Sequence[str] | None [keyword_only, optional]
 class AsyncAveeClient def perps param cursor: str | None [keyword_only, optional]
 class AsyncAveeClient def perps param limit: int | None [keyword_only, optional]
@@ -497,6 +503,7 @@ class AsyncAveeClient def wallets param cursor: str | None [keyword_only, option
 class AsyncAveeClient def wallets param exclude_bots: bool | None [keyword_only, optional]
 class AsyncAveeClient def wallets param limit: int | None [keyword_only, optional]
 class AsyncAveeClient def wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AsyncAveeClient def wallets param min_human_score: int | None [keyword_only, optional]
 class AsyncAveeClient def wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
 class AsyncAveeClient def wallets param min_total_pnl_usd: float | None [keyword_only, optional]
 class AsyncAveeClient def wallets param min_trades: int | None [keyword_only, optional]
@@ -729,6 +736,7 @@ class AveeClient def iter_wallets param cursor: str | None [keyword_only, option
 class AveeClient def iter_wallets param exclude_bots: bool | None [keyword_only, optional]
 class AveeClient def iter_wallets param limit: int | None [keyword_only, optional]
 class AveeClient def iter_wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AveeClient def iter_wallets param min_human_score: int | None [keyword_only, optional]
 class AveeClient def iter_wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
 class AveeClient def iter_wallets param min_total_pnl_usd: float | None [keyword_only, optional]
 class AveeClient def iter_wallets param min_trades: int | None [keyword_only, optional]
@@ -852,6 +860,11 @@ class AveeClient def perp_liquidations param options: RequestOptions | None [key
 class AveeClient def perp_liquidations param to: int | None [keyword_only, optional]
 class AveeClient def perp_liquidations positional ()
 class AveeClient def perp_liquidations returns m.PerpLiquidations
+class AveeClient def perp_stats param chain: str | None [keyword_only, optional]
+class AveeClient def perp_stats param market: str [positional_or_keyword, required]
+class AveeClient def perp_stats param options: RequestOptions | None [keyword_only, optional]
+class AveeClient def perp_stats positional (market)
+class AveeClient def perp_stats returns m.PerpStats
 class AveeClient def perps param chains: Sequence[str] | None [keyword_only, optional]
 class AveeClient def perps param cursor: str | None [keyword_only, optional]
 class AveeClient def perps param limit: int | None [keyword_only, optional]
@@ -1031,6 +1044,7 @@ class AveeClient def wallets param cursor: str | None [keyword_only, optional]
 class AveeClient def wallets param exclude_bots: bool | None [keyword_only, optional]
 class AveeClient def wallets param limit: int | None [keyword_only, optional]
 class AveeClient def wallets param max_avg_hold_seconds: int | None [keyword_only, optional]
+class AveeClient def wallets param min_human_score: int | None [keyword_only, optional]
 class AveeClient def wallets param min_realized_pnl_usd: float | None [keyword_only, optional]
 class AveeClient def wallets param min_total_pnl_usd: float | None [keyword_only, optional]
 class AveeClient def wallets param min_trades: int | None [keyword_only, optional]
@@ -1121,6 +1135,13 @@ class models.PairStatus attribute SCAM: Final
 class models.PairStatus attribute UNRESOLVED: Final
 class models.PairStatus attribute VERIFIED: Final
 class models.PairStatus()
+class models.PerpAction attribute CLOSE_LONG: Final
+class models.PerpAction attribute CLOSE_SHORT: Final
+class models.PerpAction attribute FLIP_LONG: Final
+class models.PerpAction attribute FLIP_SHORT: Final
+class models.PerpAction attribute OPEN_LONG: Final
+class models.PerpAction attribute OPEN_SHORT: Final
+class models.PerpAction()
 class models.PerpSortBy attribute CREATED_AT: Final
 class models.PerpSortBy attribute PRICE_CHANGE: Final
 class models.PerpSortBy attribute TRANSACTIONS: Final
@@ -1236,6 +1257,7 @@ class models.VerdictStatus attribute OK: Final
 class models.VerdictStatus attribute UNKNOWN: Final
 class models.VerdictStatus attribute WATCH: Final
 class models.VerdictStatus()
+class models.WalletSortBy attribute HUMAN_SCORE: Final
 class models.WalletSortBy attribute REALIZED_PNL: Final
 class models.WalletSortBy attribute TOTAL_PNL: Final
 class models.WalletSortBy attribute TRADES: Final
@@ -1273,6 +1295,7 @@ const OPERATIONS item ('pairs', 'GET', '/pairs', 'dex')
 const OPERATIONS item ('pairsNew', 'GET', '/pairs/new', 'dex')
 const OPERATIONS item ('perpHistory', 'GET', '/perps/{market}/history', 'dex')
 const OPERATIONS item ('perpLiquidations', 'GET', '/perps/liquidations', 'dex')
+const OPERATIONS item ('perpStats', 'GET', '/perps/{market}/stats', 'dex')
 const OPERATIONS item ('perps', 'GET', '/perps', 'dex')
 const OPERATIONS item ('search', 'GET', '/search', 'dex')
 const OPERATIONS item ('status', 'GET', '/status', 'meta')
@@ -1378,6 +1401,8 @@ dataclass models.ChainInfo field new_deployers_24h: int | None [optional]
 dataclass models.ChainInfo field new_pairs_24h: int | None [optional]
 dataclass models.ChainInfo field new_pairs_24h_total: int | None [optional]
 dataclass models.ChainInfo field pairs: int | None [optional]
+dataclass models.ChainInfo field perp_txns_24h: int | None [optional]
+dataclass models.ChainInfo field perp_volume_24h: float | None [optional]
 dataclass models.ChainInfo field protocols: list[str] [required]
 dataclass models.ChainInfo field quality_liquidity_usd: float | None [optional]
 dataclass models.ChainInfo field scams_24h: int | None [optional]
@@ -1474,22 +1499,37 @@ dataclass models.FarmFactory field name: str [required]
 dataclass models.FarmFactory()
 dataclass models.FarmInfo field address: Address [required]
 dataclass models.FarmInfo field apr_daily: FarmApr [required]
+dataclass models.FarmInfo field apr_diagnostic: DecimalString | None [optional]
+dataclass models.FarmInfo field apr_max: DecimalString | None [optional]
 dataclass models.FarmInfo field apr_year: FarmApr [required]
 dataclass models.FarmInfo field data_quality_flags: list[str] | None [optional]
 dataclass models.FarmInfo field factory: FarmFactory | None [optional]
+dataclass models.FarmInfo field family: str | None [optional]
+dataclass models.FarmInfo field farm_key: str | None [optional]
 dataclass models.FarmInfo field lifecycle_state: str | None [optional]
 dataclass models.FarmInfo field network: ChainRef [required]
 dataclass models.FarmInfo field pid: int [required]
+dataclass models.FarmInfo field reward_streams: list[FarmRewardStream] | None [optional]
 dataclass models.FarmInfo field reward_token: FarmRewardToken [required]
 dataclass models.FarmInfo field status: str [required]
 dataclass models.FarmInfo field ticker: str [required]
 dataclass models.FarmInfo field tvl: DecimalString [required]
 dataclass models.FarmInfo field updated_at: str [required]
+dataclass models.FarmInfo field venue: str | None [optional]
+dataclass models.FarmInfo field verified: bool | None [optional]
 dataclass models.FarmInfo()
 dataclass models.FarmPage field items: list[FarmInfo] [required]
 dataclass models.FarmPage field next_cursor: str | None [optional]
 dataclass models.FarmPage field prev_cursor: str | None [optional]
 dataclass models.FarmPage()
+dataclass models.FarmRewardStream field apr: DecimalString | None [optional]
+dataclass models.FarmRewardStream field decimals: int [required]
+dataclass models.FarmRewardStream field end_at: str | None [optional]
+dataclass models.FarmRewardStream field price_usd: DecimalString | None [optional]
+dataclass models.FarmRewardStream field status: str [required]
+dataclass models.FarmRewardStream field symbol: str [required]
+dataclass models.FarmRewardStream field token: Address [required]
+dataclass models.FarmRewardStream()
 dataclass models.FarmRewardToken field address: Address [required]
 dataclass models.FarmRewardToken field chain_id: int [required]
 dataclass models.FarmRewardToken field name: str [required]
@@ -1500,6 +1540,9 @@ dataclass models.FloatTimeframes field h24: float [required]
 dataclass models.FloatTimeframes field h6: float [required]
 dataclass models.FloatTimeframes field m5: float [required]
 dataclass models.FloatTimeframes()
+dataclass models.HumanScore field status: str [required]
+dataclass models.HumanScore field value: int [required]
+dataclass models.HumanScore()
 dataclass models.KeyInfo field max_limit: int | None [optional]
 dataclass models.KeyInfo field name: str [required]
 dataclass models.KeyInfo field plan: str [required]
@@ -1723,6 +1766,14 @@ dataclass models.PaymentResource field mime_type: str | None [optional]
 dataclass models.PaymentResource field service_name: str | None [optional]
 dataclass models.PaymentResource field url: str [required]
 dataclass models.PaymentResource()
+dataclass models.PerpFlow field close_long_usd: float [required]
+dataclass models.PerpFlow field close_short_usd: float [required]
+dataclass models.PerpFlow field liquidated_long_usd: float [required]
+dataclass models.PerpFlow field liquidated_short_usd: float [required]
+dataclass models.PerpFlow field liquidations: int [required]
+dataclass models.PerpFlow field open_long_usd: float [required]
+dataclass models.PerpFlow field open_short_usd: float [required]
+dataclass models.PerpFlow()
 dataclass models.PerpHistory field chain: ChainRef [required]
 dataclass models.PerpHistory field interval: str [required]
 dataclass models.PerpHistory field items: list[PerpPoint] [required]
@@ -1733,10 +1784,16 @@ dataclass models.PerpLiquidations field items: list[LiquidationDay] [required]
 dataclass models.PerpLiquidations field market: Address | None [optional]
 dataclass models.PerpLiquidations field stale: bool [required]
 dataclass models.PerpLiquidations()
+dataclass models.PerpMarket field borrow_long_1h: float | None [optional]
+dataclass models.PerpMarket field borrow_short_1h: float | None [optional]
 dataclass models.PerpMarket field day_notional_volume: float | None [optional]
+dataclass models.PerpMarket field funding_long_1h: float | None [optional]
 dataclass models.PerpMarket field funding_rate: float | None [optional]
+dataclass models.PerpMarket field funding_short_1h: float | None [optional]
 dataclass models.PerpMarket field mark_price: float | None [optional]
 dataclass models.PerpMarket field max_leverage: int | None [optional]
+dataclass models.PerpMarket field oi_long_usd: float | None [optional]
+dataclass models.PerpMarket field oi_short_usd: float | None [optional]
 dataclass models.PerpMarket field only_isolated: bool | None [optional]
 dataclass models.PerpMarket field open_interest: float | None [optional]
 dataclass models.PerpMarket field open_interest_usd: float | None [optional]
@@ -1757,6 +1814,14 @@ dataclass models.PerpPoint field oracle_price: float [required]
 dataclass models.PerpPoint field premium: float [required]
 dataclass models.PerpPoint field timestamp: str [required]
 dataclass models.PerpPoint()
+dataclass models.PerpStats field h1: PerpFlow [required]
+dataclass models.PerpStats field h24: PerpFlow [required]
+dataclass models.PerpStats field h6: PerpFlow [required]
+dataclass models.PerpStats field liquidations_stale: bool [required]
+dataclass models.PerpStats field m5: PerpFlow [required]
+dataclass models.PerpStats field max_liquidation_usd_24h: float | None [optional]
+dataclass models.PerpStats field open_interest_usd_24h_ago: float | None [optional]
+dataclass models.PerpStats()
 dataclass models.Problem field code: str [required]
 dataclass models.Problem field detail: str | None [optional]
 dataclass models.Problem field param: str | None [optional]
@@ -2045,6 +2110,7 @@ dataclass models.Transaction field event_data: SwapEventData | LiquidityEventDat
 dataclass models.Transaction field from_address: Address [required]
 dataclass models.Transaction field hash: str [required]
 dataclass models.Transaction field maker_address: Address [required]
+dataclass models.Transaction field perp_action: str | None [optional]
 dataclass models.Transaction field timestamp: str [required]
 dataclass models.Transaction field to_address: Address [required]
 dataclass models.Transaction field tx_type: str [required]
@@ -2116,6 +2182,7 @@ dataclass models.WalletLifetime()
 dataclass models.WalletListItem field address: Address [required]
 dataclass models.WalletListItem field chain: ChainRef [required]
 dataclass models.WalletListItem field copy_eligible: bool | None [optional]
+dataclass models.WalletListItem field human_score: HumanScore | None [optional]
 dataclass models.WalletListItem field labels: list[WalletLabel] | None [optional]
 dataclass models.WalletListItem field metrics: WalletMetrics [required]
 dataclass models.WalletListItem field scammer_score: ScammerScore | None [optional]
@@ -2243,6 +2310,7 @@ dataclass models.WalletProfile field copy_eligible: bool | None [optional]
 dataclass models.WalletProfile field first_onchain_at: str | None [optional]
 dataclass models.WalletProfile field first_seen_at: str | None [optional]
 dataclass models.WalletProfile field human_known: bool | None [optional]
+dataclass models.WalletProfile field human_score: HumanScore | None [optional]
 dataclass models.WalletProfile field labels: list[WalletLabel] | None [optional]
 dataclass models.WalletProfile field last_active_at: str | None [optional]
 dataclass models.WalletProfile field metrics: list[WalletMetrics] | None [optional]

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import subprocess
 from collections.abc import Callable
 from pathlib import Path
@@ -119,6 +120,6 @@ def test_spec_example_decodes() -> None:
     assert u.price.to_float() == 65123.45
 
 
-@pytest.mark.skipif(not RENAME.exists(), reason="outside the monorepo")
+@pytest.mark.skipif(not RENAME.exists() or not shutil.which("node"), reason="needs the monorepo and node")
 def test_names_are_applied() -> None:
     subprocess.run(["node", str(RENAME), "--check"], check=True, capture_output=True)

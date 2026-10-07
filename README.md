@@ -67,6 +67,7 @@ takes the server's default, listed in each method's docstring.
 | `pair_batch(…)` | `POST /pairs/batch` | Many pairs in one call |
 | `perps(…), iter_perps` | `GET /perps` | Perpetual markets |
 | `perp_history(market, …)` | `GET /perps/{market}/history` | Open interest, funding and mark history of a perpetual |
+| `perp_stats(market, …)` | `GET /perps/{market}/stats` | How positions on a perpetual opened, closed and were liquidated over the last day |
 | `perp_liquidations(…)` | `GET /perps/liquidations` | Daily liquidations of a perpetual or a whole venue |
 | `deployer_tokens(address, …), iter_deployer_tokens` | `GET /deployers/{address}/tokens` | Launches of one deployer, with its reputation card |
 | **token** | | |

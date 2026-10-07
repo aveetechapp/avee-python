@@ -21,7 +21,7 @@ T = TypeVar("T")
 
 DEFAULT_BASE_URL = "https://api.preview.avee.tech/api/v1"
 PREVIEW_BASE_URL = "https://api.preview.avee.tech/api/v1"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 _USER_AGENT = f"avee-python/{VERSION}"
 
 

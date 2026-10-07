@@ -1,4 +1,4 @@
-# Source of truth for internal/pkg/rest-v3 (make generate-ogen-v3) and for the docs site.
+# Source of truth for internal/pkg/rest-v1 (make generate-ogen-v1) and for the docs site.
 openapi: 3.1.0
 info:
   title: avee
@@ -1697,6 +1697,15 @@ paths:
           format: uint32
           minimum: 0
           maximum: 100
+      - name: min_human_score
+        in: query
+        required: false
+        description: only wallets whose human score is at least this
+        schema:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 100
       - name: no_abuse_evidence
         in: query
         required: false
@@ -2970,6 +2979,57 @@ paths:
           - 1h
       - $ref: '#/components/parameters/AcceptPayment'
       - $ref: '#/components/parameters/PaymentSignature'
+  /perps/{market}/stats:
+    get:
+      operationId: perpStats
+      x-avee-cost-cu: 10
+      summary: How positions on a perpetual opened, closed and were liquidated over the last day
+      tags:
+      - dex
+      x-plan: anon
+      x-cache-ttl: 30
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerpStats'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          $ref: '#/components/responses/InternalError'
+      description: Notional opened and closed on each side, liquidations by side and count, over the last 5 minutes, hour, 6 hours and 24 hours, with open interest a day ago and the largest liquidation of the day. When the fills feed is behind, `liquidations_stale` says the liquidation figures are not a measurement of zero.
+      parameters:
+      - name: market
+        in: path
+        required: true
+        description: the market's address on its venue, as `pair_address` spells it (`BTC`)
+        schema:
+          $ref: '#/components/schemas/Address'
+      - name: chain
+        in: query
+        required: false
+        description: chain slug or id of the perpetuals venue
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 32
+          default: hyperliquid
+      - $ref: '#/components/parameters/AcceptPayment'
+      - $ref: '#/components/parameters/PaymentSignature'
   /perps/liquidations:
     get:
       operationId: perpLiquidations
@@ -4205,6 +4265,14 @@ components:
           type: integer
           format: int64
           description: summed 24h transaction count of the ranked pairs
+        perp_volume_24h:
+          type: number
+          format: double
+          description: summed 24h notional volume of the perpetuals, kept out of `volume_24h_usd`
+        perp_txns_24h:
+          type: integer
+          format: int64
+          description: summed 24h fill count of the perpetuals, kept out of `txns_24h`
         new_pairs_24h:
           type: integer
           format: int64
@@ -4517,7 +4585,7 @@ components:
         address:
           $ref: '#/components/schemas/Address'
         pid:
-          description: pool id inside the farm contract, as the indexer reports it
+          description: MasterChef pool id, derived from a `pid:<n>` `farm_key`; `0` for any other farm. Deprecated, use `farm_key`.
           type: integer
           format: int64
         ticker:
@@ -4549,6 +4617,29 @@ components:
           type: array
           items:
             type: string
+        family:
+          description: the farm contract family, e.g. `masterchef_v2` or `stonfi_minter_v3`. An open set — render an unknown family rather than hide the row. Absent when the indexer reported none.
+          type: string
+        farm_key:
+          description: identifies the farm inside its contract — `pid:<n>` for a MasterChef pool, otherwise defined by the family. Absent for a contract that holds a single farm.
+          type: string
+        venue:
+          description: registry slug of the venue that owns the contract, e.g. `stonfi`. Present only when `verified` is true; never guessed.
+          type: string
+        verified:
+          description: true when the contract was confirmed to belong to `venue`. A clone of a venue's farm is false and carries no `venue`.
+          type: boolean
+        apr_diagnostic:
+          description: an independent estimate of the base APR computed another way, percent. A large gap from `apr_year.base_apr` means one of them is wrong; absent when no estimate was made.
+          $ref: '#/components/schemas/DecimalString'
+        apr_max:
+          description: the APR at full boost, percent. Present only for a boosted farm; `apr_year.base_apr` stays the base case.
+          $ref: '#/components/schemas/DecimalString'
+        reward_streams:
+          description: every reward token the farm pays, each with its part of the APR. Absent when the indexer reported no streams; `reward_token` then names the only reward known.
+          type: array
+          items:
+            $ref: '#/components/schemas/FarmRewardStream'
     FarmPage:
       type: object
       required:
@@ -4583,6 +4674,35 @@ components:
         chain_id:
           type: integer
           format: uint32
+    FarmRewardStream:
+      type: object
+      description: one reward token the farm pays out
+      required:
+      - token
+      - symbol
+      - decimals
+      - status
+      properties:
+        token:
+          $ref: '#/components/schemas/Address'
+        symbol:
+          type: string
+        decimals:
+          type: integer
+          format: uint32
+        apr:
+          description: this stream's part of the farm APR, percent. Absent when the stream's yield was not measured, for instance because the reward token has no price.
+          $ref: '#/components/schemas/DecimalString'
+        price_usd:
+          description: reward token price, USD; absent when unpriced
+          $ref: '#/components/schemas/DecimalString'
+        end_at:
+          description: when the stream stops paying, UTC; absent when no end is known
+          type: string
+          format: date-time
+        status:
+          description: '`active` or `finished`. An open set — render an unknown member rather than drop the stream.'
+          type: string
     FarmSortBy:
       type: string
       default: tvl
@@ -4916,6 +5036,73 @@ components:
       properties:
         status:
           $ref: '#/components/schemas/VerdictStatus'
+    PerpFlow:
+      type: object
+      description: position flow on one perpetual over one window, notional USD
+      required:
+      - open_long_usd
+      - close_long_usd
+      - open_short_usd
+      - close_short_usd
+      - liquidated_long_usd
+      - liquidated_short_usd
+      - liquidations
+      properties:
+        open_long_usd:
+          type: number
+          format: double
+        close_long_usd:
+          type: number
+          format: double
+        open_short_usd:
+          type: number
+          format: double
+        close_short_usd:
+          type: number
+          format: double
+        liquidated_long_usd:
+          type: number
+          format: double
+        liquidated_short_usd:
+          type: number
+          format: double
+        liquidations:
+          type: integer
+          format: uint32
+    PerpStats:
+      type: object
+      description: how positions on one perpetual opened, closed and were liquidated over the last 5 minutes, hour, 6 hours and day
+      required:
+      - m5
+      - h1
+      - h6
+      - h24
+      - liquidations_stale
+      properties:
+        m5:
+          $ref: '#/components/schemas/PerpFlow'
+        h1:
+          $ref: '#/components/schemas/PerpFlow'
+        h6:
+          $ref: '#/components/schemas/PerpFlow'
+        h24:
+          $ref: '#/components/schemas/PerpFlow'
+        open_interest_usd_24h_ago:
+          description: open interest at mark 24 hours ago; absent until a day of history exists
+          type: number
+          format: double
+        max_liquidation_usd_24h:
+          description: the largest single liquidation in the last 24 hours, USD
+          type: number
+          format: double
+        liquidations_stale:
+          description: the fills feed is behind or absent, so liquidation figures are not a measurement of zero
+          type: boolean
+    PerpAction:
+      type: string
+      x-known-values: [open_long, close_long, open_short, close_short, flip_long, flip_short]
+      description: 'what the taker''s fill did to its position. Open set. Known values: open_long, close_long, open_short, close_short, flip_long, flip_short. Absent on spot and when the starting position is unknown.'
+      maxLength: 32
     PerpMarket:
       description: |
         What a perpetual has instead of a pool. There is no reserve, no supply and no liquidity behind a perp, so `liquidity_usd` is 0 by construction and `open_interest_usd` is the figure that answers the same question — how much capital is committed to this market.
@@ -4959,6 +5146,30 @@ components:
           description: venue-reported 24h notional, independent of our own candles
           type: number
           format: float64
+        funding_long_1h:
+          description: hourly funding the long side pays as a fraction; negative means it receives
+          type: number
+          format: double
+        funding_short_1h:
+          description: hourly funding the short side pays as a fraction; negative means it receives
+          type: number
+          format: double
+        borrow_long_1h:
+          description: hourly borrow rate charged to the long side as a fraction, on venues that charge one
+          type: number
+          format: double
+        borrow_short_1h:
+          description: hourly borrow rate charged to the short side as a fraction, on venues that charge one
+          type: number
+          format: double
+        oi_long_usd:
+          description: long open interest valued at mark, USD
+          type: number
+          format: double
+        oi_short_usd:
+          description: short open interest valued at mark, USD
+          type: number
+          format: double
         synced_at:
           description: when the venue was last polled, UTC
           type: string
@@ -5969,6 +6180,8 @@ components:
           $ref: '#/components/schemas/Address'
         tx_type:
           $ref: '#/components/schemas/TxType'
+        perp_action:
+          $ref: '#/components/schemas/PerpAction'
         block_info:
           type: object
           oneOf:
@@ -6082,7 +6295,7 @@ components:
     WalletSortBy:
       type: string
       description: |
-        `total_pnl` ranks on realised profit plus open positions marked to market, so a wallet sitting on a large unrealised gain is not ranked below wallets that merely took profit. `realized_pnl` ranks on taken profit alone. `win_rate` ranks only wallets with enough rated positions for the ratio to carry information. `user_score` ranks on the wallet score.
+        `total_pnl` ranks on realised profit plus open positions marked to market, so a wallet sitting on a large unrealised gain is not ranked below wallets that merely took profit. `realized_pnl` ranks on taken profit alone. `win_rate` ranks only wallets with enough rated positions for the ratio to carry information. `user_score` ranks on the wallet score. `human_score` ranks long-term, non-coordinated people first and lists only wallets with a rated human score.
       default: total_pnl
       enum:
       - total_pnl
@@ -6091,6 +6304,7 @@ components:
       - win_rate
       - trades
       - user_score
+      - human_score
     PositionSortBy:
       type: string
       description: |
@@ -6144,6 +6358,25 @@ components:
       - status
       description: |
         One number, 0-100: an ordinary user with no manipulative behaviour in trading or deploying, and evidence that they trade well. Absent while the deployment serves no scores. `status` separates a withheld score from a judged zero — a wallet with too few closed rounds or too little deployed capital is `unknown`, not bad.
+      properties:
+        value:
+          type: integer
+          format: uint32
+          minimum: 0
+          maximum: 100
+        status:
+          type: string
+          enum:
+          - unknown
+          - rated
+          - excluded
+    HumanScore:
+      type: object
+      required:
+      - value
+      - status
+      description: |
+        One number, 0-100: a real person who has traded for weeks rather than days, outside any coordinated wallet cluster, mostly in clean assets, holding with conviction. Absent while the deployment serves no scores. `unknown` is too little history to judge, not a bot; `excluded` is a contract or automated account; a rated 0 is a verdict whose reason is in `signals`.
       properties:
         value:
           type: integer
@@ -6349,6 +6582,8 @@ components:
           type: boolean
         user_score:
           $ref: '#/components/schemas/UserScore'
+        human_score:
+          $ref: '#/components/schemas/HumanScore'
         scammer_score:
           $ref: '#/components/schemas/ScammerScore'
         signals:
@@ -6384,6 +6619,8 @@ components:
           type: boolean
         user_score:
           $ref: '#/components/schemas/UserScore'
+        human_score:
+          $ref: '#/components/schemas/HumanScore'
         scammer_score:
           $ref: '#/components/schemas/ScammerScore'
         metrics:

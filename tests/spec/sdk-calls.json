@@ -690,6 +690,32 @@
     }
   },
   {
+    "operation": "perpStats",
+    "method": "GET",
+    "path": "/perps/BTC/stats",
+    "pathArgs": [
+      "BTC"
+    ],
+    "params": {
+      "chain": "base"
+    },
+    "query": [
+      [
+        "chain",
+        "base"
+      ]
+    ],
+    "body": null,
+    "response": "PerpStats",
+    "paged": false,
+    "python": {
+      "method": "perp_stats",
+      "kwargs": {
+        "chain": "base"
+      }
+    }
+  },
+  {
     "operation": "perpLiquidations",
     "method": "GET",
     "path": "/perps/liquidations",
@@ -1325,6 +1351,7 @@
       "min_trades": 5,
       "max_avg_hold_seconds": 5,
       "min_user_score": 5,
+      "min_human_score": 5,
       "no_abuse_evidence": true,
       "only_copy_eligible": true,
       "exclude_bots": true,
@@ -1380,6 +1407,10 @@
         "5"
       ],
       [
+        "min_human_score",
+        "5"
+      ],
+      [
         "no_abuse_evidence",
         "true"
       ],
@@ -1421,6 +1452,7 @@
         "min_trades": 5,
         "max_avg_hold_seconds": 5,
         "min_user_score": 5,
+        "min_human_score": 5,
         "no_abuse_evidence": true,
         "only_copy_eligible": true,
         "exclude_bots": true,

@@ -190,6 +190,16 @@
       "body": null,
       "response": "PerpHistory"
     },
+    "perpStats": {
+      "method": "GET",
+      "path": "/perps/{market}/stats",
+      "params": [
+        "market",
+        "chain"
+      ],
+      "body": null,
+      "response": "PerpStats"
+    },
     "perpLiquidations": {
       "method": "GET",
       "path": "/perps/liquidations",
@@ -393,6 +403,7 @@
         "min_trades",
         "max_avg_hold_seconds",
         "min_user_score",
+        "min_human_score",
         "no_abuse_evidence",
         "only_copy_eligible",
         "exclude_bots",
@@ -792,6 +803,8 @@
       "metrics_stale": "boolean",
       "quality_liquidity_usd": "number",
       "txns_24h": "integer",
+      "perp_volume_24h": "number",
+      "perp_txns_24h": "integer",
       "new_pairs_24h": "integer",
       "new_pairs_24h_total": "integer",
       "scams_total": "integer",
@@ -877,7 +890,14 @@
       "updated_at": "string",
       "status": "#FarmStatus",
       "lifecycle_state": "string",
-      "data_quality_flags": "string[]"
+      "data_quality_flags": "string[]",
+      "family": "string",
+      "farm_key": "string",
+      "venue": "string",
+      "verified": "boolean",
+      "apr_diagnostic": "#DecimalString",
+      "apr_max": "#DecimalString",
+      "reward_streams": "#FarmRewardStream[]"
     },
     "FarmPage": {
       "items": "#FarmInfo[]",
@@ -889,6 +909,15 @@
       "name": "string",
       "symbol": "string",
       "chain_id": "integer"
+    },
+    "FarmRewardStream": {
+      "token": "#Address",
+      "symbol": "string",
+      "decimals": "integer",
+      "apr": "#DecimalString",
+      "price_usd": "#DecimalString",
+      "end_at": "string",
+      "status": "string"
     },
     "FloatTimeframes": {
       "m5": "number",
@@ -984,6 +1013,24 @@
     "PairVerdict": {
       "status": "#VerdictStatus"
     },
+    "PerpFlow": {
+      "open_long_usd": "number",
+      "close_long_usd": "number",
+      "open_short_usd": "number",
+      "close_short_usd": "number",
+      "liquidated_long_usd": "number",
+      "liquidated_short_usd": "number",
+      "liquidations": "integer"
+    },
+    "PerpStats": {
+      "m5": "#PerpFlow",
+      "h1": "#PerpFlow",
+      "h6": "#PerpFlow",
+      "h24": "#PerpFlow",
+      "open_interest_usd_24h_ago": "number",
+      "max_liquidation_usd_24h": "number",
+      "liquidations_stale": "boolean"
+    },
     "PerpMarket": {
       "max_leverage": "integer",
       "only_isolated": "boolean",
@@ -994,6 +1041,12 @@
       "oracle_price": "number",
       "premium": "number",
       "day_notional_volume": "number",
+      "funding_long_1h": "number",
+      "funding_short_1h": "number",
+      "borrow_long_1h": "number",
+      "borrow_short_1h": "number",
+      "oi_long_usd": "number",
+      "oi_short_usd": "number",
       "synced_at": "string"
     },
     "PaymentRequired": {
@@ -1278,6 +1331,7 @@
       "from_address": "#Address",
       "to_address": "#Address",
       "tx_type": "#TxType",
+      "perp_action": "#PerpAction",
       "block_info": "oneOf<EthereumTxData|TonTxData>",
       "event_data": "oneOf<SwapEventData|LiquidityEventData>"
     },
@@ -1308,6 +1362,10 @@
       "token_address": "#Address"
     },
     "UserScore": {
+      "value": "integer",
+      "status": "string"
+    },
+    "HumanScore": {
       "value": "integer",
       "status": "string"
     },
@@ -1370,6 +1428,7 @@
       "last_active_at": "string",
       "age_is_estimated": "boolean",
       "user_score": "#UserScore",
+      "human_score": "#HumanScore",
       "scammer_score": "#ScammerScore",
       "signals": "#WalletScoreSignal[]",
       "metrics": "#WalletMetrics[]"
@@ -1382,6 +1441,7 @@
       "labels": "#WalletLabel[]",
       "copy_eligible": "boolean",
       "user_score": "#UserScore",
+      "human_score": "#HumanScore",
       "scammer_score": "#ScammerScore",
       "metrics": "#WalletMetrics"
     },

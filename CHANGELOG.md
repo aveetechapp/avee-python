@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.1 — 2026-10-07
+
+- New `perpStats` (`GET /perps/{market}/stats`): position flow by side over 5m, 1h, 6h and 24h,
+  liquidations, open interest a day ago, and a flag when the fills feed is behind.
+- Wallets carry `human_score` (`value`, `status`); `wallets` takes `sort=human_score` and
+  `min_human_score`.
+- `PerpMarket` gains hourly funding and borrow per side and open interest per side; `Transaction`
+  gains `perp_action`; `ChainInfo` gains `perp_volume_24h` and `perp_txns_24h`; `FarmInfo` gains
+  `apr_diagnostic`.
+- `FarmInfo` gains `family`, `farm_key`, `venue`, `verified`, `apr_max` and `reward_streams`
+  (`FarmRewardStream`: token, symbol, decimals, its APR share, price, end time, status). `pid` is
+  deprecated in favour of `farm_key`.
+
 ## 0.1.0 — 2026-09-29
 
 - First release: every operation of `/api/v1` as a typed method, models generated from the OpenAPI

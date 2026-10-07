@@ -104,6 +104,15 @@ class PairStatus:
     SCAM: Final = "scam"
 
 
+class PerpAction:
+    OPEN_LONG: Final = "open_long"
+    CLOSE_LONG: Final = "close_long"
+    OPEN_SHORT: Final = "open_short"
+    CLOSE_SHORT: Final = "close_short"
+    FLIP_LONG: Final = "flip_long"
+    FLIP_SHORT: Final = "flip_short"
+
+
 class Plan:
     FREE: Final = "free"
     STARTUP: Final = "startup"
@@ -237,6 +246,7 @@ class WalletSortBy:
     WIN_RATE: Final = "win_rate"
     TRADES: Final = "trades"
     USER_SCORE: Final = "user_score"
+    HUMAN_SCORE: Final = "human_score"
 
 
 class PositionSortBy:
@@ -940,6 +950,8 @@ class ChainInfo:
     metrics_stale: bool | None = None
     quality_liquidity_usd: float | None = None
     txns_24h: int | None = None
+    perp_volume_24h: float | None = None
+    perp_txns_24h: int | None = None
     new_pairs_24h: int | None = None
     new_pairs_24h_total: int | None = None
     scams_total: int | None = None
@@ -974,6 +986,8 @@ class ChainInfo:
             metrics_stale=_opt(o, "metrics_stale", _bool, where + ".metrics_stale"),
             quality_liquidity_usd=_opt(o, "quality_liquidity_usd", _float, where + ".quality_liquidity_usd"),
             txns_24h=_opt(o, "txns_24h", _int, where + ".txns_24h"),
+            perp_volume_24h=_opt(o, "perp_volume_24h", _float, where + ".perp_volume_24h"),
+            perp_txns_24h=_opt(o, "perp_txns_24h", _int, where + ".perp_txns_24h"),
             new_pairs_24h=_opt(o, "new_pairs_24h", _int, where + ".new_pairs_24h"),
             new_pairs_24h_total=_opt(o, "new_pairs_24h_total", _int, where + ".new_pairs_24h_total"),
             scams_total=_opt(o, "scams_total", _int, where + ".scams_total"),
@@ -1181,6 +1195,13 @@ class FarmInfo:
     factory: FarmFactory | None = None
     lifecycle_state: str | None = None
     data_quality_flags: list[str] | None = None
+    family: str | None = None
+    farm_key: str | None = None
+    venue: str | None = None
+    verified: bool | None = None
+    apr_diagnostic: DecimalString | None = None
+    apr_max: DecimalString | None = None
+    reward_streams: list[FarmRewardStream] | None = None
 
     @classmethod
     def _from_json(cls, value: Any, where: str = "FarmInfo") -> FarmInfo:
@@ -1199,6 +1220,13 @@ class FarmInfo:
             factory=_opt(o, "factory", FarmFactory._from_json, where + ".factory"),
             lifecycle_state=_opt(o, "lifecycle_state", _str, where + ".lifecycle_state"),
             data_quality_flags=_opt(o, "data_quality_flags", _list_of(_str), where + ".data_quality_flags"),
+            family=_opt(o, "family", _str, where + ".family"),
+            farm_key=_opt(o, "farm_key", _str, where + ".farm_key"),
+            venue=_opt(o, "venue", _str, where + ".venue"),
+            verified=_opt(o, "verified", _bool, where + ".verified"),
+            apr_diagnostic=_opt(o, "apr_diagnostic", _str, where + ".apr_diagnostic"),
+            apr_max=_opt(o, "apr_max", _str, where + ".apr_max"),
+            reward_streams=_opt(o, "reward_streams", _list_of(FarmRewardStream._from_json), where + ".reward_streams"),
         )
 
 
@@ -1233,6 +1261,30 @@ class FarmRewardToken:
             name=_req(o, "name", _str, where + ".name"),
             symbol=_req(o, "symbol", _str, where + ".symbol"),
             chain_id=_req(o, "chain_id", _int, where + ".chain_id"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class FarmRewardStream:
+    token: Address
+    symbol: str
+    decimals: int
+    status: str
+    apr: DecimalString | None = None
+    price_usd: DecimalString | None = None
+    end_at: str | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "FarmRewardStream") -> FarmRewardStream:
+        o = _obj(value, where)
+        return cls(
+            token=_req(o, "token", _str, where + ".token"),
+            symbol=_req(o, "symbol", _str, where + ".symbol"),
+            decimals=_req(o, "decimals", _int, where + ".decimals"),
+            status=_req(o, "status", _str, where + ".status"),
+            apr=_opt(o, "apr", _str, where + ".apr"),
+            price_usd=_opt(o, "price_usd", _str, where + ".price_usd"),
+            end_at=_opt(o, "end_at", _str, where + ".end_at"),
         )
 
 
@@ -1501,6 +1553,54 @@ class PairVerdict:
 
 
 @dataclass(frozen=True, slots=True)
+class PerpFlow:
+    open_long_usd: float
+    close_long_usd: float
+    open_short_usd: float
+    close_short_usd: float
+    liquidated_long_usd: float
+    liquidated_short_usd: float
+    liquidations: int
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "PerpFlow") -> PerpFlow:
+        o = _obj(value, where)
+        return cls(
+            open_long_usd=_req(o, "open_long_usd", _float, where + ".open_long_usd"),
+            close_long_usd=_req(o, "close_long_usd", _float, where + ".close_long_usd"),
+            open_short_usd=_req(o, "open_short_usd", _float, where + ".open_short_usd"),
+            close_short_usd=_req(o, "close_short_usd", _float, where + ".close_short_usd"),
+            liquidated_long_usd=_req(o, "liquidated_long_usd", _float, where + ".liquidated_long_usd"),
+            liquidated_short_usd=_req(o, "liquidated_short_usd", _float, where + ".liquidated_short_usd"),
+            liquidations=_req(o, "liquidations", _int, where + ".liquidations"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class PerpStats:
+    m5: PerpFlow
+    h1: PerpFlow
+    h6: PerpFlow
+    h24: PerpFlow
+    liquidations_stale: bool
+    open_interest_usd_24h_ago: float | None = None
+    max_liquidation_usd_24h: float | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "PerpStats") -> PerpStats:
+        o = _obj(value, where)
+        return cls(
+            m5=_req(o, "m5", PerpFlow._from_json, where + ".m5"),
+            h1=_req(o, "h1", PerpFlow._from_json, where + ".h1"),
+            h6=_req(o, "h6", PerpFlow._from_json, where + ".h6"),
+            h24=_req(o, "h24", PerpFlow._from_json, where + ".h24"),
+            liquidations_stale=_req(o, "liquidations_stale", _bool, where + ".liquidations_stale"),
+            open_interest_usd_24h_ago=_opt(o, "open_interest_usd_24h_ago", _float, where + ".open_interest_usd_24h_ago"),
+            max_liquidation_usd_24h=_opt(o, "max_liquidation_usd_24h", _float, where + ".max_liquidation_usd_24h"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class PerpMarket:
     max_leverage: int | None = None
     only_isolated: bool | None = None
@@ -1511,6 +1611,12 @@ class PerpMarket:
     oracle_price: float | None = None
     premium: float | None = None
     day_notional_volume: float | None = None
+    funding_long_1h: float | None = None
+    funding_short_1h: float | None = None
+    borrow_long_1h: float | None = None
+    borrow_short_1h: float | None = None
+    oi_long_usd: float | None = None
+    oi_short_usd: float | None = None
     synced_at: str | None = None
 
     @classmethod
@@ -1526,6 +1632,12 @@ class PerpMarket:
             oracle_price=_opt(o, "oracle_price", _float, where + ".oracle_price"),
             premium=_opt(o, "premium", _float, where + ".premium"),
             day_notional_volume=_opt(o, "day_notional_volume", _float, where + ".day_notional_volume"),
+            funding_long_1h=_opt(o, "funding_long_1h", _float, where + ".funding_long_1h"),
+            funding_short_1h=_opt(o, "funding_short_1h", _float, where + ".funding_short_1h"),
+            borrow_long_1h=_opt(o, "borrow_long_1h", _float, where + ".borrow_long_1h"),
+            borrow_short_1h=_opt(o, "borrow_short_1h", _float, where + ".borrow_short_1h"),
+            oi_long_usd=_opt(o, "oi_long_usd", _float, where + ".oi_long_usd"),
+            oi_short_usd=_opt(o, "oi_short_usd", _float, where + ".oi_short_usd"),
             synced_at=_opt(o, "synced_at", _str, where + ".synced_at"),
         )
 
@@ -2287,6 +2399,7 @@ class Transaction:
     tx_type: str
     block_info: EthereumTxData | TonTxData | dict[str, Any]
     event_data: SwapEventData | LiquidityEventData | dict[str, Any]
+    perp_action: str | None = None
 
     @classmethod
     def _from_json(cls, value: Any, where: str = "Transaction") -> Transaction:
@@ -2301,6 +2414,7 @@ class Transaction:
             tx_type=_req(o, "tx_type", _str, where + ".tx_type"),
             block_info=_req(o, "block_info", _union_TransactionBlockInfo, where + ".block_info"),
             event_data=_req(o, "event_data", _union_TransactionEventData, where + ".event_data"),
+            perp_action=_opt(o, "perp_action", _str, where + ".perp_action"),
         )
 
 
@@ -2387,6 +2501,20 @@ class UserScore:
 
     @classmethod
     def _from_json(cls, value: Any, where: str = "UserScore") -> UserScore:
+        o = _obj(value, where)
+        return cls(
+            value=_req(o, "value", _int, where + ".value"),
+            status=_req(o, "status", _str, where + ".status"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class HumanScore:
+    value: int
+    status: str
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "HumanScore") -> HumanScore:
         o = _obj(value, where)
         return cls(
             value=_req(o, "value", _int, where + ".value"),
@@ -2515,6 +2643,7 @@ class WalletProfile:
     last_active_at: str | None = None
     age_is_estimated: bool | None = None
     user_score: UserScore | None = None
+    human_score: HumanScore | None = None
     scammer_score: ScammerScore | None = None
     signals: list[WalletScoreSignal] | None = None
     metrics: list[WalletMetrics] | None = None
@@ -2538,6 +2667,7 @@ class WalletProfile:
             last_active_at=_opt(o, "last_active_at", _str, where + ".last_active_at"),
             age_is_estimated=_opt(o, "age_is_estimated", _bool, where + ".age_is_estimated"),
             user_score=_opt(o, "user_score", UserScore._from_json, where + ".user_score"),
+            human_score=_opt(o, "human_score", HumanScore._from_json, where + ".human_score"),
             scammer_score=_opt(o, "scammer_score", ScammerScore._from_json, where + ".scammer_score"),
             signals=_opt(o, "signals", _list_of(WalletScoreSignal._from_json), where + ".signals"),
             metrics=_opt(o, "metrics", _list_of(WalletMetrics._from_json), where + ".metrics"),
@@ -2554,6 +2684,7 @@ class WalletListItem:
     labels: list[WalletLabel] | None = None
     copy_eligible: bool | None = None
     user_score: UserScore | None = None
+    human_score: HumanScore | None = None
     scammer_score: ScammerScore | None = None
 
     @classmethod
@@ -2568,6 +2699,7 @@ class WalletListItem:
             labels=_opt(o, "labels", _list_of(WalletLabel._from_json), where + ".labels"),
             copy_eligible=_opt(o, "copy_eligible", _bool, where + ".copy_eligible"),
             user_score=_opt(o, "user_score", UserScore._from_json, where + ".user_score"),
+            human_score=_opt(o, "human_score", HumanScore._from_json, where + ".human_score"),
             scammer_score=_opt(o, "scammer_score", ScammerScore._from_json, where + ".scammer_score"),
         )
 
@@ -3274,4 +3406,4 @@ class Leaderboard:
         )
 
 
-__all__ = ["Address", "BriefDeployer", "BriefHolders", "BriefLiquidity", "BriefMarket", "BriefScore", "BriefSignal", "CanonicalTokenStatus", "ChainInfo", "ChainList", "ChainMover", "ChainRef", "ChainSlug", "ChainWalletStats", "ChartCandles", "Config", "DecimalString", "DeployerCard", "DeployerLaunchPage", "DeployerReputation", "DeployerStatus", "Dex", "ErrorCode", "EthereumTxData", "FactoryType", "FarmApr", "FarmFactory", "FarmInfo", "FarmPage", "FarmRewardToken", "FarmSortBy", "FarmStatus", "FloatTimeframes", "KeyInfo", "KeyInfoRateLimit", "LaunchStatus", "Leaderboard", "LeaderboardEntity", "LeaderboardGrowth", "LeaderboardMetrics", "LeaderboardScope", "LeaderboardSeason", "LeaderboardSeasonMetrics", "LiquidationDay", "LiquidityEventData", "LiquidityTokenChange", "MarketType", "NonNegativeDecimalString", "OraclePrice", "OraclePriceList", "OrderBy", "PairBatchItem", "PairBatchRef", "PairBatchRequest", "PairBatchResponse", "PairDeployer", "PairInfo", "PairLaunchpad", "PairPage", "PairPropData", "PairSafety", "PairScore", "PairSecurity", "PairStatus", "PairVerdict", "PairWindow", "PairWindows", "PaymentRequired", "PaymentRequirements", "PaymentResource", "PerpHistory", "PerpLiquidations", "PerpMarket", "PerpPoint", "PerpSortBy", "Plan", "PositionSortBy", "PositionState", "Problem", "ReasonSlug", "ResolutionType", "RiskSignal", "RiskSignalGroup", "RiskSignalKind", "RiskSignalSeverity", "ScammerScore", "SearchPair", "SearchResponse", "SearchToken", "SortBy", "StatusResponse", "SwapEventData", "TimeFrame", "Token", "TokenAddress", "TokenBatchItem", "TokenBatchRef", "TokenBatchRequest", "TokenBatchResponse", "TokenBrief", "TokenCategory", "TokenHolder", "TokenHolderPage", "TokenHolderStats", "TokenInfo", "TokenInstance", "TokenLaunch", "TokenListIncludes", "TokenMainPair", "TokenMarketMetrics", "TokenMarketProjection", "TokenMetricWindow", "TokenMover", "TokenPage", "TokenPrimaryMarket", "TokenProfile", "TokenRating", "TokenSocials", "TokenSortBy", "TokenStatus", "TokenTrader", "TokenTraderPage", "TokenTraderSortBy", "TokenVerdict", "TokenVerdictProof", "TokenWindow", "TokenWindows", "TonTxData", "TradePage", "Transaction", "TxType", "TxnCount", "TxnPairStat", "TxnTimeframes", "UserScore", "ValueRange", "VerdictStatus", "WalletBestTrades", "WalletChainPnl", "WalletChart", "WalletFunding", "WalletLabel", "WalletLabelList", "WalletLabelSet", "WalletLabelsRequest", "WalletLifetime", "WalletListItem", "WalletMetrics", "WalletMover", "WalletOverview", "WalletPage", "WalletPnlPoint", "WalletPosition", "WalletPositionPage", "WalletPositionPair", "WalletPositionRound", "WalletProfile", "WalletRankedPosition", "WalletRoundPage", "WalletScoreSignal", "WalletSortBy", "WalletStats", "WalletTier", "WalletTrade", "WalletTradePage", "WalletType", "WalletWindow", "X402DiscoveredResource", "X402Discovery"]
+__all__ = ["Address", "BriefDeployer", "BriefHolders", "BriefLiquidity", "BriefMarket", "BriefScore", "BriefSignal", "CanonicalTokenStatus", "ChainInfo", "ChainList", "ChainMover", "ChainRef", "ChainSlug", "ChainWalletStats", "ChartCandles", "Config", "DecimalString", "DeployerCard", "DeployerLaunchPage", "DeployerReputation", "DeployerStatus", "Dex", "ErrorCode", "EthereumTxData", "FactoryType", "FarmApr", "FarmFactory", "FarmInfo", "FarmPage", "FarmRewardStream", "FarmRewardToken", "FarmSortBy", "FarmStatus", "FloatTimeframes", "HumanScore", "KeyInfo", "KeyInfoRateLimit", "LaunchStatus", "Leaderboard", "LeaderboardEntity", "LeaderboardGrowth", "LeaderboardMetrics", "LeaderboardScope", "LeaderboardSeason", "LeaderboardSeasonMetrics", "LiquidationDay", "LiquidityEventData", "LiquidityTokenChange", "MarketType", "NonNegativeDecimalString", "OraclePrice", "OraclePriceList", "OrderBy", "PairBatchItem", "PairBatchRef", "PairBatchRequest", "PairBatchResponse", "PairDeployer", "PairInfo", "PairLaunchpad", "PairPage", "PairPropData", "PairSafety", "PairScore", "PairSecurity", "PairStatus", "PairVerdict", "PairWindow", "PairWindows", "PaymentRequired", "PaymentRequirements", "PaymentResource", "PerpAction", "PerpFlow", "PerpHistory", "PerpLiquidations", "PerpMarket", "PerpPoint", "PerpSortBy", "PerpStats", "Plan", "PositionSortBy", "PositionState", "Problem", "ReasonSlug", "ResolutionType", "RiskSignal", "RiskSignalGroup", "RiskSignalKind", "RiskSignalSeverity", "ScammerScore", "SearchPair", "SearchResponse", "SearchToken", "SortBy", "StatusResponse", "SwapEventData", "TimeFrame", "Token", "TokenAddress", "TokenBatchItem", "TokenBatchRef", "TokenBatchRequest", "TokenBatchResponse", "TokenBrief", "TokenCategory", "TokenHolder", "TokenHolderPage", "TokenHolderStats", "TokenInfo", "TokenInstance", "TokenLaunch", "TokenListIncludes", "TokenMainPair", "TokenMarketMetrics", "TokenMarketProjection", "TokenMetricWindow", "TokenMover", "TokenPage", "TokenPrimaryMarket", "TokenProfile", "TokenRating", "TokenSocials", "TokenSortBy", "TokenStatus", "TokenTrader", "TokenTraderPage", "TokenTraderSortBy", "TokenVerdict", "TokenVerdictProof", "TokenWindow", "TokenWindows", "TonTxData", "TradePage", "Transaction", "TxType", "TxnCount", "TxnPairStat", "TxnTimeframes", "UserScore", "ValueRange", "VerdictStatus", "WalletBestTrades", "WalletChainPnl", "WalletChart", "WalletFunding", "WalletLabel", "WalletLabelList", "WalletLabelSet", "WalletLabelsRequest", "WalletLifetime", "WalletListItem", "WalletMetrics", "WalletMover", "WalletOverview", "WalletPage", "WalletPnlPoint", "WalletPosition", "WalletPositionPage", "WalletPositionPair", "WalletPositionRound", "WalletProfile", "WalletRankedPosition", "WalletRoundPage", "WalletScoreSignal", "WalletSortBy", "WalletStats", "WalletTier", "WalletTrade", "WalletTradePage", "WalletType", "WalletWindow", "X402DiscoveredResource", "X402Discovery"]
