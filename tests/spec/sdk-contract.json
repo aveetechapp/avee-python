@@ -1221,7 +1221,12 @@
       "launch": "#TokenLaunch",
       "windows": "#TokenWindows",
       "holder_stats": "#TokenHolderStats",
-      "profile": "#TokenProfile"
+      "profile": "#TokenProfile",
+      "linked_assets": "#LinkedAsset[]"
+    },
+    "LinkedAsset": {
+      "chain": "#ChainRef",
+      "address": "#Address"
     },
     "TokenLaunch": {
       "deployer": "string",

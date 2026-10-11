@@ -770,7 +770,7 @@ components:
     Binary:
       name: binary
       in: query
-      description: Include `vaa` on the v1 routes, the base64 Avee signed-package blob of the feed on `/api/latest_price_feeds` when every oracle node signed a fresh trading price, otherwise the empty string. Validated and ignored on the v2 routes.
+      description: Include `vaa` on the v1 routes, the base64 Avee signed-package blob of the feed on `/api/latest_price_feeds` when at least the network's threshold of oracle nodes signed a fresh trading price, otherwise the empty string. Validated and ignored on the v2 routes.
       schema:
         type: boolean
         default: false
@@ -862,7 +862,7 @@ components:
               enum: [hex, base64]
             data:
               type: array
-              description: On `/v2/updates/price/latest`, one blob of Avee signed packages (`abi.encode(AstraPackage[])`, see the Astra docs) when every oracle node signed a fresh trading price for every requested ID; otherwise empty. Streams and historical routes are always empty. Not a Pyth VAA, so verify it with the Avee verifier, not with Pyth contracts.
+              description: On `/v2/updates/price/latest`, one blob of Avee signed packages (`abi.encode(AstraPackage[])`, see the Astra docs) when at least the network's threshold of oracle nodes signed a fresh trading price for every requested ID; otherwise empty. The blob carries every fresh package, so it may hold more signatures than the threshold. Streams and historical routes are always empty. Not a Pyth VAA, so verify it with the Avee verifier, not with Pyth contracts.
               example: []
               items:
                 type: string

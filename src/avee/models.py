@@ -2057,6 +2057,7 @@ class TokenInfo:
     windows: TokenWindows | None = None
     holder_stats: TokenHolderStats | None = None
     profile: TokenProfile | None = None
+    linked_assets: list[LinkedAsset] | None = None
 
     @classmethod
     def _from_json(cls, value: Any, where: str = "TokenInfo") -> TokenInfo:
@@ -2101,6 +2102,21 @@ class TokenInfo:
             windows=_opt(o, "windows", TokenWindows._from_json, where + ".windows"),
             holder_stats=_opt(o, "holder_stats", TokenHolderStats._from_json, where + ".holder_stats"),
             profile=_opt(o, "profile", TokenProfile._from_json, where + ".profile"),
+            linked_assets=_opt(o, "linked_assets", _list_of(LinkedAsset._from_json), where + ".linked_assets"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class LinkedAsset:
+    chain: ChainRef
+    address: Address
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "LinkedAsset") -> LinkedAsset:
+        o = _obj(value, where)
+        return cls(
+            chain=_req(o, "chain", ChainRef._from_json, where + ".chain"),
+            address=_req(o, "address", _str, where + ".address"),
         )
 
 
@@ -3406,4 +3422,4 @@ class Leaderboard:
         )
 
 
-__all__ = ["Address", "BriefDeployer", "BriefHolders", "BriefLiquidity", "BriefMarket", "BriefScore", "BriefSignal", "CanonicalTokenStatus", "ChainInfo", "ChainList", "ChainMover", "ChainRef", "ChainSlug", "ChainWalletStats", "ChartCandles", "Config", "DecimalString", "DeployerCard", "DeployerLaunchPage", "DeployerReputation", "DeployerStatus", "Dex", "ErrorCode", "EthereumTxData", "FactoryType", "FarmApr", "FarmFactory", "FarmInfo", "FarmPage", "FarmRewardStream", "FarmRewardToken", "FarmSortBy", "FarmStatus", "FloatTimeframes", "HumanScore", "KeyInfo", "KeyInfoRateLimit", "LaunchStatus", "Leaderboard", "LeaderboardEntity", "LeaderboardGrowth", "LeaderboardMetrics", "LeaderboardScope", "LeaderboardSeason", "LeaderboardSeasonMetrics", "LiquidationDay", "LiquidityEventData", "LiquidityTokenChange", "MarketType", "NonNegativeDecimalString", "OraclePrice", "OraclePriceList", "OrderBy", "PairBatchItem", "PairBatchRef", "PairBatchRequest", "PairBatchResponse", "PairDeployer", "PairInfo", "PairLaunchpad", "PairPage", "PairPropData", "PairSafety", "PairScore", "PairSecurity", "PairStatus", "PairVerdict", "PairWindow", "PairWindows", "PaymentRequired", "PaymentRequirements", "PaymentResource", "PerpAction", "PerpFlow", "PerpHistory", "PerpLiquidations", "PerpMarket", "PerpPoint", "PerpSortBy", "PerpStats", "Plan", "PositionSortBy", "PositionState", "Problem", "ReasonSlug", "ResolutionType", "RiskSignal", "RiskSignalGroup", "RiskSignalKind", "RiskSignalSeverity", "ScammerScore", "SearchPair", "SearchResponse", "SearchToken", "SortBy", "StatusResponse", "SwapEventData", "TimeFrame", "Token", "TokenAddress", "TokenBatchItem", "TokenBatchRef", "TokenBatchRequest", "TokenBatchResponse", "TokenBrief", "TokenCategory", "TokenHolder", "TokenHolderPage", "TokenHolderStats", "TokenInfo", "TokenInstance", "TokenLaunch", "TokenListIncludes", "TokenMainPair", "TokenMarketMetrics", "TokenMarketProjection", "TokenMetricWindow", "TokenMover", "TokenPage", "TokenPrimaryMarket", "TokenProfile", "TokenRating", "TokenSocials", "TokenSortBy", "TokenStatus", "TokenTrader", "TokenTraderPage", "TokenTraderSortBy", "TokenVerdict", "TokenVerdictProof", "TokenWindow", "TokenWindows", "TonTxData", "TradePage", "Transaction", "TxType", "TxnCount", "TxnPairStat", "TxnTimeframes", "UserScore", "ValueRange", "VerdictStatus", "WalletBestTrades", "WalletChainPnl", "WalletChart", "WalletFunding", "WalletLabel", "WalletLabelList", "WalletLabelSet", "WalletLabelsRequest", "WalletLifetime", "WalletListItem", "WalletMetrics", "WalletMover", "WalletOverview", "WalletPage", "WalletPnlPoint", "WalletPosition", "WalletPositionPage", "WalletPositionPair", "WalletPositionRound", "WalletProfile", "WalletRankedPosition", "WalletRoundPage", "WalletScoreSignal", "WalletSortBy", "WalletStats", "WalletTier", "WalletTrade", "WalletTradePage", "WalletType", "WalletWindow", "X402DiscoveredResource", "X402Discovery"]
+__all__ = ["Address", "BriefDeployer", "BriefHolders", "BriefLiquidity", "BriefMarket", "BriefScore", "BriefSignal", "CanonicalTokenStatus", "ChainInfo", "ChainList", "ChainMover", "ChainRef", "ChainSlug", "ChainWalletStats", "ChartCandles", "Config", "DecimalString", "DeployerCard", "DeployerLaunchPage", "DeployerReputation", "DeployerStatus", "Dex", "ErrorCode", "EthereumTxData", "FactoryType", "FarmApr", "FarmFactory", "FarmInfo", "FarmPage", "FarmRewardStream", "FarmRewardToken", "FarmSortBy", "FarmStatus", "FloatTimeframes", "HumanScore", "KeyInfo", "KeyInfoRateLimit", "LaunchStatus", "Leaderboard", "LeaderboardEntity", "LeaderboardGrowth", "LeaderboardMetrics", "LeaderboardScope", "LeaderboardSeason", "LeaderboardSeasonMetrics", "LinkedAsset", "LiquidationDay", "LiquidityEventData", "LiquidityTokenChange", "MarketType", "NonNegativeDecimalString", "OraclePrice", "OraclePriceList", "OrderBy", "PairBatchItem", "PairBatchRef", "PairBatchRequest", "PairBatchResponse", "PairDeployer", "PairInfo", "PairLaunchpad", "PairPage", "PairPropData", "PairSafety", "PairScore", "PairSecurity", "PairStatus", "PairVerdict", "PairWindow", "PairWindows", "PaymentRequired", "PaymentRequirements", "PaymentResource", "PerpAction", "PerpFlow", "PerpHistory", "PerpLiquidations", "PerpMarket", "PerpPoint", "PerpSortBy", "PerpStats", "Plan", "PositionSortBy", "PositionState", "Problem", "ReasonSlug", "ResolutionType", "RiskSignal", "RiskSignalGroup", "RiskSignalKind", "RiskSignalSeverity", "ScammerScore", "SearchPair", "SearchResponse", "SearchToken", "SortBy", "StatusResponse", "SwapEventData", "TimeFrame", "Token", "TokenAddress", "TokenBatchItem", "TokenBatchRef", "TokenBatchRequest", "TokenBatchResponse", "TokenBrief", "TokenCategory", "TokenHolder", "TokenHolderPage", "TokenHolderStats", "TokenInfo", "TokenInstance", "TokenLaunch", "TokenListIncludes", "TokenMainPair", "TokenMarketMetrics", "TokenMarketProjection", "TokenMetricWindow", "TokenMover", "TokenPage", "TokenPrimaryMarket", "TokenProfile", "TokenRating", "TokenSocials", "TokenSortBy", "TokenStatus", "TokenTrader", "TokenTraderPage", "TokenTraderSortBy", "TokenVerdict", "TokenVerdictProof", "TokenWindow", "TokenWindows", "TonTxData", "TradePage", "Transaction", "TxType", "TxnCount", "TxnPairStat", "TxnTimeframes", "UserScore", "ValueRange", "VerdictStatus", "WalletBestTrades", "WalletChainPnl", "WalletChart", "WalletFunding", "WalletLabel", "WalletLabelList", "WalletLabelSet", "WalletLabelsRequest", "WalletLifetime", "WalletListItem", "WalletMetrics", "WalletMover", "WalletOverview", "WalletPage", "WalletPnlPoint", "WalletPosition", "WalletPositionPage", "WalletPositionPair", "WalletPositionRound", "WalletProfile", "WalletRankedPosition", "WalletRoundPage", "WalletScoreSignal", "WalletSortBy", "WalletStats", "WalletTier", "WalletTrade", "WalletTradePage", "WalletType", "WalletWindow", "X402DiscoveredResource", "X402Discovery"]

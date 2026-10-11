@@ -5821,6 +5821,22 @@ components:
           $ref: '#/components/schemas/TokenHolderStats'
         profile:
           $ref: '#/components/schemas/TokenProfile'
+        linked_assets:
+          type: array
+          description: the same asset on another chain, such as a HyperCore spot token and its HyperEVM
+            ERC-20. Filled on the single-token read only; absent when none is known
+          items:
+            $ref: '#/components/schemas/LinkedAsset'
+    LinkedAsset:
+      type: object
+      required:
+      - chain
+      - address
+      properties:
+        chain:
+          $ref: '#/components/schemas/ChainRef'
+        address:
+          $ref: '#/components/schemas/Address'
     TokenLaunch:
       type: object
       description: the contract creation record; absent when it was never observed
