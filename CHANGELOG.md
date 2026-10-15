@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- New `chainCctpFlows` (`GET /chains/{chain}/cctp`): USDC moved in and out of one chain through
+  Circle CCTP over a window, per counterpart chain and token, with an optional daily series.
+- New `chainCctpTransfers` (`GET /chains/{chain}/cctp/transfers`): the largest CCTP transfers and the
+  addresses moving the most on one chain, with wallet labels where known.
 - `TokenInfo` gains `linked_assets` (`chain`, `address`): the same asset on another chain, such as a
   HyperCore spot token and its HyperEVM ERC-20. Filled by `GET /chains/{chain}/tokens/{address}`.
 

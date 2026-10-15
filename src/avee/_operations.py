@@ -144,6 +144,35 @@ class SyncOperations:
         r.q_bool("volume_from_quote", volume_from_quote)
         return self._send(r, m.ChartCandles._from_json, options)
 
+    def chain_cctp_flows(self, chain: str | int, *, from_: int | None = None, to: int | None = None, daily: bool | None = None, options: RequestOptions | None = None) -> m.CctpFlows:
+        """USDC moved in and out of one chain through Circle CCTP.
+
+        Defaults: daily=False.
+        """
+        r = Call("chainCctpFlows", "GET")
+        r.path_literal("chains")
+        r.path_param("chain", chain, lo=1, hi=32)
+        r.path_literal("cctp")
+        r.q_int("from", from_, lo=0)
+        r.q_int("to", to, lo=0)
+        r.q_bool("daily", daily)
+        return self._send(r, m.CctpFlows._from_json, options)
+
+    def chain_cctp_transfers(self, chain: str | int, *, from_: int | None = None, to: int | None = None, limit: int | None = None, options: RequestOptions | None = None) -> m.CctpTransfers:
+        """Largest CCTP transfers and the addresses moving the most on one chain.
+
+        Defaults: limit=20.
+        """
+        r = Call("chainCctpTransfers", "GET")
+        r.path_literal("chains")
+        r.path_param("chain", chain, lo=1, hi=32)
+        r.path_literal("cctp")
+        r.path_literal("transfers")
+        r.q_int("from", from_, lo=0)
+        r.q_int("to", to, lo=0)
+        r.q_int("limit", limit, lo=1, hi=100)
+        return self._send(r, m.CctpTransfers._from_json, options)
+
     def trending(self, *, chains: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> m.PairPage:
         """Trending pairs right now.
 
@@ -819,6 +848,35 @@ class AsyncOperations:
         r.q_bool("volume_from_quote", volume_from_quote)
         return await self._send(r, m.ChartCandles._from_json, options)
 
+    async def chain_cctp_flows(self, chain: str | int, *, from_: int | None = None, to: int | None = None, daily: bool | None = None, options: RequestOptions | None = None) -> m.CctpFlows:
+        """USDC moved in and out of one chain through Circle CCTP.
+
+        Defaults: daily=False.
+        """
+        r = Call("chainCctpFlows", "GET")
+        r.path_literal("chains")
+        r.path_param("chain", chain, lo=1, hi=32)
+        r.path_literal("cctp")
+        r.q_int("from", from_, lo=0)
+        r.q_int("to", to, lo=0)
+        r.q_bool("daily", daily)
+        return await self._send(r, m.CctpFlows._from_json, options)
+
+    async def chain_cctp_transfers(self, chain: str | int, *, from_: int | None = None, to: int | None = None, limit: int | None = None, options: RequestOptions | None = None) -> m.CctpTransfers:
+        """Largest CCTP transfers and the addresses moving the most on one chain.
+
+        Defaults: limit=20.
+        """
+        r = Call("chainCctpTransfers", "GET")
+        r.path_literal("chains")
+        r.path_param("chain", chain, lo=1, hi=32)
+        r.path_literal("cctp")
+        r.path_literal("transfers")
+        r.q_int("from", from_, lo=0)
+        r.q_int("to", to, lo=0)
+        r.q_int("limit", limit, lo=1, hi=100)
+        return await self._send(r, m.CctpTransfers._from_json, options)
+
     async def trending(self, *, chains: Sequence[str] | None = None, limit: int | None = None, cursor: str | None = None, options: RequestOptions | None = None) -> m.PairPage:
         """Trending pairs right now.
 
@@ -1372,6 +1430,8 @@ OPERATIONS: tuple[tuple[str, str, str, str], ...] = (
     ("pair", "GET", "/chains/{chain}/pairs/{address}", "dex"),
     ("pairTrades", "GET", "/chains/{chain}/pairs/{address}/trades", "dex"),
     ("pairCandles", "GET", "/chains/{chain}/pairs/{address}/candles", "dex"),
+    ("chainCctpFlows", "GET", "/chains/{chain}/cctp", "dex"),
+    ("chainCctpTransfers", "GET", "/chains/{chain}/cctp/transfers", "dex"),
     ("trending", "GET", "/trending", "dex"),
     ("pairsNew", "GET", "/pairs/new", "dex"),
     ("launchpadTokens", "GET", "/launchpads/tokens", "dex"),

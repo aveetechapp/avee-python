@@ -1908,6 +1908,147 @@ paths:
           $ref: '#/components/schemas/WalletWindow'
       - $ref: '#/components/parameters/AcceptPayment'
       - $ref: '#/components/parameters/PaymentSignature'
+  /chains/{chain}/cctp:
+    get:
+      operationId: chainCctpFlows
+      x-avee-cost-cu: 20
+      summary: USDC moved in and out of one chain through Circle CCTP
+      tags:
+      - dex
+      x-plan: anon
+      x-cache-ttl: 60
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CctpFlows'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          $ref: '#/components/responses/InternalError'
+      description: |
+        Stablecoins that entered and left one chain through Circle's Cross-Chain Transfer Protocol over a window: totals, one row per counterpart chain and token, and on request a daily series.
+
+        `in` counts what was minted on this chain and `out` what was burned here, so a transfer is counted once on each side and never twice on one. Dollar figures cover USDC only; any other token keeps its amount in base units and reports `priced: false`. A chain CCTP does not reach answers `available: false` rather than zeros. The window spans at most 400 days; past a week the figures are summed per UTC day.
+      parameters:
+      - name: chain
+        in: path
+        required: true
+        description: chain slug (`ton`) or numeric chain id (`950000`)
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 32
+      - name: from
+        in: query
+        required: false
+        description: window start, unix seconds; defaults to one day before `to`
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+      - name: to
+        in: query
+        required: false
+        description: window end, unix seconds; defaults to now
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+      - name: daily
+        in: query
+        required: false
+        description: add the per-day series in `days`
+        schema:
+          type: boolean
+          default: false
+      - $ref: '#/components/parameters/AcceptPayment'
+      - $ref: '#/components/parameters/PaymentSignature'
+  /chains/{chain}/cctp/transfers:
+    get:
+      operationId: chainCctpTransfers
+      x-avee-cost-cu: 30
+      summary: Largest CCTP transfers and the addresses moving the most on one chain
+      tags:
+      - dex
+      x-plan: anon
+      x-cache-ttl: 60
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CctpTransfers'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          $ref: '#/components/responses/PaymentRequired'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailable'
+        default:
+          $ref: '#/components/responses/InternalError'
+      description: |
+        The largest Circle CCTP transfers into and out of one chain over a window, and the addresses on this chain that received and sent the most, highest first. Where the wallet service knows an address, `wallet` carries its tier and labels; it is absent otherwise, and absent for every address when the wallet service is slow. The window spans at most 31 days.
+      parameters:
+      - name: chain
+        in: path
+        required: true
+        description: chain slug (`ton`) or numeric chain id (`950000`)
+        schema:
+          type: string
+          minLength: 1
+          maxLength: 32
+      - name: from
+        in: query
+        required: false
+        description: window start, unix seconds; defaults to one day before `to`
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+      - name: to
+        in: query
+        required: false
+        description: window end, unix seconds; defaults to now
+        schema:
+          type: integer
+          format: int64
+          minimum: 0
+      - name: limit
+        in: query
+        required: false
+        description: rows in each list
+        schema:
+          type: integer
+          format: int32
+          minimum: 1
+          maximum: 100
+          default: 20
+      - $ref: '#/components/parameters/AcceptPayment'
+      - $ref: '#/components/parameters/PaymentSignature'
   /leaderboard:
     get:
       operationId: leaderboard
@@ -7223,6 +7364,212 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/WalletLabelSet'
+    CctpSide:
+      type: object
+      required:
+      - usd
+      - transfers
+      properties:
+        usd:
+          description: USDC value in dollars; zero when nothing priced moved
+          type: number
+          format: double
+        transfers:
+          type: integer
+          format: int64
+        amount:
+          description: token amount in base units; on routes only, where one token is summed
+          $ref: '#/components/schemas/DecimalString'
+    CctpRoute:
+      type: object
+      required:
+      - counterpart
+      - counterpart_domain
+      - token
+      - priced
+      - in
+      - out
+      properties:
+        counterpart:
+          description: the other chain of the transfer. Open set; `domain N` when the chain has no name yet
+          type: string
+        counterpart_domain:
+          description: Circle's domain number of the other chain; `-1` when the source is unknown
+          type: integer
+          format: int64
+        token:
+          $ref: '#/components/schemas/Address'
+        priced:
+          description: whether `usd` carries a dollar value for this token
+          type: boolean
+        in:
+          $ref: '#/components/schemas/CctpSide'
+        out:
+          $ref: '#/components/schemas/CctpSide'
+        fee:
+          description: fees paid on transfers into this chain, token base units
+          $ref: '#/components/schemas/DecimalString'
+        fee_usd:
+          type: number
+          format: double
+        fast_transfers:
+          description: transfers that used Circle's fast finality
+          type: integer
+          format: int64
+    CctpDay:
+      type: object
+      required:
+      - day
+      - in
+      - out
+      properties:
+        day:
+          description: start of the UTC day
+          type: string
+        in:
+          $ref: '#/components/schemas/CctpSide'
+        out:
+          $ref: '#/components/schemas/CctpSide'
+    CctpFlows:
+      type: object
+      required:
+      - chain
+      - available
+      properties:
+        chain:
+          $ref: '#/components/schemas/ChainRef'
+        available:
+          description: false when CCTP does not reach this chain; every figure is then absent, not zero
+          type: boolean
+        from:
+          type: string
+        to:
+          type: string
+        in:
+          $ref: '#/components/schemas/CctpSide'
+        out:
+          $ref: '#/components/schemas/CctpSide'
+        net_usd:
+          description: '`in.usd` minus `out.usd`; positive when USDC arrived'
+          type: number
+          format: double
+        fee_usd:
+          type: number
+          format: double
+        fast_share:
+          description: share of transfers that used fast finality, 0-1
+          type: number
+          format: double
+        routes:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctpRoute'
+        days:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctpDay'
+    CctpDirection:
+      type: string
+      description: '`in` was minted on this chain, `out` was burned here. Open set.'
+      maxLength: 16
+    CctpTransfer:
+      type: object
+      required:
+      - tx_hash
+      - direction
+      - counterpart
+      - token
+      - amount
+      - priced
+      properties:
+        time:
+          type: string
+        tx_hash:
+          type: string
+        direction:
+          $ref: '#/components/schemas/CctpDirection'
+        counterpart:
+          type: string
+        counterpart_domain:
+          type: integer
+          format: int64
+        token:
+          $ref: '#/components/schemas/Address'
+        amount:
+          description: token base units, before fees
+          $ref: '#/components/schemas/DecimalString'
+        usd:
+          description: absent when the token is not priced
+          type: number
+          format: double
+        priced:
+          type: boolean
+        fast:
+          type: boolean
+        address:
+          description: the address on this chain that received or sent the transfer
+          $ref: '#/components/schemas/Address'
+        counterparty:
+          description: the address on the other chain, in its 32-byte CCTP form
+          type: string
+        via:
+          description: the Circle service the transfer went through, when one did. Open set.
+          type: string
+        wallet:
+          $ref: '#/components/schemas/WalletLabelSet'
+    CctpAccount:
+      type: object
+      required:
+      - address
+      - direction
+      - token
+      - amount
+      - priced
+      - transfers
+      properties:
+        address:
+          $ref: '#/components/schemas/Address'
+        direction:
+          $ref: '#/components/schemas/CctpDirection'
+        token:
+          $ref: '#/components/schemas/Address'
+        amount:
+          $ref: '#/components/schemas/DecimalString'
+        usd:
+          type: number
+          format: double
+        priced:
+          type: boolean
+        transfers:
+          type: integer
+          format: int64
+        wallet:
+          $ref: '#/components/schemas/WalletLabelSet'
+    CctpTransfers:
+      type: object
+      required:
+      - chain
+      - available
+      - largest
+      - accounts
+      properties:
+        chain:
+          $ref: '#/components/schemas/ChainRef'
+        available:
+          type: boolean
+        from:
+          type: string
+        to:
+          type: string
+        largest:
+          type: array
+          items:
+            $ref: '#/components/schemas/CctpTransfer'
+        accounts:
+          description: per direction, highest volume first
+          type: array
+          items:
+            $ref: '#/components/schemas/CctpAccount'
     LeaderboardScope:
       type: string
       enum:

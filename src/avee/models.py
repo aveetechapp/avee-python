@@ -17,6 +17,7 @@ NonNegativeDecimalString = str
 RiskSignalKind = str
 TokenAddress = str
 WalletTier = str
+CctpDirection = str
 
 
 class PerpSortBy:
@@ -3241,6 +3242,184 @@ class WalletLabelList:
 
 
 @dataclass(frozen=True, slots=True)
+class CctpSide:
+    usd: float
+    transfers: int
+    amount: DecimalString | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpSide") -> CctpSide:
+        o = _obj(value, where)
+        return cls(
+            usd=_req(o, "usd", _float, where + ".usd"),
+            transfers=_req(o, "transfers", _int, where + ".transfers"),
+            amount=_opt(o, "amount", _str, where + ".amount"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CctpRoute:
+    counterpart: str
+    counterpart_domain: int
+    token: Address
+    priced: bool
+    in_: CctpSide = _field(metadata={"json": "in"})
+    out: CctpSide
+    fee: DecimalString | None = None
+    fee_usd: float | None = None
+    fast_transfers: int | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpRoute") -> CctpRoute:
+        o = _obj(value, where)
+        return cls(
+            counterpart=_req(o, "counterpart", _str, where + ".counterpart"),
+            counterpart_domain=_req(o, "counterpart_domain", _int, where + ".counterpart_domain"),
+            token=_req(o, "token", _str, where + ".token"),
+            priced=_req(o, "priced", _bool, where + ".priced"),
+            in_=_req(o, "in", CctpSide._from_json, where + ".in"),
+            out=_req(o, "out", CctpSide._from_json, where + ".out"),
+            fee=_opt(o, "fee", _str, where + ".fee"),
+            fee_usd=_opt(o, "fee_usd", _float, where + ".fee_usd"),
+            fast_transfers=_opt(o, "fast_transfers", _int, where + ".fast_transfers"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CctpDay:
+    day: str
+    in_: CctpSide = _field(metadata={"json": "in"})
+    out: CctpSide
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpDay") -> CctpDay:
+        o = _obj(value, where)
+        return cls(
+            day=_req(o, "day", _str, where + ".day"),
+            in_=_req(o, "in", CctpSide._from_json, where + ".in"),
+            out=_req(o, "out", CctpSide._from_json, where + ".out"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CctpFlows:
+    chain: ChainRef
+    available: bool
+    from_: str | None = _field(default=None, metadata={"json": "from"})
+    to: str | None = None
+    in_: CctpSide | None = _field(default=None, metadata={"json": "in"})
+    out: CctpSide | None = None
+    net_usd: float | None = None
+    fee_usd: float | None = None
+    fast_share: float | None = None
+    routes: list[CctpRoute] | None = None
+    days: list[CctpDay] | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpFlows") -> CctpFlows:
+        o = _obj(value, where)
+        return cls(
+            chain=_req(o, "chain", ChainRef._from_json, where + ".chain"),
+            available=_req(o, "available", _bool, where + ".available"),
+            from_=_opt(o, "from", _str, where + ".from"),
+            to=_opt(o, "to", _str, where + ".to"),
+            in_=_opt(o, "in", CctpSide._from_json, where + ".in"),
+            out=_opt(o, "out", CctpSide._from_json, where + ".out"),
+            net_usd=_opt(o, "net_usd", _float, where + ".net_usd"),
+            fee_usd=_opt(o, "fee_usd", _float, where + ".fee_usd"),
+            fast_share=_opt(o, "fast_share", _float, where + ".fast_share"),
+            routes=_opt(o, "routes", _list_of(CctpRoute._from_json), where + ".routes"),
+            days=_opt(o, "days", _list_of(CctpDay._from_json), where + ".days"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CctpTransfer:
+    tx_hash: str
+    direction: CctpDirection
+    counterpart: str
+    token: Address
+    amount: DecimalString
+    priced: bool
+    time: str | None = None
+    counterpart_domain: int | None = None
+    usd: float | None = None
+    fast: bool | None = None
+    address: Address | None = None
+    counterparty: str | None = None
+    via: str | None = None
+    wallet: WalletLabelSet | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpTransfer") -> CctpTransfer:
+        o = _obj(value, where)
+        return cls(
+            tx_hash=_req(o, "tx_hash", _str, where + ".tx_hash"),
+            direction=_req(o, "direction", _str, where + ".direction"),
+            counterpart=_req(o, "counterpart", _str, where + ".counterpart"),
+            token=_req(o, "token", _str, where + ".token"),
+            amount=_req(o, "amount", _str, where + ".amount"),
+            priced=_req(o, "priced", _bool, where + ".priced"),
+            time=_opt(o, "time", _str, where + ".time"),
+            counterpart_domain=_opt(o, "counterpart_domain", _int, where + ".counterpart_domain"),
+            usd=_opt(o, "usd", _float, where + ".usd"),
+            fast=_opt(o, "fast", _bool, where + ".fast"),
+            address=_opt(o, "address", _str, where + ".address"),
+            counterparty=_opt(o, "counterparty", _str, where + ".counterparty"),
+            via=_opt(o, "via", _str, where + ".via"),
+            wallet=_opt(o, "wallet", WalletLabelSet._from_json, where + ".wallet"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CctpAccount:
+    address: Address
+    direction: CctpDirection
+    token: Address
+    amount: DecimalString
+    priced: bool
+    transfers: int
+    usd: float | None = None
+    wallet: WalletLabelSet | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpAccount") -> CctpAccount:
+        o = _obj(value, where)
+        return cls(
+            address=_req(o, "address", _str, where + ".address"),
+            direction=_req(o, "direction", _str, where + ".direction"),
+            token=_req(o, "token", _str, where + ".token"),
+            amount=_req(o, "amount", _str, where + ".amount"),
+            priced=_req(o, "priced", _bool, where + ".priced"),
+            transfers=_req(o, "transfers", _int, where + ".transfers"),
+            usd=_opt(o, "usd", _float, where + ".usd"),
+            wallet=_opt(o, "wallet", WalletLabelSet._from_json, where + ".wallet"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
+class CctpTransfers:
+    chain: ChainRef
+    available: bool
+    largest: list[CctpTransfer]
+    accounts: list[CctpAccount]
+    from_: str | None = _field(default=None, metadata={"json": "from"})
+    to: str | None = None
+
+    @classmethod
+    def _from_json(cls, value: Any, where: str = "CctpTransfers") -> CctpTransfers:
+        o = _obj(value, where)
+        return cls(
+            chain=_req(o, "chain", ChainRef._from_json, where + ".chain"),
+            available=_req(o, "available", _bool, where + ".available"),
+            largest=_req(o, "largest", _list_of(CctpTransfer._from_json), where + ".largest"),
+            accounts=_req(o, "accounts", _list_of(CctpAccount._from_json), where + ".accounts"),
+            from_=_opt(o, "from", _str, where + ".from"),
+            to=_opt(o, "to", _str, where + ".to"),
+        )
+
+
+@dataclass(frozen=True, slots=True)
 class LeaderboardGrowth:
     available: bool | None = None
     volume: float | None = None
@@ -3422,4 +3601,4 @@ class Leaderboard:
         )
 
 
-__all__ = ["Address", "BriefDeployer", "BriefHolders", "BriefLiquidity", "BriefMarket", "BriefScore", "BriefSignal", "CanonicalTokenStatus", "ChainInfo", "ChainList", "ChainMover", "ChainRef", "ChainSlug", "ChainWalletStats", "ChartCandles", "Config", "DecimalString", "DeployerCard", "DeployerLaunchPage", "DeployerReputation", "DeployerStatus", "Dex", "ErrorCode", "EthereumTxData", "FactoryType", "FarmApr", "FarmFactory", "FarmInfo", "FarmPage", "FarmRewardStream", "FarmRewardToken", "FarmSortBy", "FarmStatus", "FloatTimeframes", "HumanScore", "KeyInfo", "KeyInfoRateLimit", "LaunchStatus", "Leaderboard", "LeaderboardEntity", "LeaderboardGrowth", "LeaderboardMetrics", "LeaderboardScope", "LeaderboardSeason", "LeaderboardSeasonMetrics", "LinkedAsset", "LiquidationDay", "LiquidityEventData", "LiquidityTokenChange", "MarketType", "NonNegativeDecimalString", "OraclePrice", "OraclePriceList", "OrderBy", "PairBatchItem", "PairBatchRef", "PairBatchRequest", "PairBatchResponse", "PairDeployer", "PairInfo", "PairLaunchpad", "PairPage", "PairPropData", "PairSafety", "PairScore", "PairSecurity", "PairStatus", "PairVerdict", "PairWindow", "PairWindows", "PaymentRequired", "PaymentRequirements", "PaymentResource", "PerpAction", "PerpFlow", "PerpHistory", "PerpLiquidations", "PerpMarket", "PerpPoint", "PerpSortBy", "PerpStats", "Plan", "PositionSortBy", "PositionState", "Problem", "ReasonSlug", "ResolutionType", "RiskSignal", "RiskSignalGroup", "RiskSignalKind", "RiskSignalSeverity", "ScammerScore", "SearchPair", "SearchResponse", "SearchToken", "SortBy", "StatusResponse", "SwapEventData", "TimeFrame", "Token", "TokenAddress", "TokenBatchItem", "TokenBatchRef", "TokenBatchRequest", "TokenBatchResponse", "TokenBrief", "TokenCategory", "TokenHolder", "TokenHolderPage", "TokenHolderStats", "TokenInfo", "TokenInstance", "TokenLaunch", "TokenListIncludes", "TokenMainPair", "TokenMarketMetrics", "TokenMarketProjection", "TokenMetricWindow", "TokenMover", "TokenPage", "TokenPrimaryMarket", "TokenProfile", "TokenRating", "TokenSocials", "TokenSortBy", "TokenStatus", "TokenTrader", "TokenTraderPage", "TokenTraderSortBy", "TokenVerdict", "TokenVerdictProof", "TokenWindow", "TokenWindows", "TonTxData", "TradePage", "Transaction", "TxType", "TxnCount", "TxnPairStat", "TxnTimeframes", "UserScore", "ValueRange", "VerdictStatus", "WalletBestTrades", "WalletChainPnl", "WalletChart", "WalletFunding", "WalletLabel", "WalletLabelList", "WalletLabelSet", "WalletLabelsRequest", "WalletLifetime", "WalletListItem", "WalletMetrics", "WalletMover", "WalletOverview", "WalletPage", "WalletPnlPoint", "WalletPosition", "WalletPositionPage", "WalletPositionPair", "WalletPositionRound", "WalletProfile", "WalletRankedPosition", "WalletRoundPage", "WalletScoreSignal", "WalletSortBy", "WalletStats", "WalletTier", "WalletTrade", "WalletTradePage", "WalletType", "WalletWindow", "X402DiscoveredResource", "X402Discovery"]
+__all__ = ["Address", "BriefDeployer", "BriefHolders", "BriefLiquidity", "BriefMarket", "BriefScore", "BriefSignal", "CanonicalTokenStatus", "CctpAccount", "CctpDay", "CctpDirection", "CctpFlows", "CctpRoute", "CctpSide", "CctpTransfer", "CctpTransfers", "ChainInfo", "ChainList", "ChainMover", "ChainRef", "ChainSlug", "ChainWalletStats", "ChartCandles", "Config", "DecimalString", "DeployerCard", "DeployerLaunchPage", "DeployerReputation", "DeployerStatus", "Dex", "ErrorCode", "EthereumTxData", "FactoryType", "FarmApr", "FarmFactory", "FarmInfo", "FarmPage", "FarmRewardStream", "FarmRewardToken", "FarmSortBy", "FarmStatus", "FloatTimeframes", "HumanScore", "KeyInfo", "KeyInfoRateLimit", "LaunchStatus", "Leaderboard", "LeaderboardEntity", "LeaderboardGrowth", "LeaderboardMetrics", "LeaderboardScope", "LeaderboardSeason", "LeaderboardSeasonMetrics", "LinkedAsset", "LiquidationDay", "LiquidityEventData", "LiquidityTokenChange", "MarketType", "NonNegativeDecimalString", "OraclePrice", "OraclePriceList", "OrderBy", "PairBatchItem", "PairBatchRef", "PairBatchRequest", "PairBatchResponse", "PairDeployer", "PairInfo", "PairLaunchpad", "PairPage", "PairPropData", "PairSafety", "PairScore", "PairSecurity", "PairStatus", "PairVerdict", "PairWindow", "PairWindows", "PaymentRequired", "PaymentRequirements", "PaymentResource", "PerpAction", "PerpFlow", "PerpHistory", "PerpLiquidations", "PerpMarket", "PerpPoint", "PerpSortBy", "PerpStats", "Plan", "PositionSortBy", "PositionState", "Problem", "ReasonSlug", "ResolutionType", "RiskSignal", "RiskSignalGroup", "RiskSignalKind", "RiskSignalSeverity", "ScammerScore", "SearchPair", "SearchResponse", "SearchToken", "SortBy", "StatusResponse", "SwapEventData", "TimeFrame", "Token", "TokenAddress", "TokenBatchItem", "TokenBatchRef", "TokenBatchRequest", "TokenBatchResponse", "TokenBrief", "TokenCategory", "TokenHolder", "TokenHolderPage", "TokenHolderStats", "TokenInfo", "TokenInstance", "TokenLaunch", "TokenListIncludes", "TokenMainPair", "TokenMarketMetrics", "TokenMarketProjection", "TokenMetricWindow", "TokenMover", "TokenPage", "TokenPrimaryMarket", "TokenProfile", "TokenRating", "TokenSocials", "TokenSortBy", "TokenStatus", "TokenTrader", "TokenTraderPage", "TokenTraderSortBy", "TokenVerdict", "TokenVerdictProof", "TokenWindow", "TokenWindows", "TonTxData", "TradePage", "Transaction", "TxType", "TxnCount", "TxnPairStat", "TxnTimeframes", "UserScore", "ValueRange", "VerdictStatus", "WalletBestTrades", "WalletChainPnl", "WalletChart", "WalletFunding", "WalletLabel", "WalletLabelList", "WalletLabelSet", "WalletLabelsRequest", "WalletLifetime", "WalletListItem", "WalletMetrics", "WalletMover", "WalletOverview", "WalletPage", "WalletPnlPoint", "WalletPosition", "WalletPositionPage", "WalletPositionPair", "WalletPositionRound", "WalletProfile", "WalletRankedPosition", "WalletRoundPage", "WalletScoreSignal", "WalletSortBy", "WalletStats", "WalletTier", "WalletTrade", "WalletTradePage", "WalletType", "WalletWindow", "X402DiscoveredResource", "X402Discovery"]

@@ -118,6 +118,30 @@
       "body": null,
       "response": "ChartCandles"
     },
+    "chainCctpFlows": {
+      "method": "GET",
+      "path": "/chains/{chain}/cctp",
+      "params": [
+        "chain",
+        "from",
+        "to",
+        "daily"
+      ],
+      "body": null,
+      "response": "CctpFlows"
+    },
+    "chainCctpTransfers": {
+      "method": "GET",
+      "path": "/chains/{chain}/cctp/transfers",
+      "params": [
+        "chain",
+        "from",
+        "to",
+        "limit"
+      ],
+      "body": null,
+      "response": "CctpTransfers"
+    },
     "trending": {
       "method": "GET",
       "path": "/trending",
@@ -1643,6 +1667,74 @@
     },
     "WalletLabelList": {
       "items": "#WalletLabelSet[]"
+    },
+    "CctpSide": {
+      "usd": "number",
+      "transfers": "integer",
+      "amount": "#DecimalString"
+    },
+    "CctpRoute": {
+      "counterpart": "string",
+      "counterpart_domain": "integer",
+      "token": "#Address",
+      "priced": "boolean",
+      "in": "#CctpSide",
+      "out": "#CctpSide",
+      "fee": "#DecimalString",
+      "fee_usd": "number",
+      "fast_transfers": "integer"
+    },
+    "CctpDay": {
+      "day": "string",
+      "in": "#CctpSide",
+      "out": "#CctpSide"
+    },
+    "CctpFlows": {
+      "chain": "#ChainRef",
+      "available": "boolean",
+      "from": "string",
+      "to": "string",
+      "in": "#CctpSide",
+      "out": "#CctpSide",
+      "net_usd": "number",
+      "fee_usd": "number",
+      "fast_share": "number",
+      "routes": "#CctpRoute[]",
+      "days": "#CctpDay[]"
+    },
+    "CctpTransfer": {
+      "time": "string",
+      "tx_hash": "string",
+      "direction": "#CctpDirection",
+      "counterpart": "string",
+      "counterpart_domain": "integer",
+      "token": "#Address",
+      "amount": "#DecimalString",
+      "usd": "number",
+      "priced": "boolean",
+      "fast": "boolean",
+      "address": "#Address",
+      "counterparty": "string",
+      "via": "string",
+      "wallet": "#WalletLabelSet"
+    },
+    "CctpAccount": {
+      "address": "#Address",
+      "direction": "#CctpDirection",
+      "token": "#Address",
+      "amount": "#DecimalString",
+      "usd": "number",
+      "priced": "boolean",
+      "transfers": "integer",
+      "wallet": "#WalletLabelSet"
+    },
+    "CctpTransfers": {
+      "chain": "#ChainRef",
+      "available": "boolean",
+      "from": "string",
+      "to": "string",
+      "largest": "#CctpTransfer[]",
+      "accounts": "#CctpAccount[]"
     },
     "LeaderboardGrowth": {
       "available": "boolean",

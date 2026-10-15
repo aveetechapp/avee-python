@@ -413,6 +413,82 @@
     }
   },
   {
+    "operation": "chainCctpFlows",
+    "method": "GET",
+    "path": "/chains/base/cctp",
+    "pathArgs": [
+      "base"
+    ],
+    "params": {
+      "from": 5,
+      "to": 5,
+      "daily": true
+    },
+    "query": [
+      [
+        "from",
+        "5"
+      ],
+      [
+        "to",
+        "5"
+      ],
+      [
+        "daily",
+        "true"
+      ]
+    ],
+    "body": null,
+    "response": "CctpFlows",
+    "paged": false,
+    "python": {
+      "method": "chain_cctp_flows",
+      "kwargs": {
+        "from_": 5,
+        "to": 5,
+        "daily": true
+      }
+    }
+  },
+  {
+    "operation": "chainCctpTransfers",
+    "method": "GET",
+    "path": "/chains/base/cctp/transfers",
+    "pathArgs": [
+      "base"
+    ],
+    "params": {
+      "from": 5,
+      "to": 5,
+      "limit": 5
+    },
+    "query": [
+      [
+        "from",
+        "5"
+      ],
+      [
+        "to",
+        "5"
+      ],
+      [
+        "limit",
+        "5"
+      ]
+    ],
+    "body": null,
+    "response": "CctpTransfers",
+    "paged": false,
+    "python": {
+      "method": "chain_cctp_transfers",
+      "kwargs": {
+        "from_": 5,
+        "to": 5,
+        "limit": 5
+      }
+    }
+  },
+  {
     "operation": "trending",
     "method": "GET",
     "path": "/trending",
